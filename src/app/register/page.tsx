@@ -14,25 +14,36 @@ export default function Register() {
 
     const handleRegister = async (e: React.FormEvent) => {
         e.preventDefault();
-
+        setError(""); // Clear previous errors
+    
         try {
-            const response = await fetch(`http://localhost:5042/api/Auth/register`, {
+            const response = await fetch(`http://localhost:5042/api/auth/register`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
                 },
                 body: JSON.stringify({ username, email, password }),
             });
-
+    
+            // Log response for debugging
+            console.log("Response Status:", response.status);
+    
+            // Check if response is not OK
             if (!response.ok) {
-                throw new Error('Registration failed');
+                const errorData = await response.json(); // Try to get error details
+                console.error("Error Response:", errorData);
+                
+                throw new Error(errorData.message || "Registration failed");
             }
-
+    
             const data = await response.json();
-            localStorage.setItem('token', data.token); // Store the JWT token
-            router.push('/login'); // Redirect to dashboard or home page
-        } catch (err) {
-            setError('Registration failed. Please try again.');
+            console.log("Success:", data);
+    
+            localStorage.setItem('token', data.token);
+            router.push('/login');
+        } catch (err: any) {
+            console.error("Registration Error:", err);
+            setError(err.message || "An unexpected error occurred. Please try again.");
         }
     };
 

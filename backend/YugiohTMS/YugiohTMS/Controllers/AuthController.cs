@@ -25,7 +25,8 @@ namespace YugiohTMS.Controllers
         public async Task<IActionResult> Register([FromBody] RegisterModel model)
         {
             if (await _context.User.AnyAsync(u => u.Email == model.Email))
-                return BadRequest("User already exists.");
+                return BadRequest(new { message = "User already exists" });
+
 
             var user = new User
             {
@@ -37,7 +38,7 @@ namespace YugiohTMS.Controllers
             _context.User.Add(user);
             await _context.SaveChangesAsync();
 
-            return Ok("User registered successfully.");
+            return Ok(new {message = "User successfully registered"});
         }
 
         [HttpPost("login")]
