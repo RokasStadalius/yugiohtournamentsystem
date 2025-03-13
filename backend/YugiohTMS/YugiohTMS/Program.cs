@@ -45,6 +45,9 @@ builder.Services.AddCors(options =>
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
 
+builder.Services.AddHttpClient<CardService>();
+builder.Services.AddSingleton<BlobService>();
+
 builder.Services.AddAuthorization();
 
 builder.Services.AddControllers();

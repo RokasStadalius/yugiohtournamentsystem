@@ -1,5 +1,6 @@
 import styles from '../../../styles/CustomInput.module.css';
 
+
 interface CustomInputProps {
     type: string;
     placeholder: string;

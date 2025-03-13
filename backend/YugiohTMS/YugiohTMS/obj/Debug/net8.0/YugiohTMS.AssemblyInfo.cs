@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("YugiohTMS")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+9fbd99b8e42a6a662b4c1e60447779b64a0f3aba")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+dc922fdcf05420edb0b727758caa60f8e92ccd30")]
 [assembly: System.Reflection.AssemblyProductAttribute("YugiohTMS")]
 [assembly: System.Reflection.AssemblyTitleAttribute("YugiohTMS")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

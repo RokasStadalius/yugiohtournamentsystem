@@ -38,19 +38,27 @@ namespace YugiohTMS.Controllers
             _context.User.Add(user);
             await _context.SaveChangesAsync();
 
-            return Ok(new {message = "User successfully registered"});
+            return Ok(new { message = "User successfully registered" });
         }
 
         [HttpPost("login")]
         public async Task<IActionResult> Login([FromBody] LoginModel model)
         {
             var user = await _context.User.FirstOrDefaultAsync(u => u.Email == model.Email);
+
             if (user == null || !BCrypt.Net.BCrypt.Verify(model.Password, user.PasswordHash))
                 return Unauthorized("Invalid credentials.");
 
             var token = GenerateJwtToken(user);
-            return Ok(new { Token = token });
+
+            // Return both token and userId
+            return Ok(new
+            {
+                token = token,
+                userId = user.ID_User
+            });
         }
+
 
         private string GenerateJwtToken(User user)
         {

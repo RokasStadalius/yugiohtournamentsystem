@@ -1,4 +1,4 @@
-'use client'
+"use client";  // ✅ Add this at the top
 
 import { useState } from 'react';
 import IconButton from '@mui/material/IconButton';
@@ -10,36 +10,36 @@ import AddIcon from '@mui/icons-material/Add';
 import Toolbar from "@mui/material/Toolbar";
 import EmojiEventsIcon from '@mui/icons-material/EmojiEvents';
 import { GiCardPick } from "react-icons/gi";
+import { useRouter } from 'next/navigation';  // ✅ Use next/navigation instead of next/router
+import QueueIcon from '@mui/icons-material/Queue';
 
 export function Sidebar() {
-  const [open, setOpen] = useState(false); // State to control Drawer open/close
+  const [open, setOpen] = useState(false);
+  const router = useRouter();  // ✅ This will now work
 
   const toggleDrawer = () => {
-    setOpen(!open); // Toggle the open/close state
+    setOpen(!open);
   };
 
   return (
     <>
-      {/* Toggle button to open/close Drawer */}
-      <AppBar>
+      <AppBar color="transparent" elevation={0}>
         <Toolbar>
            <IconButton edge="start" onClick={toggleDrawer}>
             <MenuIcon />
           </IconButton>
         </Toolbar>
       </AppBar>
-      
 
-      {/* Drawer component */}
       <Drawer
-        variant="temporary" // 'temporary' will allow it to toggle
+        variant="temporary"
         anchor="left"
         open={open}
-        onClose={toggleDrawer} // Close when clicking outside the Drawer
+        onClose={toggleDrawer}
         sx={{
-          width: 250, // Set the drawer width
+          width: 250,
           '& .MuiDrawer-paper': {
-            width: 70, // Paper width
+            width: 70,
           },
         }}
       >
@@ -61,12 +61,17 @@ export function Sidebar() {
           </ListItem>
           <ListItem>
             <IconButton>
-              <EmojiEventsIcon/>
+              <EmojiEventsIcon />
             </IconButton>
           </ListItem>
           <ListItem>
-            <IconButton>
-              <GiCardPick/>
+            <IconButton onClick={() => router.push('/deckbuilder')}>  
+              <GiCardPick />
+            </IconButton>
+          </ListItem>
+          <ListItem>
+            <IconButton onClick={() => router.push('/decks')}>  
+              <QueueIcon />
             </IconButton>
           </ListItem>
         </List>

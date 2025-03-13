@@ -1,24 +1,20 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\Rokas\\Desktop\\KTU\\yugiohtournamentsystem\\backend\\YugiohTMS\\YugiohTMS\\YugiohTMS.csproj": {}
+    "C:\\Users\\Rokas\\Desktop\\KTU STUFF\\KTU 4 KURSAS\\BAKALAURAS\\yugiohtournamentsystem\\backend\\YugiohTMS\\YugiohTMS\\YugiohTMS.csproj": {}
   },
   "projects": {
-    "C:\\Users\\Rokas\\Desktop\\KTU\\yugiohtournamentsystem\\backend\\YugiohTMS\\YugiohTMS\\YugiohTMS.csproj": {
+    "C:\\Users\\Rokas\\Desktop\\KTU STUFF\\KTU 4 KURSAS\\BAKALAURAS\\yugiohtournamentsystem\\backend\\YugiohTMS\\YugiohTMS\\YugiohTMS.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\Rokas\\Desktop\\KTU\\yugiohtournamentsystem\\backend\\YugiohTMS\\YugiohTMS\\YugiohTMS.csproj",
+        "projectUniqueName": "C:\\Users\\Rokas\\Desktop\\KTU STUFF\\KTU 4 KURSAS\\BAKALAURAS\\yugiohtournamentsystem\\backend\\YugiohTMS\\YugiohTMS\\YugiohTMS.csproj",
         "projectName": "YugiohTMS",
-        "projectPath": "C:\\Users\\Rokas\\Desktop\\KTU\\yugiohtournamentsystem\\backend\\YugiohTMS\\YugiohTMS\\YugiohTMS.csproj",
+        "projectPath": "C:\\Users\\Rokas\\Desktop\\KTU STUFF\\KTU 4 KURSAS\\BAKALAURAS\\yugiohtournamentsystem\\backend\\YugiohTMS\\YugiohTMS\\YugiohTMS.csproj",
         "packagesPath": "C:\\Users\\Rokas\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\Rokas\\Desktop\\KTU\\yugiohtournamentsystem\\backend\\YugiohTMS\\YugiohTMS\\obj\\",
+        "outputPath": "C:\\Users\\Rokas\\Desktop\\KTU STUFF\\KTU 4 KURSAS\\BAKALAURAS\\yugiohtournamentsystem\\backend\\YugiohTMS\\YugiohTMS\\obj\\",
         "projectStyle": "PackageReference",
-        "fallbackFolders": [
-          "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
-        ],
         "configFilePaths": [
           "C:\\Users\\Rokas\\AppData\\Roaming\\NuGet\\NuGet.Config",
-          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -38,17 +34,16 @@
           "warnAsError": [
             "NU1605"
           ]
-        },
-        "restoreAuditProperties": {
-          "enableAudit": "true",
-          "auditLevel": "low",
-          "auditMode": "direct"
         }
       },
       "frameworks": {
         "net8.0": {
           "targetAlias": "net8.0",
           "dependencies": {
+            "Azure.Storage.Blobs": {
+              "target": "Package",
+              "version": "[12.23.0, )"
+            },
             "BCrypt.Net-Next": {
               "target": "Package",
               "version": "[4.0.3, )"
@@ -97,7 +92,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.400/PortableRuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.300/PortableRuntimeIdentifierGraph.json"
         }
       }
     }
