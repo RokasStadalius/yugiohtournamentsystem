@@ -36,7 +36,6 @@ export default function UserDecksPage() {
     console.log('Fetch Decks Response:', response);
 
     if (!response.ok) {
-      const text = await response.text();
       throw new Error('Failed to fetch decks');
     }
 
@@ -88,7 +87,7 @@ export default function UserDecksPage() {
       <Sidebar />
       <Toaster position="top-right" />
 
-      <h1 className="text-2xl font-bold mb-6">Your Decks</h1>
+      <h1 className="text-2xl font-bold mb-6 mt-20">Your Decks</h1>
 
       {/* Create New Deck Form */}
       <div className="mb-8 p-4 border rounded-lg bg-white shadow-md w-full max-w-md">

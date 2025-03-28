@@ -60,7 +60,7 @@ export function Sidebar() {
             </IconButton>
           </ListItem>
           <ListItem>
-            <IconButton>
+            <IconButton onClick={() => router.push('/tournaments')}>
               <EmojiEventsIcon />
             </IconButton>
           </ListItem>

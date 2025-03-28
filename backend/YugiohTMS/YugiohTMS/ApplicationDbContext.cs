@@ -11,6 +11,8 @@ namespace YugiohTMS
         public DbSet<Deck> Deck { get; set; }
 
         public DbSet<Decklist> Decklist { get; set; }
+
+        public DbSet<Tournament> Tournament { get; set; }
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)
             : base(options)
         {

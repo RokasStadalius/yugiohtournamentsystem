@@ -73,7 +73,7 @@ export default function DeckBuilder() {
       setExtraDeckCards(extra);
       setSideDeckCards(side);
 
-    } catch (error) {
+    } catch {
       toast.error("Failed to fetch deck cards.");
     } finally {
       setLoading(false);
@@ -196,13 +196,13 @@ export default function DeckBuilder() {
                 display: "flex",
                 flexDirection: "column",
                 alignItems: "center",
-                justifyContent: "center",
+                justifyContent: "flex-start",
                 padding: "10px",
                 border: "1px solid #ddd",
                 borderRadius: "8px",
                 background: "#fff",
-                width: "120px",
-                height: "170px",
+                width: "150px", // wider container
+                height: "240px", // taller container
                 position: "relative"
               }}
             >
@@ -230,13 +230,15 @@ export default function DeckBuilder() {
               <Image
                 src={card.imageURL}
                 alt={card.name}
-                width={100}
-                height={100}
+                width={120}      // image width
+                height={160}     // image height
                 onLoad={() => handleImageLoad(card.iD_Card)}
                 onError={() => handleImageError(card.iD_Card)}
                 style={{
                   borderRadius: "5px",
-                  objectFit: "cover",
+                  objectFit: "contain",
+                  width: "120px",
+                  height: "160px",
                   opacity: imageLoading[card.iD_Card] ? 0.3 : 1,
                   transition: "opacity 0.3s ease-in-out"
                 }}
@@ -246,8 +248,11 @@ export default function DeckBuilder() {
                 style={{
                   fontSize: "14px",
                   fontWeight: "bold",
-                  marginTop: "5px",
-                  textAlign: "center"
+                  marginTop: "10px",
+                  textAlign: "center",
+                  whiteSpace: "normal",
+                  wordBreak: "break-word",
+                  maxWidth: "100%"
                 }}
               >
                 {card.name}

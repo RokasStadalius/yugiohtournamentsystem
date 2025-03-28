@@ -24,10 +24,11 @@ namespace YugiohTMS.Controllers
         [HttpPost("register")]
         public async Task<IActionResult> Register([FromBody] RegisterModel model)
         {
+            // Check if the user already exists by email
             if (await _context.User.AnyAsync(u => u.Email == model.Email))
                 return BadRequest(new { message = "User already exists" });
 
-
+            // Create the user object
             var user = new User
             {
                 Username = model.Username,
@@ -35,11 +36,21 @@ namespace YugiohTMS.Controllers
                 PasswordHash = BCrypt.Net.BCrypt.HashPassword(model.Password)
             };
 
+            // Save to database
             _context.User.Add(user);
             await _context.SaveChangesAsync();
 
-            return Ok(new { message = "User successfully registered" });
+            // Generate JWT token
+            var token = GenerateJwtToken(user);
+
+            // Return success message and token
+            return Ok(new
+            {
+                message = "User successfully registered",
+                token = token
+            });
         }
+
 
         [HttpPost("login")]
         public async Task<IActionResult> Login([FromBody] LoginModel model)

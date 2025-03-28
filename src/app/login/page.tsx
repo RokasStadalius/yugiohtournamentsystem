@@ -12,7 +12,7 @@ export default function Login() {
 
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const [error, setError] = useState('');
+  const [error] = useState('');
 
   useEffect(() => {
     const token = localStorage.getItem('token');
@@ -24,12 +24,10 @@ export default function Login() {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     try {
-      const data = await handleLogin(email, password, setError, router);
+      const data = await handleLogin(email, password);
 
-      // Save userId in localStorage
       localStorage.setItem('userId', data.userId);
 
-      // Redirect if not already done in handleLogin
       router.push('/');
 
       toast.success('Login successful!');
@@ -46,17 +44,13 @@ export default function Login() {
     <div className={styles.container}>
       <Toaster position="top-right" />
       <div className={styles.loginBox}>
-        {/* Left Section */}
         <div className={styles.welcomeSection}>
           <div className={styles.logo}>
-            <h1>LOGO</h1>
           </div>
           <h2>Welcome Page</h2>
           <p>Sign in to continue access</p>
-          <a href="#" className={styles.websiteLink}>www.yoursite.com</a>
         </div>
 
-        {/* Right Section */}
         <div className={styles.formSection}>
           <h2 className={styles.signInTitle}>Sign In</h2>
           <form className={styles.loginForm} onSubmit={handleSubmit}>

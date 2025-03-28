@@ -4,8 +4,6 @@ import { AppRouterInstance } from 'next/dist/shared/lib/app-router-context.share
 export const handleLogin = async (
   email: string,
   password: string,
-  setError: (message: string) => void,
-  router: any
 ) => {
   const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/Auth/login`, {
     method: 'POST',
