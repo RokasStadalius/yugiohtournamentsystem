@@ -3,10 +3,11 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
 using YugiohTMS;
+using YugiohTMS.Controllers;
+using Microsoft.Extensions.FileProviders;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// Add services to the container.
 
 var key = Encoding.ASCII.GetBytes(builder.Configuration["Jwt:SecretKey"]);
 builder.Services.AddAuthentication(options =>
@@ -33,31 +34,27 @@ builder.Services.AddCors(options =>
     options.AddPolicy("AllowAllOrigins",
         builder =>
         {
-            builder.WithOrigins("http://localhost:3000") // ✅ Set allowed frontend origin explicitly
+            builder.WithOrigins("http://localhost:3000")
                    .AllowAnyMethod()
                    .AllowAnyHeader()
-                   .AllowCredentials(); // ✅ Allow credentials
+                   .AllowCredentials();
         });
 });
-
-
 
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
 
+builder.Services.AddHttpClient();
 builder.Services.AddHttpClient<CardService>();
-builder.Services.AddSingleton<BlobService>();
+builder.Services.AddSingleton<LocalFileService>();
 
 builder.Services.AddAuthorization();
-
 builder.Services.AddControllers();
-// Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
 var app = builder.Build();
 
-// Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
@@ -65,13 +62,24 @@ if (app.Environment.IsDevelopment())
 }
 
 
-//app.UseHttpsRedirection();
+
+var localStoragePath = Path.Combine(app.Environment.ContentRootPath,
+                                  builder.Configuration["LocalStorage:Path"]);
+
+Directory.CreateDirectory(localStoragePath);
+
+
+app.UseStaticFiles(new StaticFileOptions
+{
+    FileProvider = new PhysicalFileProvider(
+        Path.Combine(Directory.GetCurrentDirectory(), "localStorage/images")),
+    RequestPath = "/images"
+});
 
 app.UseCors("AllowAllOrigins");
-
+app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapControllers();
-
 
 app.Run();

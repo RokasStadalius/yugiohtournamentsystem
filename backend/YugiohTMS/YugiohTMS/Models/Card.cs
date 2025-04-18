@@ -17,5 +17,9 @@ namespace YugiohTMS.Models
         public string? Attribute { get; set; }
         public  required string ImageURL { get; set; }
 
+        public string Description { get; set; }
+
+        public int ID_YGOPRODECK { get; set; }
+
     }
 }

@@ -343,3 +343,4 @@ C:\Users\Rokas\Desktop\KTU STUFF\KTU 4 KURSAS\BAKALAURAS\yugiohtournamentsystem\
 C:\Users\Rokas\Desktop\KTU STUFF\KTU 4 KURSAS\BAKALAURAS\yugiohtournamentsystem\backend\YugiohTMS\YugiohTMS\bin\Debug\net8.0\Azure.Storage.Common.dll
 C:\Users\Rokas\Desktop\KTU STUFF\KTU 4 KURSAS\BAKALAURAS\yugiohtournamentsystem\backend\YugiohTMS\YugiohTMS\bin\Debug\net8.0\System.IO.Hashing.dll
 C:\Users\Rokas\Desktop\KTU STUFF\KTU 4 KURSAS\BAKALAURAS\yugiohtournamentsystem\backend\YugiohTMS\YugiohTMS\bin\Debug\net8.0\appsettings.json
+C:\Users\Rokas\Desktop\KTU STUFF\KTU 4 KURSAS\BAKALAURAS\yugiohtournamentsystem\backend\YugiohTMS\YugiohTMS\bin\Debug\net8.0\Newtonsoft.Json.dll

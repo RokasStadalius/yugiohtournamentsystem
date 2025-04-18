@@ -1,6 +1,9 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Newtonsoft.Json;
+using System.Globalization;
+using System.Net.Http;
 using YugiohTMS.Models;
 
 namespace YugiohTMS.Controllers
@@ -11,12 +14,14 @@ namespace YugiohTMS.Controllers
     {
         private readonly ApplicationDbContext _context;
 
-        public DecksController(ApplicationDbContext context)
+        private readonly IHttpClientFactory _httpClientFactory;
+
+        public DecksController(ApplicationDbContext context, IHttpClientFactory httpClientFactory)
         {
+            _httpClientFactory = httpClientFactory;
             _context = context;
         }
 
-        // POST: api/Decks
         [HttpPost("create-deck")]
         public async Task<IActionResult> CreateDeck([FromBody] Deck deck)
         {
@@ -43,7 +48,6 @@ namespace YugiohTMS.Controllers
             return CreatedAtAction(nameof(GetDeckById), new { id = newDeck.ID_Deck }, newDeck);
         }
 
-        // GET: api/Decks/{id}
         [HttpGet("{id}")]
         public async Task<ActionResult<Deck>> GetDeckById(int id)
         {
@@ -57,7 +61,6 @@ namespace YugiohTMS.Controllers
             return deck;
         }
 
-        // GET: api/decks/user/{userId}
         [HttpGet("user/{ID_User}")]
         public async Task<ActionResult<IEnumerable<Deck>>> GetUserDecks(int ID_User)
         {
@@ -130,6 +133,119 @@ namespace YugiohTMS.Controllers
             return Ok("Decklist saved successfully.");
         }
 
+        [HttpGet("validate-deck/{deckId}")]
+        public async Task<ActionResult> ValidateDeck(int deckId)
+        {
+            const int maxUnlimited = 3;
+            const int maxSemiLimited = 2;
+            const int maxLimited = 1;
+            const int maxForbidden = 0;
 
+            var deckCards = await _context.Decklist
+                .Include(dc => dc.Card)
+                .Where(dc => dc.ID_Deck == deckId)
+                .ToListAsync();
+
+            if (!deckCards.Any())
+            {
+                return NotFound("Deck not found or empty");
+            }
+
+            var sectionCounts = deckCards
+                .GroupBy(dc => dc.WhichDeck)
+                .ToDictionary(g => g.Key, g => g.Count());
+
+            var mainDeckCount = sectionCounts.GetValueOrDefault(0, 0);
+            var extraDeckCount = sectionCounts.GetValueOrDefault(1, 0);
+            var sideDeckCount = sectionCounts.GetValueOrDefault(2, 0);
+
+            var sizeViolations = new List<string>();
+
+            if (mainDeckCount < 40 || mainDeckCount > 60)
+            {
+                sizeViolations.Add($"Main deck must contain 40-60 cards (current: {mainDeckCount})");
+            }
+
+            if (extraDeckCount > 15)
+            {
+                sizeViolations.Add($"Extra deck cannot exceed 15 cards (current: {extraDeckCount})");
+            }
+
+            if (sideDeckCount > 15)
+            {
+                sizeViolations.Add($"Side deck cannot exceed 15 cards (current: {sideDeckCount})");
+            }
+
+            var cardCounts = deckCards
+                .GroupBy(c => c.ID_Card)
+                .Select(g => new
+                {
+                    CardId = g.Key,
+                    Count = g.Count(),
+                    CardName = g.First().Card.Name
+                });
+
+            using var httpClient = _httpClientFactory.CreateClient();
+            var response = await httpClient.GetAsync("https://db.ygoprodeck.com/api/v7/cardinfo.php?banlist=TCG");
+
+            if (!response.IsSuccessStatusCode)
+            {
+                return StatusCode(500, "Failed to fetch banlist data");
+            }
+
+            var content = await response.Content.ReadAsStringAsync();
+            var banlistData = JsonConvert.DeserializeObject<YgoApiResponse>(content);
+
+            var banViolations = new List<string>();
+
+            var banlistDictionary = banlistData.Data
+                .GroupBy(c => c.Name.Trim().ToLower())
+                .ToDictionary(
+                    g => g.Key,
+                    g => g.First().BanlistInfo?.BanTcg?.Trim().ToLower() ?? "unlimited"
+                );
+
+            foreach (var card in cardCounts)
+            {
+                var normalizedCardName = card.CardName.Trim().ToLower();
+
+                if (!banlistDictionary.TryGetValue(normalizedCardName, out var status))
+                {
+                    continue;
+                }
+
+                var allowedCount = status switch
+                {
+                    "forbidden" => maxForbidden,
+                    "limited" => maxLimited,
+                    "semi-limited" => maxSemiLimited,
+                    _ => maxUnlimited
+                };
+
+                if (card.Count > allowedCount)
+                {
+                    var statusDisplay = status switch
+                    {
+                        "forbidden" => "Forbidden",
+                        "limited" => "Limited",
+                        "semi-limited" => "Semi-Limited",
+                        _ => "Unlimited"
+                    };
+                    banViolations.Add($"{card.CardName}: {card.Count} copies (Status: {statusDisplay}, Allowed: {allowedCount})");
+                }
+            }
+
+            var allViolations = sizeViolations.Concat(banViolations).ToList();
+
+            return Ok(new
+            {
+                IsValid = !allViolations.Any(),
+                TotalCards = deckCards.Count,
+                MainDeckCount = mainDeckCount,
+                ExtraDeckCount = extraDeckCount,
+                SideDeckCount = sideDeckCount,
+                Violations = allViolations
+            });
+        }
     }
 }

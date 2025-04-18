@@ -5,6 +5,7 @@ using Microsoft.IdentityModel.Tokens;
 using System.IdentityModel.Tokens.Jwt;
 using System.Text;
 using YugiohTMS.Models;
+using Microsoft.AspNetCore.Authorization;
 
 namespace YugiohTMS.Controllers
 {
@@ -24,30 +25,24 @@ namespace YugiohTMS.Controllers
         [HttpPost("register")]
         public async Task<IActionResult> Register([FromBody] RegisterModel model)
         {
-            // Check if the user already exists by email
             if (await _context.User.AnyAsync(u => u.Email == model.Email))
                 return BadRequest(new { message = "User already exists" });
 
-            // Create the user object
-            var user = new User
+            User user = new User
             {
                 Username = model.Username,
                 Email = model.Email,
                 PasswordHash = BCrypt.Net.BCrypt.HashPassword(model.Password)
             };
 
-            // Save to database
             _context.User.Add(user);
             await _context.SaveChangesAsync();
 
-            // Generate JWT token
-            var token = GenerateJwtToken(user);
+            string token = GenerateJwtToken(user);
 
-            // Return success message and token
             return Ok(new
             {
-                message = "User successfully registered",
-                token = token
+                message = "User successfully registered"
             });
         }
 
@@ -55,34 +50,50 @@ namespace YugiohTMS.Controllers
         [HttpPost("login")]
         public async Task<IActionResult> Login([FromBody] LoginModel model)
         {
-            var user = await _context.User.FirstOrDefaultAsync(u => u.Email == model.Email);
+            User? user = await _context.User.FirstOrDefaultAsync(u => u.Email == model.Email);
 
             if (user == null || !BCrypt.Net.BCrypt.Verify(model.Password, user.PasswordHash))
                 return Unauthorized("Invalid credentials.");
 
-            var token = GenerateJwtToken(user);
+            string token = GenerateJwtToken(user);
 
-            // Return both token and userId
+            Response.Cookies.Append("isBanned", user.IsBanned.ToString(), new CookieOptions
+            {
+                HttpOnly = false,
+                Secure = false,
+                SameSite = SameSiteMode.Lax,
+                Expires = DateTimeOffset.UtcNow.AddDays(7)
+            });
+
+            Response.Cookies.Append("token", token, new CookieOptions
+            {
+                HttpOnly = true,
+                Secure = false,
+                SameSite = SameSiteMode.Strict,
+                Expires = DateTimeOffset.UtcNow.AddDays(7)
+            });
+
             return Ok(new
             {
                 token = token,
-                userId = user.ID_User
+                userId = user.ID_User,
+                isAdmin = user.IsAdmin,
             });
         }
 
 
         private string GenerateJwtToken(User user)
         {
-            var claims = new[]
+            Claim?[] claims = new[]
             {
             new Claim(ClaimTypes.NameIdentifier, user.ID_User.ToString()),
             new Claim(ClaimTypes.Email, user.Email)
         };
 
-            var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_configuration["Jwt:SecretKey"]));
-            var creds = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);
+            SymmetricSecurityKey? key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_configuration["Jwt:SecretKey"]));
+            SigningCredentials creds = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);
 
-            var token = new JwtSecurityToken(
+            JwtSecurityToken token = new JwtSecurityToken(
                 issuer: _configuration["Jwt:Issuer"],
                 audience: _configuration["Jwt:Audience"],
                 claims: claims,
@@ -91,6 +102,78 @@ namespace YugiohTMS.Controllers
             );
 
             return new JwtSecurityTokenHandler().WriteToken(token);
+        }
+
+        [HttpGet("isbanned")]
+        public async Task<IActionResult> IsBanned()
+        {
+            Claim? userIdClaim = User.FindFirst(ClaimTypes.NameIdentifier); // or whatever claim you're using
+            if (userIdClaim == null)
+            {
+                return Unauthorized("User ID not found in token");
+            }
+
+            if (!int.TryParse(userIdClaim.Value, out int userId))
+            {
+                return BadRequest("Invalid user ID format in token");
+            }
+
+            User? user = await _context.User.FindAsync(userId);
+            if (user == null)
+            {
+                return NotFound("User not found");
+            }
+
+            return Ok(user.IsBanned == 1);
+        }
+
+
+        private int GetUserId()
+        {
+            Claim?claim = User.Claims.FirstOrDefault(c => c.Type == System.Security.Claims.ClaimTypes.NameIdentifier);
+            if (claim == null)
+                throw new Exception("User ID not found in token");
+            return int.Parse(claim.Value);
+        }
+
+        [HttpPost("ban-user")]
+        public async Task<IActionResult> BanUser([FromBody] BanRequest request)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+
+            try
+            {
+                var user = await _context.User
+                    .FirstOrDefaultAsync(u => u.ID_User == request.ID_User);
+
+                if (user == null)
+                {
+                    return NotFound(new { Error = "User not found" });
+                }
+
+                if (user.IsBanned == 1)
+                {
+                    return Conflict(new { Error = "User is already banned" });
+                }
+
+                user.IsBanned = 1;
+                await _context.SaveChangesAsync();
+
+                return Ok(new
+                {
+                    Success = true,
+                    Message = $"User {request.ID_User} banned successfully",
+                    UserId = user.ID_User,
+                    IsBanned = user.IsBanned
+                });
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, new { Error = "Internal server error", Details = ex.Message });
+            }
         }
     }
 }

@@ -4,9 +4,9 @@ const nextConfig: NextConfig = {
   images: {
     remotePatterns: [
       {
-        protocol: 'https',
-        hostname: 'yugiohtmsblob.blob.core.windows.net',
-        pathname: '/card-images/**', // allows anything after /card-images/
+        protocol: 'http',
+        hostname: 'localhost',
+        pathname: '/images/**', // allows anything after /card-images/
       },
     ],
   },

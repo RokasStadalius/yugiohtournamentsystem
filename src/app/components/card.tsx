@@ -12,43 +12,54 @@ interface CardProps {
   level?: number;
   race?: number;
   attribute?: number;
-  onClick?: (card: CardProps) => void;  // Ensure correct type
+  onClick?: (card: CardProps) => void;
+  className?: string;
+  imageClassName?: string;
+  description? : string;
 }
 
-export interface CardType {
-  iD_Card: number;
-  name: string;
-  mype: string;
-  frameType: string;
-  atk?: number;
-  def?: number;
-  level?: number;
-  race?: number;
-  attribute?: number;
-  imageURL: string;
-}
+export interface CardType extends Omit<CardProps, 'className' | 'imageClassName'> {}
 
-
-const Card: React.FC<CardProps> = (props) => {
+const Card: React.FC<CardProps> = ({ 
+  className = '',
+  imageClassName = '',
+  ...props 
+}) => {
   const handleClick = () => {
     if (props.onClick) {
-      props.onClick({ ...props }); // Ensure all props are passed correctly
+      props.onClick(props);
     }
   };
 
   return (
-    <div className="card" onClick={handleClick} style={{ cursor: 'pointer' }}>
-      <Image
-        src={props.imageURL}
-        alt={props.name}
-        width={100}
-        height={100}
-        style={{ borderRadius: '5px', objectFit: 'cover' }}
-      />
-      <div className="card-name">{props.name}</div>
-      <div className="card-id">ID: {props.iD_Card}</div>
-      <div className="card-mype">Mype: {props.mype}</div>
-      <div className="card-frameType">Frame Type: {props.frameType}</div>
+    <div 
+      className={`group relative bg-zinc-800 rounded-lg border-2 border-zinc-700 p-2 transition-all 
+        hover:border-red-500 hover:shadow-xl cursor-pointer h-full flex flex-col ${className}`}
+      onClick={handleClick}
+    >
+      <div className={`relative w-full flex-1 ${imageClassName}`}>
+        <Image
+          src={props.imageURL}
+          alt={props.name}
+          fill
+          className="object-contain transition-transform group-hover:scale-105"
+          sizes="(max-width: 768px) 100vw, 300px"
+          quality={100}
+        />
+      </div>
+      
+      <div className="mt-2 space-y-1">
+        <h3 className="text-sm font-medium text-zinc-200 truncate">{props.name}</h3>
+        <div className="flex justify-between text-xs text-zinc-400">
+          <span>ID: {props.iD_Card}</span>
+          <span className="capitalize">{props.frameType}</span>
+        </div>
+        {(props.atk || props.def) && (
+          <div className="text-xs text-red-400">
+            ATK {props.atk} / DEF {props.def}
+          </div>
+        )}
+      </div>
     </div>
   );
 };

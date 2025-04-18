@@ -1,5 +1,5 @@
 import toast from "react-hot-toast";
-import { AppRouterInstance } from 'next/dist/shared/lib/app-router-context.shared-runtime'; // For better typing
+import { AppRouterInstance } from 'next/dist/shared/lib/app-router-context.shared-runtime';
 
 export const handleLogin = async (
   email: string,
@@ -10,10 +10,12 @@ export const handleLogin = async (
     headers: {
       'Content-Type': 'application/json',
     },
+    credentials: 'include',
     body: JSON.stringify({ email, password }),
   });
 
   const data = await response.json();
+  console.log(data);
 
   if (!response.ok) {
     const errorMessage = data.message || 'Login failed. Please try again.';
@@ -24,10 +26,12 @@ export const handleLogin = async (
     throw new Error('Invalid response from server. Missing token or user ID.');
   }
 
-  // Save token here or in the page (optional)
   localStorage.setItem('token', data.token);
+  document.cookie = `access_token=${data.token}; path=/; secure; samesite=lax;`;
+  localStorage.setItem('userId', data.userId);
+  localStorage.setItem('isAdmin', data.isAdmin);
 
-  return data; // Returning userId and token if needed
+  return data;
 };
 
 export const handleRegister = async (
@@ -47,6 +51,7 @@ export const handleRegister = async (
       headers: {
         'Content-Type': 'application/json',
       },
+      credentials: 'include',
       body: JSON.stringify({ username, email, password }),
     });
 
@@ -66,9 +71,8 @@ export const handleRegister = async (
       return;
     }
 
-    localStorage.setItem('token', data.token);
     toast.success('Registration successful!');
-    router.push('/');
+    router.push('/login');
   } catch (error: unknown) {
     console.error('Registration Error:', error);
     const errorMessage = error instanceof Error ? error.message : 'Unexpected error during registration.';
@@ -76,3 +80,4 @@ export const handleRegister = async (
     toast.error(errorMessage);
   }
 };
+

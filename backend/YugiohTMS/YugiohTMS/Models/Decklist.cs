@@ -22,7 +22,7 @@ namespace YugiohTMS.Models
     public class DecklistDto
     {
         public int ID_Card { get; set; }
-        public int WhichDeck { get; set; } // 0 = Main, 1 = Extra, 2 = Side
+        public int WhichDeck { get; set; }
     }
 
 }
