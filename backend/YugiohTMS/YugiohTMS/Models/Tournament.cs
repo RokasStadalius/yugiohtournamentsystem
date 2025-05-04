@@ -9,15 +9,19 @@ namespace YugiohTMS.Models
         public int ID_Tournament { get; set; }
         public string Name { get; set; }
         public string Type { get; set; }
-
         public int ID_User { get; set; }
-
         public required string Status { get; set; }
-
         public int? ID_Winner { get; set; }
 
         [ForeignKey("ID_Winner")]
-
         public virtual User? Winner { get; set; }
+
+        public Tournament()
+        {
+            Participants = new List<TournamentPlayer>();
+        }
+
+        public List<TournamentPlayer> Participants { get; set; }
+        public virtual ICollection<Match> Matches { get; set; } = new List<Match>();
     }
 }

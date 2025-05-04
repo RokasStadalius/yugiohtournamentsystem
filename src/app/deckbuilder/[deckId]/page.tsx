@@ -4,7 +4,6 @@ import { useState, useEffect } from "react";
 import { useParams, useRouter } from "next/navigation";
 import { DndProvider } from "react-dnd";
 import { HTML5Backend } from "react-dnd-html5-backend";
-import ScrollableList from "../../components/ScrollableList";
 import { Sidebar } from "../../components/sidebar";
 import Image from "next/image";
 import toast, { Toaster } from "react-hot-toast";

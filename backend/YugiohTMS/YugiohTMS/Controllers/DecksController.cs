@@ -4,6 +4,7 @@ using Microsoft.EntityFrameworkCore;
 using Newtonsoft.Json;
 using System.Globalization;
 using System.Net.Http;
+using YugiohTMS.DTO_Models;
 using YugiohTMS.Models;
 
 namespace YugiohTMS.Controllers

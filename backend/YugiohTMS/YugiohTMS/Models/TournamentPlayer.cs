@@ -20,26 +20,7 @@ namespace YugiohTMS.Models
 
         public int ID_Deck { get; set; }
 
-        public class TournamentPlayerDto
-        {
-            public int ID_Tournament { get; set; }
-            public int ID_User { get; set; }
-            public int ID_Deck { get; set; }
-        }
-
-        public class TournamentPlayerDto2
-        {
-            public int ID_Tournament { get; set; }
-            public int ID_User { get; set; }
-
-            public string Username { get; set; }
-
-            public string Email { get; set; }
-        }
-
-
-
-
+        public int InitialRating { get; set; }
 
     }
 }

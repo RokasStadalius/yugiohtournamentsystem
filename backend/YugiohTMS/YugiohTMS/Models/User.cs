@@ -15,14 +15,10 @@ namespace YugiohTMS.Models
 
         public int IsBanned { get; set; }
 
-        public string Bio { get; set; }
+        public int Rating { get; set; }
 
-        public string ProfilePicUrl { get; set; }
-    }
+        public int TournamentsPlayed { get; set; }
+        public int TournamentsWon { get; set; }
 
-    public class BanRequest
-    {
-        [Required]
-        public int ID_User { get; set; }
     }
 }

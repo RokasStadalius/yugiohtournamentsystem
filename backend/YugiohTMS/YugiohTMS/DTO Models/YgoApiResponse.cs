@@ -1,6 +1,6 @@
 ﻿using Newtonsoft.Json;
 
-namespace YugiohTMS.Models
+namespace YugiohTMS.DTO_Models
 {
     public class YgoApiResponse
     {

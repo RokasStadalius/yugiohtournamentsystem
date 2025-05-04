@@ -6,6 +6,7 @@ using System.IdentityModel.Tokens.Jwt;
 using System.Text;
 using YugiohTMS.Models;
 using Microsoft.AspNetCore.Authorization;
+using YugiohTMS.DTO_Models;
 
 namespace YugiohTMS.Controllers
 {
@@ -25,14 +26,20 @@ namespace YugiohTMS.Controllers
         [HttpPost("register")]
         public async Task<IActionResult> Register([FromBody] RegisterModel model)
         {
+            if (await _context.User.AnyAsync(u => u.Username == model.Username))
+                return BadRequest(new { message = "User with provided username already exists" });
+
             if (await _context.User.AnyAsync(u => u.Email == model.Email))
-                return BadRequest(new { message = "User already exists" });
+                return BadRequest(new { message = "User with provided email address already exists" });
 
             User user = new User
             {
                 Username = model.Username,
                 Email = model.Email,
-                PasswordHash = BCrypt.Net.BCrypt.HashPassword(model.Password)
+                PasswordHash = BCrypt.Net.BCrypt.HashPassword(model.Password),
+                Rating = 500,
+                TournamentsPlayed = 0,
+                TournamentsWon = 0
             };
 
             _context.User.Add(user);
@@ -107,7 +114,7 @@ namespace YugiohTMS.Controllers
         [HttpGet("isbanned")]
         public async Task<IActionResult> IsBanned()
         {
-            Claim? userIdClaim = User.FindFirst(ClaimTypes.NameIdentifier); // or whatever claim you're using
+            Claim? userIdClaim = User.FindFirst(ClaimTypes.NameIdentifier);
             if (userIdClaim == null)
             {
                 return Unauthorized("User ID not found in token");

@@ -1,4 +1,7 @@
-﻿namespace YugiohTMS.Services
+﻿using System.Linq;
+using YugiohTMS.Models;
+
+namespace YugiohTMS.Services
 {
     public class TournamentService
     {
@@ -136,6 +139,89 @@
             }
 
             return matches;
+        }
+
+        public static Dictionary<int, int> CalculateRatingChanges(List<TournamentPlayer> participants, Dictionary<int, int> standings)
+        {
+            const int kFactor = 32;
+            const int scaleFactor = 1000;
+            var ratingChanges = new Dictionary<int, int>();
+
+            var allRatings = participants.Select(p => p.InitialRating).ToList();
+            var totalRating = allRatings.Sum();
+
+            foreach (var participant in participants)
+            {
+                var position = standings[participant.User.ID_User];
+                var actualScore = CalculateActualScore(position, participants.Count, scaleFactor);
+                var expectedScore = CalculateExpectedScore(participant.InitialRating, totalRating, scaleFactor);
+
+                int change = (kFactor * (actualScore - expectedScore)) / scaleFactor;
+
+                ratingChanges.Add(participant.User.ID_User, change);
+            }
+
+            return ratingChanges;
+        }
+
+        public static int CalculateActualScore(int position, int totalPlayers, int scaleFactor)
+        {
+
+            return (totalPlayers - position + 1) * scaleFactor;
+        }
+
+        public static int CalculateExpectedScore(int playerRating, int totalRating, int scaleFactor)
+        {
+            return (playerRating * scaleFactor) / totalRating;
+        }
+
+        public static async Task<(int? WinnerId, Dictionary<int, int> Standings)> DetermineTournamentResults(Tournament tournament)
+        {
+            var standings = new Dictionary<int, int>();
+            int? winnerId = null;
+            var matches = tournament.Matches;
+
+            switch (tournament.Type)
+            {
+                case "Single Elimination":
+                    var finalMatch = matches
+                        .OrderByDescending(m => m.RoundNumber)
+                        .FirstOrDefault(m => m.RoundNumber > 0);
+
+                    winnerId = finalMatch?.ID_Winner;
+
+                    if (winnerId.HasValue)
+                    {
+                        standings[winnerId.Value] = 1;
+                        var runnerUp = GetRunnerUp(finalMatch);
+                        if (runnerUp.HasValue) standings[runnerUp.Value] = 2;
+
+                        var otherPlayers = tournament.Participants
+                            .Select(p => p.User.ID_User)
+                            .Except(standings.Keys)
+                            .ToList();
+                        for (int i = 0; i < otherPlayers.Count; i++)
+                        {
+                            standings[otherPlayers[i]] = 3 + i;
+                        }
+                    }
+                    break;
+
+                case "Round Robin":
+                case "Swiss Stage":
+                    break;
+            }
+
+            return (winnerId, standings);
+        }
+
+        public static int? GetRunnerUp(Models.Match finalMatch)
+        {
+            if (finalMatch?.ID_User1 == finalMatch?.ID_Winner)
+                return finalMatch.ID_User2;
+            if (finalMatch?.ID_User2 == finalMatch?.ID_Winner)
+                return finalMatch.ID_User1;
+            return null;
         }
     }
 }

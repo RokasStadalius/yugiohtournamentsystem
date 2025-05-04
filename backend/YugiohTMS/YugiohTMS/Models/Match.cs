@@ -11,6 +11,9 @@ namespace YugiohTMS.Models
         [Required]
         public int ID_Tournament { get; set; }
 
+        [ForeignKey("ID_Tournament")]
+        public virtual Tournament Tournament { get; set; }
+
         [Required]
         public int RoundNumber { get; set; }
 
@@ -30,11 +33,5 @@ namespace YugiohTMS.Models
         public string Status { get; set; } = "Scheduled";
 
         public int? ID_NextMatch { get; set; }
-    }
-    public class WinnerRequest
-    {
-        public int WinnerId { get; set; } 
-        public int? Score1 { get; set; }    
-        public int? Score2 { get; set; } 
     }
 }

@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System.Linq;
 using System.Text.RegularExpressions;
+using YugiohTMS.DTO_Models;
 using YugiohTMS.Models;
 using YugiohTMS.Services;
 using static YugiohTMS.Models.TournamentPlayer;
@@ -131,11 +132,15 @@ namespace YugiohTMS.Controllers
                 return BadRequest("Selected deck does not exist.");
             }
 
+            var player = await _context.User.Where(tp => tp.ID_User == playerDto.ID_User).FirstOrDefaultAsync();
+
             var newPlayer = new TournamentPlayer
             {
                 ID_Tournament = playerDto.ID_Tournament,
                 ID_User = playerDto.ID_User,
-                ID_Deck = playerDto.ID_Deck
+                ID_Deck = playerDto.ID_Deck,
+                InitialRating = player.Rating,
+
             };
 
             _context.TournamentPlayer.Add(newPlayer);
@@ -502,74 +507,68 @@ namespace YugiohTMS.Controllers
                 (p.Player1 == player2 && p.Player2 == player1));
         }
 
+
         [HttpPut("complete/{tournamentId}")]
         public async Task<IActionResult> CompleteTournament(int tournamentId)
         {
+            using var transaction = await _context.Database.BeginTransactionAsync();
             try
             {
                 var tournament = await _context.Tournament
+                    .Include(t => t.Participants)
+                        .ThenInclude(p => p.User)
+                    .Include(t => t.Matches)
                     .FirstOrDefaultAsync(t => t.ID_Tournament == tournamentId);
 
                 if (tournament == null) return NotFound("Tournament not found");
                 if (tournament.Status == "Completed") return BadRequest("Tournament already completed");
 
-                var matchesResponse = await _context.Match
-                    .Where(m => m.ID_Tournament == tournamentId)
-                    .ToListAsync();
 
-                int? winnerId = null;
-
-                switch (tournament.Type)
-                {
-                    case "Single Elimination":
-                        var finalRoundMatches = matchesResponse
-                            .OrderByDescending(m => m.RoundNumber)
-                            .FirstOrDefault();
-
-                        if (finalRoundMatches == null || !finalRoundMatches.ID_Winner.HasValue)
-                            return BadRequest("Final match not completed");
-
-                        winnerId = finalRoundMatches.ID_Winner;
-                        break;
-
-                    case "Round Robin":
-                    case "Swiss Stage":
-                        var playerWins = matchesResponse
-                            .Where(m => m.ID_Winner.HasValue)
-                            .GroupBy(m => m.ID_Winner)
-                            .Select(g => new { PlayerId = g.Key, Wins = g.Count() })
-                            .OrderByDescending(g => g.Wins)
-                            .ToList();
-
-                        if (!playerWins.Any())
-                            return BadRequest("No completed matches");
-
-                        winnerId = playerWins.First().PlayerId;
-                        break;
-
-                    default:
-                        return BadRequest("Unsupported tournament type");
-                }
+                var (winnerId, standings) = await TournamentService.DetermineTournamentResults(tournament);
 
                 if (!winnerId.HasValue)
                     return BadRequest("Could not determine winner");
+
+                var ratingChanges = TournamentService.CalculateRatingChanges(tournament.Participants.ToList(), standings);
+
+                foreach (var participant in tournament.Participants)
+                {
+                    var user = participant.User;
+                    user.TournamentsPlayed++;
+
+                    if (user.ID_User == winnerId.Value)
+                        user.TournamentsWon++;
+
+                    if (ratingChanges.TryGetValue(user.ID_User, out var change))
+                    {
+                        user.Rating = Math.Max(user.Rating + change, 0);
+                    }
+                }
 
                 tournament.ID_Winner = winnerId.Value;
                 tournament.Status = "Completed";
 
                 await _context.SaveChangesAsync();
+                await transaction.CommitAsync();
 
                 return Ok(new
                 {
                     TournamentId = tournament.ID_Tournament,
                     WinnerId = tournament.ID_Winner,
-                    Status = tournament.Status,
+                    RatingChanges = ratingChanges,
+                    NewRatings = tournament.Participants.ToDictionary(
+                        p => p.User.ID_User,
+                        p => p.User.Rating
+                    )
                 });
             }
             catch (Exception ex)
             {
+                await transaction.RollbackAsync();
                 return StatusCode(500, $"Error completing tournament: {ex.Message}");
             }
         }
+
+       
     }
 }

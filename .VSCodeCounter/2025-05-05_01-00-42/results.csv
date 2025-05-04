@@ -1,0 +1,120 @@
+"filename", "language", "TypeScript", "JSON with Comments", "JSON", "CSS", "Markdown", "JavaScript", "XML", "TypeScript JSX", "C#", "comment", "blank", "total"
+"c:\Users\Rokas\Desktop\KTU STUFF\KTU 4 KURSAS\BAKALAURAS\yugiohtournamentsystem\.vs\ProjectSettings.json", "JSON", 0, 0, 3, 0, 0, 0, 0, 0, 0, 0, 0, 3
+"c:\Users\Rokas\Desktop\KTU STUFF\KTU 4 KURSAS\BAKALAURAS\yugiohtournamentsystem\.vs\VSWorkspaceState.json", "JSON", 0, 0, 6, 0, 0, 0, 0, 0, 0, 0, 0, 6
+"c:\Users\Rokas\Desktop\KTU STUFF\KTU 4 KURSAS\BAKALAURAS\yugiohtournamentsystem\README.md", "Markdown", 0, 0, 0, 0, 23, 0, 0, 0, 0, 0, 14, 37
+"c:\Users\Rokas\Desktop\KTU STUFF\KTU 4 KURSAS\BAKALAURAS\yugiohtournamentsystem\backend\YugiohTMS\.vs\YugiohTMS\v17\DocumentLayout.backup.json", "JSON", 0, 0, 153, 0, 0, 0, 0, 0, 0, 0, 0, 153
+"c:\Users\Rokas\Desktop\KTU STUFF\KTU 4 KURSAS\BAKALAURAS\yugiohtournamentsystem\backend\YugiohTMS\.vs\YugiohTMS\v17\DocumentLayout.json", "JSON", 0, 0, 153, 0, 0, 0, 0, 0, 0, 0, 0, 153
+"c:\Users\Rokas\Desktop\KTU STUFF\KTU 4 KURSAS\BAKALAURAS\yugiohtournamentsystem\backend\YugiohTMS\YugiohTMS\ApplicationDbContext.cs", "C#", 0, 0, 0, 0, 0, 0, 0, 0, 78, 0, 33, 111
+"c:\Users\Rokas\Desktop\KTU STUFF\KTU 4 KURSAS\BAKALAURAS\yugiohtournamentsystem\backend\YugiohTMS\YugiohTMS\Controllers\AuthController.cs", "C#", 0, 0, 0, 0, 0, 0, 0, 0, 154, 0, 33, 187
+"c:\Users\Rokas\Desktop\KTU STUFF\KTU 4 KURSAS\BAKALAURAS\yugiohtournamentsystem\backend\YugiohTMS\YugiohTMS\Controllers\CardsController.cs", "C#", 0, 0, 0, 0, 0, 0, 0, 0, 71, 0, 9, 80
+"c:\Users\Rokas\Desktop\KTU STUFF\KTU 4 KURSAS\BAKALAURAS\yugiohtournamentsystem\backend\YugiohTMS\YugiohTMS\Controllers\ClubController.cs", "C#", 0, 0, 0, 0, 0, 0, 0, 0, 227, 0, 38, 265
+"c:\Users\Rokas\Desktop\KTU STUFF\KTU 4 KURSAS\BAKALAURAS\yugiohtournamentsystem\backend\YugiohTMS\YugiohTMS\Controllers\ClubNewsController.cs", "C#", 0, 0, 0, 0, 0, 0, 0, 0, 57, 0, 9, 66
+"c:\Users\Rokas\Desktop\KTU STUFF\KTU 4 KURSAS\BAKALAURAS\yugiohtournamentsystem\backend\YugiohTMS\YugiohTMS\Controllers\DecksController.cs", "C#", 0, 0, 0, 0, 0, 0, 0, 0, 206, 0, 47, 253
+"c:\Users\Rokas\Desktop\KTU STUFF\KTU 4 KURSAS\BAKALAURAS\yugiohtournamentsystem\backend\YugiohTMS\YugiohTMS\Controllers\ForumController.cs", "C#", 0, 0, 0, 0, 0, 0, 0, 0, 151, 5, 19, 175
+"c:\Users\Rokas\Desktop\KTU STUFF\KTU 4 KURSAS\BAKALAURAS\yugiohtournamentsystem\backend\YugiohTMS\YugiohTMS\Controllers\InvitationController.cs", "C#", 0, 0, 0, 0, 0, 0, 0, 0, 118, 15, 28, 161
+"c:\Users\Rokas\Desktop\KTU STUFF\KTU 4 KURSAS\BAKALAURAS\yugiohtournamentsystem\backend\YugiohTMS\YugiohTMS\Controllers\TournamentController.cs", "C#", 0, 0, 0, 0, 0, 0, 0, 0, 476, 0, 99, 575
+"c:\Users\Rokas\Desktop\KTU STUFF\KTU 4 KURSAS\BAKALAURAS\yugiohtournamentsystem\backend\YugiohTMS\YugiohTMS\Controllers\UsersController.cs", "C#", 0, 0, 0, 0, 0, 0, 0, 0, 41, 0, 9, 50
+"c:\Users\Rokas\Desktop\KTU STUFF\KTU 4 KURSAS\BAKALAURAS\yugiohtournamentsystem\backend\YugiohTMS\YugiohTMS\DTO Models\BanRequest.cs", "C#", 0, 0, 0, 0, 0, 0, 0, 0, 9, 0, 2, 11
+"c:\Users\Rokas\Desktop\KTU STUFF\KTU 4 KURSAS\BAKALAURAS\yugiohtournamentsystem\backend\YugiohTMS\YugiohTMS\DTO Models\ClubDto.cs", "C#", 0, 0, 0, 0, 0, 0, 0, 0, 45, 0, 13, 58
+"c:\Users\Rokas\Desktop\KTU STUFF\KTU 4 KURSAS\BAKALAURAS\yugiohtournamentsystem\backend\YugiohTMS\YugiohTMS\DTO Models\DecklistDto.cs", "C#", 0, 0, 0, 0, 0, 0, 0, 0, 8, 0, 1, 9
+"c:\Users\Rokas\Desktop\KTU STUFF\KTU 4 KURSAS\BAKALAURAS\yugiohtournamentsystem\backend\YugiohTMS\YugiohTMS\DTO Models\ForumDto.cs", "C#", 0, 0, 0, 0, 0, 0, 0, 0, 25, 0, 8, 33
+"c:\Users\Rokas\Desktop\KTU STUFF\KTU 4 KURSAS\BAKALAURAS\yugiohtournamentsystem\backend\YugiohTMS\YugiohTMS\DTO Models\LoginModel.cs", "C#", 0, 0, 0, 0, 0, 0, 0, 0, 8, 0, 1, 9
+"c:\Users\Rokas\Desktop\KTU STUFF\KTU 4 KURSAS\BAKALAURAS\yugiohtournamentsystem\backend\YugiohTMS\YugiohTMS\DTO Models\NewsDto.cs", "C#", 0, 0, 0, 0, 0, 0, 0, 0, 14, 0, 2, 16
+"c:\Users\Rokas\Desktop\KTU STUFF\KTU 4 KURSAS\BAKALAURAS\yugiohtournamentsystem\backend\YugiohTMS\YugiohTMS\DTO Models\RegisterModel.cs", "C#", 0, 0, 0, 0, 0, 0, 0, 0, 9, 0, 2, 11
+"c:\Users\Rokas\Desktop\KTU STUFF\KTU 4 KURSAS\BAKALAURAS\yugiohtournamentsystem\backend\YugiohTMS\YugiohTMS\DTO Models\TournamentPlayerDto.cs", "C#", 0, 0, 0, 0, 0, 0, 0, 0, 10, 0, 1, 11
+"c:\Users\Rokas\Desktop\KTU STUFF\KTU 4 KURSAS\BAKALAURAS\yugiohtournamentsystem\backend\YugiohTMS\YugiohTMS\DTO Models\WinnerRequest.cs", "C#", 0, 0, 0, 0, 0, 0, 0, 0, 9, 0, 1, 10
+"c:\Users\Rokas\Desktop\KTU STUFF\KTU 4 KURSAS\BAKALAURAS\yugiohtournamentsystem\backend\YugiohTMS\YugiohTMS\DTO Models\YgoApiResponse.cs", "C#", 0, 0, 0, 0, 0, 0, 0, 0, 23, 0, 6, 29
+"c:\Users\Rokas\Desktop\KTU STUFF\KTU 4 KURSAS\BAKALAURAS\yugiohtournamentsystem\backend\YugiohTMS\YugiohTMS\Models\Card.cs", "C#", 0, 0, 0, 0, 0, 0, 0, 0, 20, 0, 6, 26
+"c:\Users\Rokas\Desktop\KTU STUFF\KTU 4 KURSAS\BAKALAURAS\yugiohtournamentsystem\backend\YugiohTMS\YugiohTMS\Models\Club.cs", "C#", 0, 0, 0, 0, 0, 0, 0, 0, 18, 0, 5, 23
+"c:\Users\Rokas\Desktop\KTU STUFF\KTU 4 KURSAS\BAKALAURAS\yugiohtournamentsystem\backend\YugiohTMS\YugiohTMS\Models\ClubInvitation.cs", "C#", 0, 0, 0, 0, 0, 0, 0, 0, 13, 0, 4, 17
+"c:\Users\Rokas\Desktop\KTU STUFF\KTU 4 KURSAS\BAKALAURAS\yugiohtournamentsystem\backend\YugiohTMS\YugiohTMS\Models\ClubMember.cs", "C#", 0, 0, 0, 0, 0, 0, 0, 0, 11, 0, 2, 13
+"c:\Users\Rokas\Desktop\KTU STUFF\KTU 4 KURSAS\BAKALAURAS\yugiohtournamentsystem\backend\YugiohTMS\YugiohTMS\Models\ClubNews.cs", "C#", 0, 0, 0, 0, 0, 0, 0, 0, 15, 0, 2, 17
+"c:\Users\Rokas\Desktop\KTU STUFF\KTU 4 KURSAS\BAKALAURAS\yugiohtournamentsystem\backend\YugiohTMS\YugiohTMS\Models\Deck.cs", "C#", 0, 0, 0, 0, 0, 0, 0, 0, 11, 0, 4, 15
+"c:\Users\Rokas\Desktop\KTU STUFF\KTU 4 KURSAS\BAKALAURAS\yugiohtournamentsystem\backend\YugiohTMS\YugiohTMS\Models\Decklist.cs", "C#", 0, 0, 0, 0, 0, 0, 0, 0, 17, 0, 6, 23
+"c:\Users\Rokas\Desktop\KTU STUFF\KTU 4 KURSAS\BAKALAURAS\yugiohtournamentsystem\backend\YugiohTMS\YugiohTMS\Models\ForumPost.cs", "C#", 0, 0, 0, 0, 0, 0, 0, 0, 22, 0, 8, 30
+"c:\Users\Rokas\Desktop\KTU STUFF\KTU 4 KURSAS\BAKALAURAS\yugiohtournamentsystem\backend\YugiohTMS\YugiohTMS\Models\ForumPostComment.cs", "C#", 0, 0, 0, 0, 0, 0, 0, 0, 18, 0, 7, 25
+"c:\Users\Rokas\Desktop\KTU STUFF\KTU 4 KURSAS\BAKALAURAS\yugiohtournamentsystem\backend\YugiohTMS\YugiohTMS\Models\ForumSection.cs", "C#", 0, 0, 0, 0, 0, 0, 0, 0, 14, 0, 5, 19
+"c:\Users\Rokas\Desktop\KTU STUFF\KTU 4 KURSAS\BAKALAURAS\yugiohtournamentsystem\backend\YugiohTMS\YugiohTMS\Models\Match.cs", "C#", 0, 0, 0, 0, 0, 0, 0, 0, 27, 0, 11, 38
+"c:\Users\Rokas\Desktop\KTU STUFF\KTU 4 KURSAS\BAKALAURAS\yugiohtournamentsystem\backend\YugiohTMS\YugiohTMS\Models\Tournament.cs", "C#", 0, 0, 0, 0, 0, 0, 0, 0, 23, 0, 5, 28
+"c:\Users\Rokas\Desktop\KTU STUFF\KTU 4 KURSAS\BAKALAURAS\yugiohtournamentsystem\backend\YugiohTMS\YugiohTMS\Models\TournamentPlayer.cs", "C#", 0, 0, 0, 0, 0, 0, 0, 0, 18, 0, 9, 27
+"c:\Users\Rokas\Desktop\KTU STUFF\KTU 4 KURSAS\BAKALAURAS\yugiohtournamentsystem\backend\YugiohTMS\YugiohTMS\Models\User.cs", "C#", 0, 0, 0, 0, 0, 0, 0, 0, 18, 0, 7, 25
+"c:\Users\Rokas\Desktop\KTU STUFF\KTU 4 KURSAS\BAKALAURAS\yugiohtournamentsystem\backend\YugiohTMS\YugiohTMS\Program.cs", "C#", 0, 0, 0, 0, 0, 0, 0, 0, 67, 0, 18, 85
+"c:\Users\Rokas\Desktop\KTU STUFF\KTU 4 KURSAS\BAKALAURAS\yugiohtournamentsystem\backend\YugiohTMS\YugiohTMS\Properties\launchSettings.json", "JSON", 0, 0, 41, 0, 0, 0, 0, 0, 0, 0, 1, 42
+"c:\Users\Rokas\Desktop\KTU STUFF\KTU 4 KURSAS\BAKALAURAS\yugiohtournamentsystem\backend\YugiohTMS\YugiohTMS\Services\CardService.cs", "C#", 0, 0, 0, 0, 0, 0, 0, 0, 89, 0, 21, 110
+"c:\Users\Rokas\Desktop\KTU STUFF\KTU 4 KURSAS\BAKALAURAS\yugiohtournamentsystem\backend\YugiohTMS\YugiohTMS\Services\LocalFileService.cs", "C#", 0, 0, 0, 0, 0, 0, 0, 0, 26, 0, 8, 34
+"c:\Users\Rokas\Desktop\KTU STUFF\KTU 4 KURSAS\BAKALAURAS\yugiohtournamentsystem\backend\YugiohTMS\YugiohTMS\Services\TournamentService.cs", "C#", 0, 0, 0, 0, 0, 0, 0, 0, 186, 0, 42, 228
+"c:\Users\Rokas\Desktop\KTU STUFF\KTU 4 KURSAS\BAKALAURAS\yugiohtournamentsystem\backend\YugiohTMS\YugiohTMS\YugiohTMS.csproj", "XML", 0, 0, 0, 0, 0, 0, 23, 0, 0, 0, 4, 27
+"c:\Users\Rokas\Desktop\KTU STUFF\KTU 4 KURSAS\BAKALAURAS\yugiohtournamentsystem\backend\YugiohTMS\YugiohTMS\appsettings.Development.json", "JSON", 0, 0, 8, 0, 0, 0, 0, 0, 0, 0, 1, 9
+"c:\Users\Rokas\Desktop\KTU STUFF\KTU 4 KURSAS\BAKALAURAS\yugiohtournamentsystem\backend\YugiohTMS\YugiohTMS\appsettings.json", "JSON", 0, 0, 20, 0, 0, 0, 0, 0, 0, 0, 2, 22
+"c:\Users\Rokas\Desktop\KTU STUFF\KTU 4 KURSAS\BAKALAURAS\yugiohtournamentsystem\components.json", "JSON", 0, 0, 21, 0, 0, 0, 0, 0, 0, 0, 0, 21
+"c:\Users\Rokas\Desktop\KTU STUFF\KTU 4 KURSAS\BAKALAURAS\yugiohtournamentsystem\eslint.config.mjs", "JavaScript", 0, 0, 0, 0, 0, 18, 0, 0, 0, 0, 6, 24
+"c:\Users\Rokas\Desktop\KTU STUFF\KTU 4 KURSAS\BAKALAURAS\yugiohtournamentsystem\next.config.ts", "TypeScript", 13, 0, 0, 0, 0, 0, 0, 0, 0, 0, 3, 16
+"c:\Users\Rokas\Desktop\KTU STUFF\KTU 4 KURSAS\BAKALAURAS\yugiohtournamentsystem\package-lock.json", "JSON", 0, 0, 9860, 0, 0, 0, 0, 0, 0, 0, 1, 9861
+"c:\Users\Rokas\Desktop\KTU STUFF\KTU 4 KURSAS\BAKALAURAS\yugiohtournamentsystem\package.json", "JSON", 0, 0, 59, 0, 0, 0, 0, 0, 0, 0, 1, 60
+"c:\Users\Rokas\Desktop\KTU STUFF\KTU 4 KURSAS\BAKALAURAS\yugiohtournamentsystem\postcss.config.mjs", "JavaScript", 0, 0, 0, 0, 0, 6, 0, 0, 0, 1, 2, 9
+"c:\Users\Rokas\Desktop\KTU STUFF\KTU 4 KURSAS\BAKALAURAS\yugiohtournamentsystem\public\file.svg", "XML", 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1
+"c:\Users\Rokas\Desktop\KTU STUFF\KTU 4 KURSAS\BAKALAURAS\yugiohtournamentsystem\public\globe.svg", "XML", 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1
+"c:\Users\Rokas\Desktop\KTU STUFF\KTU 4 KURSAS\BAKALAURAS\yugiohtournamentsystem\public\next.svg", "XML", 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1
+"c:\Users\Rokas\Desktop\KTU STUFF\KTU 4 KURSAS\BAKALAURAS\yugiohtournamentsystem\public\vercel.svg", "XML", 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1
+"c:\Users\Rokas\Desktop\KTU STUFF\KTU 4 KURSAS\BAKALAURAS\yugiohtournamentsystem\public\window.svg", "XML", 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1
+"c:\Users\Rokas\Desktop\KTU STUFF\KTU 4 KURSAS\BAKALAURAS\yugiohtournamentsystem\src\app\adminpanel\page.tsx", "TypeScript JSX", 0, 0, 0, 0, 0, 0, 0, 211, 0, 0, 24, 235
+"c:\Users\Rokas\Desktop\KTU STUFF\KTU 4 KURSAS\BAKALAURAS\yugiohtournamentsystem\src\app\banned\page.tsx", "TypeScript JSX", 0, 0, 0, 0, 0, 0, 0, 37, 0, 0, 4, 41
+"c:\Users\Rokas\Desktop\KTU STUFF\KTU 4 KURSAS\BAKALAURAS\yugiohtournamentsystem\src\app\cardlibrary\page.tsx", "TypeScript JSX", 0, 0, 0, 0, 0, 0, 0, 224, 0, 0, 12, 236
+"c:\Users\Rokas\Desktop\KTU STUFF\KTU 4 KURSAS\BAKALAURAS\yugiohtournamentsystem\src\app\clubs\[clubid]\page.tsx", "TypeScript JSX", 0, 0, 0, 0, 0, 0, 0, 372, 0, 0, 27, 399
+"c:\Users\Rokas\Desktop\KTU STUFF\KTU 4 KURSAS\BAKALAURAS\yugiohtournamentsystem\src\app\clubs\invitations\page.tsx", "TypeScript JSX", 0, 0, 0, 0, 0, 0, 0, 197, 0, 2, 18, 217
+"c:\Users\Rokas\Desktop\KTU STUFF\KTU 4 KURSAS\BAKALAURAS\yugiohtournamentsystem\src\app\clubs\page.tsx", "TypeScript JSX", 0, 0, 0, 0, 0, 0, 0, 327, 0, 3, 28, 358
+"c:\Users\Rokas\Desktop\KTU STUFF\KTU 4 KURSAS\BAKALAURAS\yugiohtournamentsystem\src\app\clubs\public\page.tsx", "TypeScript JSX", 0, 0, 0, 0, 0, 0, 0, 99, 0, 0, 11, 110
+"c:\Users\Rokas\Desktop\KTU STUFF\KTU 4 KURSAS\BAKALAURAS\yugiohtournamentsystem\src\app\components\AuthGuard.tsx", "TypeScript JSX", 0, 0, 0, 0, 0, 0, 0, 15, 0, 0, 5, 20
+"c:\Users\Rokas\Desktop\KTU STUFF\KTU 4 KURSAS\BAKALAURAS\yugiohtournamentsystem\src\app\components\CustomInput.tsx", "TypeScript JSX", 0, 0, 0, 0, 0, 0, 0, 25, 0, 0, 3, 28
+"c:\Users\Rokas\Desktop\KTU STUFF\KTU 4 KURSAS\BAKALAURAS\yugiohtournamentsystem\src\app\components\JoinTournamentModal.tsx", "TypeScript JSX", 0, 0, 0, 0, 0, 0, 0, 156, 0, 0, 15, 171
+"c:\Users\Rokas\Desktop\KTU STUFF\KTU 4 KURSAS\BAKALAURAS\yugiohtournamentsystem\src\app\components\MatchModal.tsx", "TypeScript JSX", 0, 0, 0, 0, 0, 0, 0, 87, 0, 1, 10, 98
+"c:\Users\Rokas\Desktop\KTU STUFF\KTU 4 KURSAS\BAKALAURAS\yugiohtournamentsystem\src\app\components\PaginatedGrid.tsx", "TypeScript JSX", 0, 0, 0, 0, 0, 0, 0, 68, 0, 0, 7, 75
+"c:\Users\Rokas\Desktop\KTU STUFF\KTU 4 KURSAS\BAKALAURAS\yugiohtournamentsystem\src\app\components\RoundRobinBracket.tsx", "TypeScript JSX", 0, 0, 0, 0, 0, 0, 0, 63, 0, 0, 6, 69
+"c:\Users\Rokas\Desktop\KTU STUFF\KTU 4 KURSAS\BAKALAURAS\yugiohtournamentsystem\src\app\components\SingleEliminationBracket.tsx", "TypeScript JSX", 0, 0, 0, 0, 0, 0, 0, 79, 0, 0, 10, 89
+"c:\Users\Rokas\Desktop\KTU STUFF\KTU 4 KURSAS\BAKALAURAS\yugiohtournamentsystem\src\app\components\SwissBracket.tsx", "TypeScript JSX", 0, 0, 0, 0, 0, 0, 0, 112, 0, 2, 11, 125
+"c:\Users\Rokas\Desktop\KTU STUFF\KTU 4 KURSAS\BAKALAURAS\yugiohtournamentsystem\src\app\components\card.tsx", "TypeScript JSX", 0, 0, 0, 0, 0, 0, 0, 61, 0, 0, 6, 67
+"c:\Users\Rokas\Desktop\KTU STUFF\KTU 4 KURSAS\BAKALAURAS\yugiohtournamentsystem\src\app\components\sidebar.tsx", "TypeScript JSX", 0, 0, 0, 0, 0, 0, 0, 229, 0, 5, 21, 255
+"c:\Users\Rokas\Desktop\KTU STUFF\KTU 4 KURSAS\BAKALAURAS\yugiohtournamentsystem\src\app\deckbuilder\[deckId]\page.tsx", "TypeScript JSX", 0, 0, 0, 0, 0, 0, 0, 409, 0, 0, 41, 450
+"c:\Users\Rokas\Desktop\KTU STUFF\KTU 4 KURSAS\BAKALAURAS\yugiohtournamentsystem\src\app\decks\page.tsx", "TypeScript JSX", 0, 0, 0, 0, 0, 0, 0, 149, 0, 0, 16, 165
+"c:\Users\Rokas\Desktop\KTU STUFF\KTU 4 KURSAS\BAKALAURAS\yugiohtournamentsystem\src\app\forum\[sectionId]\page.tsx", "TypeScript JSX", 0, 0, 0, 0, 0, 0, 0, 275, 0, 2, 18, 295
+"c:\Users\Rokas\Desktop\KTU STUFF\KTU 4 KURSAS\BAKALAURAS\yugiohtournamentsystem\src\app\forum\page.tsx", "TypeScript JSX", 0, 0, 0, 0, 0, 0, 0, 119, 0, 4, 10, 133
+"c:\Users\Rokas\Desktop\KTU STUFF\KTU 4 KURSAS\BAKALAURAS\yugiohtournamentsystem\src\app\forum\post\[postId]\page.tsx", "TypeScript JSX", 0, 0, 0, 0, 0, 0, 0, 240, 0, 0, 25, 265
+"c:\Users\Rokas\Desktop\KTU STUFF\KTU 4 KURSAS\BAKALAURAS\yugiohtournamentsystem\src\app\globals.css", "CSS", 0, 0, 0, 82, 0, 0, 0, 0, 0, 0, 72, 154
+"c:\Users\Rokas\Desktop\KTU STUFF\KTU 4 KURSAS\BAKALAURAS\yugiohtournamentsystem\src\app\layout.tsx", "TypeScript JSX", 0, 0, 0, 0, 0, 0, 0, 30, 0, 1, 4, 35
+"c:\Users\Rokas\Desktop\KTU STUFF\KTU 4 KURSAS\BAKALAURAS\yugiohtournamentsystem\src\app\leaderboard\page.tsx", "TypeScript JSX", 0, 0, 0, 0, 0, 0, 0, 201, 0, 1, 15, 217
+"c:\Users\Rokas\Desktop\KTU STUFF\KTU 4 KURSAS\BAKALAURAS\yugiohtournamentsystem\src\app\login\page.tsx", "TypeScript JSX", 0, 0, 0, 0, 0, 0, 0, 100, 0, 0, 13, 113
+"c:\Users\Rokas\Desktop\KTU STUFF\KTU 4 KURSAS\BAKALAURAS\yugiohtournamentsystem\src\app\middleware.ts", "TypeScript", 10, 0, 0, 0, 0, 0, 0, 0, 0, 0, 3, 13
+"c:\Users\Rokas\Desktop\KTU STUFF\KTU 4 KURSAS\BAKALAURAS\yugiohtournamentsystem\src\app\page.tsx", "TypeScript JSX", 0, 0, 0, 0, 0, 0, 0, 131, 0, 0, 15, 146
+"c:\Users\Rokas\Desktop\KTU STUFF\KTU 4 KURSAS\BAKALAURAS\yugiohtournamentsystem\src\app\register\page.tsx", "TypeScript JSX", 0, 0, 0, 0, 0, 0, 0, 105, 0, 0, 13, 118
+"c:\Users\Rokas\Desktop\KTU STUFF\KTU 4 KURSAS\BAKALAURAS\yugiohtournamentsystem\src\app\tournaments\[tournamentId]\page.tsx", "TypeScript JSX", 0, 0, 0, 0, 0, 0, 0, 372, 0, 0, 49, 421
+"c:\Users\Rokas\Desktop\KTU STUFF\KTU 4 KURSAS\BAKALAURAS\yugiohtournamentsystem\src\app\tournaments\page.tsx", "TypeScript JSX", 0, 0, 0, 0, 0, 0, 0, 177, 0, 0, 23, 200
+"c:\Users\Rokas\Desktop\KTU STUFF\KTU 4 KURSAS\BAKALAURAS\yugiohtournamentsystem\src\app\types.ts", "TypeScript", 30, 0, 0, 0, 0, 0, 0, 0, 0, 0, 4, 34
+"c:\Users\Rokas\Desktop\KTU STUFF\KTU 4 KURSAS\BAKALAURAS\yugiohtournamentsystem\src\components\ui\alert.tsx", "TypeScript JSX", 0, 0, 0, 0, 0, 0, 0, 53, 0, 0, 7, 60
+"c:\Users\Rokas\Desktop\KTU STUFF\KTU 4 KURSAS\BAKALAURAS\yugiohtournamentsystem\src\components\ui\avatar.tsx", "TypeScript JSX", 0, 0, 0, 0, 0, 0, 0, 44, 0, 0, 7, 51
+"c:\Users\Rokas\Desktop\KTU STUFF\KTU 4 KURSAS\BAKALAURAS\yugiohtournamentsystem\src\components\ui\button.tsx", "TypeScript JSX", 0, 0, 0, 0, 0, 0, 0, 52, 0, 0, 6, 58
+"c:\Users\Rokas\Desktop\KTU STUFF\KTU 4 KURSAS\BAKALAURAS\yugiohtournamentsystem\src\components\ui\card.tsx", "TypeScript JSX", 0, 0, 0, 0, 0, 0, 0, 68, 0, 0, 9, 77
+"c:\Users\Rokas\Desktop\KTU STUFF\KTU 4 KURSAS\BAKALAURAS\yugiohtournamentsystem\src\components\ui\dialog.tsx", "TypeScript JSX", 0, 0, 0, 0, 0, 0, 0, 109, 0, 0, 14, 123
+"c:\Users\Rokas\Desktop\KTU STUFF\KTU 4 KURSAS\BAKALAURAS\yugiohtournamentsystem\src\components\ui\input.tsx", "TypeScript JSX", 0, 0, 0, 0, 0, 0, 0, 19, 0, 0, 4, 23
+"c:\Users\Rokas\Desktop\KTU STUFF\KTU 4 KURSAS\BAKALAURAS\yugiohtournamentsystem\src\components\ui\label.tsx", "TypeScript JSX", 0, 0, 0, 0, 0, 0, 0, 21, 0, 0, 6, 27
+"c:\Users\Rokas\Desktop\KTU STUFF\KTU 4 KURSAS\BAKALAURAS\yugiohtournamentsystem\src\components\ui\radio-group.tsx", "TypeScript JSX", 0, 0, 0, 0, 0, 0, 0, 39, 0, 0, 6, 45
+"c:\Users\Rokas\Desktop\KTU STUFF\KTU 4 KURSAS\BAKALAURAS\yugiohtournamentsystem\src\components\ui\scroll-area.tsx", "TypeScript JSX", 0, 0, 0, 0, 0, 0, 0, 43, 0, 0, 6, 49
+"c:\Users\Rokas\Desktop\KTU STUFF\KTU 4 KURSAS\BAKALAURAS\yugiohtournamentsystem\src\components\ui\select.tsx", "TypeScript JSX", 0, 0, 0, 0, 0, 0, 0, 146, 0, 0, 14, 160
+"c:\Users\Rokas\Desktop\KTU STUFF\KTU 4 KURSAS\BAKALAURAS\yugiohtournamentsystem\src\components\ui\separator.tsx", "TypeScript JSX", 0, 0, 0, 0, 0, 0, 0, 27, 0, 0, 5, 32
+"c:\Users\Rokas\Desktop\KTU STUFF\KTU 4 KURSAS\BAKALAURAS\yugiohtournamentsystem\src\components\ui\sheet.tsx", "TypeScript JSX", 0, 0, 0, 0, 0, 0, 0, 125, 0, 0, 16, 141
+"c:\Users\Rokas\Desktop\KTU STUFF\KTU 4 KURSAS\BAKALAURAS\yugiohtournamentsystem\src\components\ui\sidebar.tsx", "TypeScript JSX", 0, 0, 0, 0, 0, 0, 0, 707, 0, 12, 55, 774
+"c:\Users\Rokas\Desktop\KTU STUFF\KTU 4 KURSAS\BAKALAURAS\yugiohtournamentsystem\src\components\ui\skeleton.tsx", "TypeScript JSX", 0, 0, 0, 0, 0, 0, 0, 13, 0, 0, 3, 16
+"c:\Users\Rokas\Desktop\KTU STUFF\KTU 4 KURSAS\BAKALAURAS\yugiohtournamentsystem\src\components\ui\table.tsx", "TypeScript JSX", 0, 0, 0, 0, 0, 0, 0, 110, 0, 0, 11, 121
+"c:\Users\Rokas\Desktop\KTU STUFF\KTU 4 KURSAS\BAKALAURAS\yugiohtournamentsystem\src\components\ui\textarea.tsx", "TypeScript JSX", 0, 0, 0, 0, 0, 0, 0, 19, 0, 0, 4, 23
+"c:\Users\Rokas\Desktop\KTU STUFF\KTU 4 KURSAS\BAKALAURAS\yugiohtournamentsystem\src\components\ui\tooltip.tsx", "TypeScript JSX", 0, 0, 0, 0, 0, 0, 0, 25, 0, 0, 8, 33
+"c:\Users\Rokas\Desktop\KTU STUFF\KTU 4 KURSAS\BAKALAURAS\yugiohtournamentsystem\src\declarations.d.ts", "TypeScript", 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1
+"c:\Users\Rokas\Desktop\KTU STUFF\KTU 4 KURSAS\BAKALAURAS\yugiohtournamentsystem\src\hooks\use-mobile.tsx", "TypeScript JSX", 0, 0, 0, 0, 0, 0, 0, 15, 0, 0, 5, 20
+"c:\Users\Rokas\Desktop\KTU STUFF\KTU 4 KURSAS\BAKALAURAS\yugiohtournamentsystem\src\lib\utils.ts", "TypeScript", 5, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 7
+"c:\Users\Rokas\Desktop\KTU STUFF\KTU 4 KURSAS\BAKALAURAS\yugiohtournamentsystem\src\utils\auth.ts", "TypeScript", 70, 0, 0, 0, 0, 0, 0, 0, 0, 0, 14, 84
+"c:\Users\Rokas\Desktop\KTU STUFF\KTU 4 KURSAS\BAKALAURAS\yugiohtournamentsystem\styles\CustomInput.module.css", "CSS", 0, 0, 0, 7, 0, 0, 0, 0, 0, 0, 0, 7
+"c:\Users\Rokas\Desktop\KTU STUFF\KTU 4 KURSAS\BAKALAURAS\yugiohtournamentsystem\styles\Home.module.css", "CSS", 0, 0, 0, 3, 0, 0, 0, 0, 0, 0, 0, 3
+"c:\Users\Rokas\Desktop\KTU STUFF\KTU 4 KURSAS\BAKALAURAS\yugiohtournamentsystem\styles\Login.module.css", "CSS", 0, 0, 0, 109, 0, 0, 0, 0, 0, 7, 18, 134
+"c:\Users\Rokas\Desktop\KTU STUFF\KTU 4 KURSAS\BAKALAURAS\yugiohtournamentsystem\styles\Register.module.css", "CSS", 0, 0, 0, 109, 0, 0, 0, 0, 0, 7, 18, 134
+"c:\Users\Rokas\Desktop\KTU STUFF\KTU 4 KURSAS\BAKALAURAS\yugiohtournamentsystem\styles\Sidebar.module.css", "CSS", 0, 0, 0, 4, 0, 0, 0, 0, 0, 0, 0, 4
+"c:\Users\Rokas\Desktop\KTU STUFF\KTU 4 KURSAS\BAKALAURAS\yugiohtournamentsystem\tailwind.config.ts", "TypeScript", 71, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 73
+"c:\Users\Rokas\Desktop\KTU STUFF\KTU 4 KURSAS\BAKALAURAS\yugiohtournamentsystem\tsconfig.json", "JSON with Comments", 0, 27, 0, 0, 0, 0, 0, 0, 0, 0, 1, 28
+"Total", "-", 200, 27, 10324, 314, 23, 24, 28, 6305, 2352, 68, 1346, 21011
