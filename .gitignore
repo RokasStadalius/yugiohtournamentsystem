@@ -14,8 +14,8 @@
 /coverage
 
 # next.js
-/.next/
-/out/
+YugiohTMS_WebApp/.next/
+YugiohTMS_WebApp/out/
 
 # production
 /build
@@ -42,6 +42,13 @@ next-env.d.ts
 
 backend/YugiohTMS/YugiohTMS/bin/Debug/net8.0/appsettings.json
 
-backend/YugiohTMS/YugiohTMS/localStorage
+YugiohTMS_API/YugiohTMS/YugiohTMS/localStorage
 bin/
 obj/
+
+# Playwright
+node_modules/
+/test-results/
+/playwright-report/
+/blob-report/
+/playwright/.cache/
