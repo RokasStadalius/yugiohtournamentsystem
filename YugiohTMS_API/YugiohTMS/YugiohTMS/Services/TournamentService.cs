@@ -180,6 +180,7 @@ namespace YugiohTMS.Services
             var standings = new Dictionary<int, int>();
             int? winnerId = null;
             var matches = tournament.Matches;
+            var participants = tournament.Participants.Select(p => p.User.ID_User).ToList();
 
             switch (tournament.Type)
             {
@@ -196,8 +197,7 @@ namespace YugiohTMS.Services
                         var runnerUp = GetRunnerUp(finalMatch);
                         if (runnerUp.HasValue) standings[runnerUp.Value] = 2;
 
-                        var otherPlayers = tournament.Participants
-                            .Select(p => p.User.ID_User)
+                        var otherPlayers = participants
                             .Except(standings.Keys)
                             .ToList();
                         for (int i = 0; i < otherPlayers.Count; i++)
@@ -209,7 +209,36 @@ namespace YugiohTMS.Services
 
                 case "Round Robin":
                 case "Swiss Stage":
+                    var playerWins = participants.ToDictionary(id => id, _ => 0);
+
+                    foreach (var match in matches.Where(m => m.ID_Winner.HasValue))
+                    {
+                        if (playerWins.ContainsKey(match.ID_Winner.Value))
+                        {
+                            playerWins[match.ID_Winner.Value]++;
+                        }
+                    }
+
+                    var sortedPlayers = participants
+                        .OrderByDescending(id => playerWins[id])
+                        .ThenBy(id => id)
+                        .ToList();
+
+                    for (int i = 0; i < sortedPlayers.Count; i++)
+                    {
+                        standings[sortedPlayers[i]] = i + 1;
+                    }
+
+                    if (sortedPlayers.Any())
+                    {
+                        winnerId = sortedPlayers.First();
+                    }
                     break;
+            }
+
+            foreach (var participant in participants.Where(p => !standings.ContainsKey(p)))
+            {
+                standings[participant] = participants.Count;
             }
 
             return (winnerId, standings);

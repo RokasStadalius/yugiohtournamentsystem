@@ -18,8 +18,10 @@ namespace YugiohTMS.Models
 
         public User User { get; set; }
 
+        [ForeignKey(nameof(Deck))]
         public int ID_Deck { get; set; }
-
+        
+        public Deck Deck { get; set; }
         public int InitialRating { get; set; }
 
     }

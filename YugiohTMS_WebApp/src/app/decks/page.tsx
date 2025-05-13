@@ -145,7 +145,6 @@ export default function UserDecksPage() {
                         <h2 className="text-xl font-bold text-white truncate">
                           {deck.name}
                         </h2>
-                        <p className="text-sm text-zinc-400 mt-2">Deck ID: {deck.iD_Deck}</p>
                       </div>
                       <Sword className="text-red-500 flex-shrink-0 mt-1" />
                     </div>

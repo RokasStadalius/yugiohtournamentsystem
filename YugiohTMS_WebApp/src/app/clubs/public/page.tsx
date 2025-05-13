@@ -90,11 +90,6 @@ export default function PublicClubsPage() {
                     </div>
                     <div className="text-zinc-400 line-clamp-3">{club.description}</div>
                     <div className="flex justify-between text-sm text-zinc-500">
-                      <div className="flex items-center">
-                        <Users className="h-4 w-4 mr-2" />
-                        Owner ID: {club.iD_Owner}
-                      </div>
-                      <span className="capitalize">{club.visibility}</span>
                     </div>
                   </div>
                 </CardContent>

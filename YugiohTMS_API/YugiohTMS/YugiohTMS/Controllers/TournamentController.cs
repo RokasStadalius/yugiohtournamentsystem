@@ -24,9 +24,18 @@ namespace YugiohTMS.Controllers
         [HttpPost("create-tournament")]
         public async Task<IActionResult> CreateTournament([FromBody] Tournament tournament)
         {
-            if (string.IsNullOrWhiteSpace(tournament.Name) || string.IsNullOrWhiteSpace(tournament.Type))
+            if (string.IsNullOrWhiteSpace(tournament.Name) ||
+                string.IsNullOrWhiteSpace(tournament.Type) ||
+                tournament.StartDate == null ||
+                string.IsNullOrWhiteSpace(tournament.Location))
             {
                 return BadRequest("All fields need to be filled");
+            }
+
+            if (tournament.Type == "Swiss Stage" &&
+                (tournament.NumOfRounds == null || tournament.NumOfRounds < 1))
+            {
+                return BadRequest("Swiss Stage tournaments require at least 1 round");
             }
 
             var newTournament = new Tournament
@@ -34,13 +43,20 @@ namespace YugiohTMS.Controllers
                 Name = tournament.Name,
                 Type = tournament.Type,
                 ID_User = tournament.ID_User,
-                Status = tournament.Status
+                Status = tournament.Status ?? "NotStarted",
+                StartDate = tournament.StartDate,
+                Location = tournament.Location,
+                NumOfRounds = tournament.Type == "Swiss Stage"
+                    ? tournament.NumOfRounds
+                    : 0
             };
 
             _context.Tournament.Add(newTournament);
             await _context.SaveChangesAsync();
 
-            return CreatedAtAction(nameof(GetTournamentById), new { id = newTournament.ID_Tournament }, newTournament);
+            return CreatedAtAction(nameof(GetTournamentById),
+                new { id = newTournament.ID_Tournament },
+                newTournament);
         }
 
         [HttpGet("{id}")]
@@ -86,7 +102,8 @@ namespace YugiohTMS.Controllers
                     OwnerID = t.ID_User,
                     Status = t.Status,
                     Type = t.Type,
-                    Winner = t.Winner != null ? t.Winner.Username : null
+                    Winner = t.Winner != null ? t.Winner.Username : null,
+                    NumOfRounds = t.NumOfRounds
                 })
                 .FirstOrDefaultAsync();
 
@@ -96,13 +113,18 @@ namespace YugiohTMS.Controllers
             }
 
             var players = await _context.TournamentPlayer
-                .Where(tp => tp.ID_Tournament == ID_Tournament)
-                .Select(tp => new PlayerDto
-                {
-                    Id = tp.User.ID_User,
-                    Name = tp.User.Username
-                })
-                .ToListAsync();
+    .Where(tp => tp.ID_Tournament == ID_Tournament)
+    .Include(tp => tp.User)
+    .Include(tp => tp.Deck)
+    .Select(tp => new PlayerDto
+    {
+        Id = tp.User.ID_User,
+        Name = tp.User.Username,
+        DeckName = tp.Deck != null ? tp.Deck.Name : null,
+        Rating = tp.InitialRating
+    })
+    .ToListAsync();
+
 
             var dto = new TournamentPlayersDto
             {
@@ -110,13 +132,12 @@ namespace YugiohTMS.Controllers
                 Status = tournament.Status,
                 Type = tournament.Type,
                 Winner = tournament.Winner,
-                Players = players
+                Players = players,
+                NumOfRounds = (int)tournament.NumOfRounds
             };
 
             return Ok(dto);
         }
-
-
 
         [HttpPost("jointournament")]
         public async Task<IActionResult> JoinTournament([FromBody] TournamentPlayerDto playerDto)
@@ -574,6 +595,6 @@ namespace YugiohTMS.Controllers
             }
         }
 
-       
+
     }
 }

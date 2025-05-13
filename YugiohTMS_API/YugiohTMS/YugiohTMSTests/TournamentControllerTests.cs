@@ -47,7 +47,7 @@ namespace YugiohTMSTests
         [Fact]
         public async Task CreateTournament_ReturnsCreatedResult_WhenValid()
         {
-            var tournament = new Tournament { Name = "Test Tournament", Type = "Single Elimination", ID_User = 1, Status = "Pending" };
+            var tournament = new Tournament { Name = "Test Tournament", Type = "Single Elimination", ID_User = 1, Status = "Pending", StartDate = new DateTime(2025,03,13), Location = "Location" };
 
             var result = await _controller.CreateTournament(tournament);
 
@@ -802,13 +802,17 @@ namespace YugiohTMSTests
         [Fact]
         public async Task GetTournamentPlayers_ReturnsCorrectData()
         {
-
-
+            // Arrange
             var winnerUser = new User { ID_User = 3, Username = "WinnerUser", Email = "Email", PasswordHash = "Hash" };
             var ownerUser = new User { ID_User = 1, Username = "OwnerUser", Email = "Email", PasswordHash = "Hash" };
-            var player2 = new User {ID_User = 2, Username = "PlayerTwo", Email = "Email", PasswordHash = "Hash" };
+            var player2 = new User { ID_User = 2, Username = "PlayerTwo", Email = "Email", PasswordHash = "Hash" };
+
+            var deck1 = new Deck { ID_Deck = 1, Name = "Deck1" };
+            var deck2 = new Deck { ID_Deck = 2, Name = "Deck2" };
 
             _context.User.AddRange(winnerUser, ownerUser, player2);
+            _context.Deck.AddRange(deck1, deck2);
+
             var tournament = new Tournament
             {
                 ID_Tournament = 100,
@@ -816,17 +820,21 @@ namespace YugiohTMSTests
                 ID_User = ownerUser.ID_User,
                 Status = "Finished",
                 Type = "Single Elimination",
-                Winner = winnerUser
+                Winner = winnerUser,
+                StartDate = new DateTime(2025, 03, 13),
+                Location = "Location",
+                NumOfRounds = 3
             };
             _context.Tournament.Add(tournament);
 
             _context.TournamentPlayer.AddRange(
-                new TournamentPlayer { ID_Tournament = 100, User = winnerUser },
-                new TournamentPlayer { ID_Tournament = 100, User = player2 }
+                new TournamentPlayer { ID_Tournament = 100, User = winnerUser, Deck = deck1, InitialRating = 1600 },
+                new TournamentPlayer { ID_Tournament = 100, User = player2, Deck = deck2, InitialRating = 1500 }
             );
 
             await _context.SaveChangesAsync();
 
+            // Act
             var result = await _controller.GetTournamentPlayers(100);
 
             // Assert
@@ -837,11 +845,13 @@ namespace YugiohTMSTests
             Assert.Equal("Finished", resultData.Status);
             Assert.Equal("Single Elimination", resultData.Type);
             Assert.Equal("WinnerUser", resultData.Winner);
+            Assert.Equal(3, resultData.NumOfRounds);
 
             Assert.NotNull(resultData.Players);
-            Assert.Contains(resultData.Players, p => p.Id == 3 && p.Name == "WinnerUser");
-            Assert.Contains(resultData.Players, p => p.Id == 2 && p.Name == "PlayerTwo");
+            Assert.Equal(2, resultData.Players.Count);
 
+            Assert.Contains(resultData.Players, p => p.Id == 3 && p.Name == "WinnerUser" && p.DeckName == "Deck1" && p.Rating == 1600);
+            Assert.Contains(resultData.Players, p => p.Id == 2 && p.Name == "PlayerTwo" && p.DeckName == "Deck2" && p.Rating == 1500);
         }
 
         [Fact]

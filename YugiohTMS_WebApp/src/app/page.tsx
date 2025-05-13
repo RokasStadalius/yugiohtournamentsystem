@@ -6,7 +6,7 @@ import { Sidebar } from './components/sidebar';
 import { Toaster, toast } from 'react-hot-toast';
 import { Card, CardContent } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
-import { ArrowRight, Trophy, Swords, Flame } from 'lucide-react';
+import { ArrowRight, Trophy, Swords, Flame, CalendarDays, MapPin } from 'lucide-react';
 import { Skeleton } from '@/components/ui/skeleton';
 
 export default function Home() {
@@ -116,6 +116,24 @@ export default function Home() {
                     </div>
 
                     <div className="space-y-3 mt-4">
+                      <div className="flex flex-col gap-2 text-sm text-zinc-400">
+                        <div className="flex items-center">
+                          <CalendarDays className="w-4 h-4 mr-2 text-red-500" />
+                          <span>
+                            {new Date(tournament.startDate).toLocaleDateString('en-US', {
+                              weekday: 'short',
+                              year: 'numeric',
+                              month: 'short',
+                              day: 'numeric'
+                            })}
+                          </span>
+                        </div>
+                        <div className="flex items-center">
+                          <MapPin className="w-4 h-4 mr-2 text-red-500" />
+                          <span className="truncate">{tournament.location}</span>
+                        </div>
+                      </div>
+
                       <div className="flex items-center">
                         <Trophy className="w-5 h-5 text-red-500 mr-2" />
                         <p className="text-sm font-medium text-red-500">
@@ -127,8 +145,10 @@ export default function Home() {
 
                       <div className="flex justify-between text-sm text-zinc-400">
                         <div>
+                          {/* Add any additional info here */}
                         </div>
                         <div>
+                          {/* Add any additional info here */}
                         </div>
                       </div>
                     </div>

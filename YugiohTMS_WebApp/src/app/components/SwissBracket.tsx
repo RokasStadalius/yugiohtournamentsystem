@@ -1,6 +1,5 @@
 "use client";
 
-import { Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper, Typography } from "@mui/material";
 import { Round } from "../types";
 
 interface SwissBracketProps {
@@ -49,25 +48,25 @@ const SwissBracket = ({ rounds, onMatchClick }: SwissBracketProps) => {
   const standings = calculateStandings(rounds);
 
   return (
-    <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+    <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
       {/* Standings */}
-      <div className="bg-zinc-800 rounded-xl border-2 border-zinc-700 p-6">
-        <h3 className="text-xl font-semibold mb-4 text-red-400">Current Standings</h3>
+      <div className="bg-zinc-800 rounded-xl border border-zinc-700 p-4">
+        <h3 className="text-lg font-semibold mb-3 text-red-400">Current Standings</h3>
         <div className="overflow-x-auto">
           <table className="w-full">
             <thead className="bg-zinc-900">
               <tr>
-                <th className="px-4 py-3 text-left text-zinc-400">Player</th>
-                <th className="px-4 py-3 text-left text-zinc-400">W</th>
-                <th className="px-4 py-3 text-left text-zinc-400">L</th>
+                <th className="px-3 py-2 text-left text-sm text-zinc-400">Player</th>
+                <th className="px-3 py-2 text-left text-sm text-zinc-400">W</th>
+                <th className="px-3 py-2 text-left text-sm text-zinc-400">L</th>
               </tr>
             </thead>
             <tbody>
               {standings.map(([playerId, { wins, losses }]) => (
                 <tr key={playerId} className="hover:bg-zinc-700/20 transition-colors">
-                  <td className="px-4 py-3 font-medium">{playerMap.get(playerId)}</td>
-                  <td className="px-4 py-3 text-green-400">{wins}</td>
-                  <td className="px-4 py-3 text-red-400">{losses}</td>
+                  <td className="px-3 py-2 text-sm font-medium">{playerMap.get(playerId)}</td>
+                  <td className="px-3 py-2 text-sm text-green-400">{wins}</td>
+                  <td className="px-3 py-2 text-sm text-red-400">{losses}</td>
                 </tr>
               ))}
             </tbody>
@@ -76,27 +75,30 @@ const SwissBracket = ({ rounds, onMatchClick }: SwissBracketProps) => {
       </div>
 
       {/* Rounds */}
-      <div className="space-y-8">
+      <div className="flex flex-col gap-4 max-h-[600px] overflow-y-auto pr-2">
         {rounds.map((round) => (
-          <div key={round.title} className="bg-zinc-800/20 rounded-xl p-6 border-2 border-zinc-700">
-            <h3 className="text-lg font-semibold mb-4 text-red-400">{round.title}</h3>
-            <div className="space-y-4">
+          <div 
+            key={round.title} 
+            className="bg-zinc-800/20 rounded-lg p-3 border border-zinc-700"
+          >
+            <h3 className="text-sm font-semibold mb-2 text-red-400">{round.title}</h3>
+            <div className="grid grid-cols-1 gap-1.5">
               {round.seeds.map((seed) => (
                 <div
                   key={seed.id}
                   onClick={() => seed.status !== "Completed" && onMatchClick(seed)}
-                  className={`p-4 rounded-lg border-2 transition-all ${
+                  className={`p-2 rounded-md border transition-all ${
                     seed.status === "Completed" 
-                      ? 'border-zinc-700 bg-zinc-800/30' 
+                      ? 'border-zinc-600 bg-zinc-800/30' 
                       : 'border-red-500/30 hover:border-red-500/50 bg-zinc-800/50 cursor-pointer'
                   }`}
                 >
-                  <div className="flex items-center justify-between">
-                    <div className="space-y-2">
+                  <div className="flex items-center justify-between gap-2">
+                    <div className="flex flex-col gap-1 flex-1">
                       {seed.teams.map((team) => (
                         <div
                           key={team.id}
-                          className={`px-3 py-2 rounded-md ${
+                          className={`px-2 py-1 rounded-sm text-sm ${
                             seed.winner === team.id
                               ? 'bg-green-500/20 text-green-400'
                               : 'bg-zinc-700/30'
@@ -106,8 +108,10 @@ const SwissBracket = ({ rounds, onMatchClick }: SwissBracketProps) => {
                         </div>
                       ))}
                     </div>
-                    <span className={`text-sm ${
-                      seed.status === "Completed" ? 'text-green-400' : 'text-red-400'
+                    <span className={`text-xs px-1.5 py-0.5 rounded-full ${
+                      seed.status === "Completed" 
+                        ? 'bg-green-500/20 text-green-400' 
+                        : 'bg-red-500/20 text-red-400'
                     }`}>
                       {seed.status}
                     </span>

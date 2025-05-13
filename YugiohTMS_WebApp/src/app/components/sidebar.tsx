@@ -17,13 +17,14 @@ import { Sword } from "lucide-react";
 import { Mail } from "lucide-react";
 import ForumIcon from '@mui/icons-material/Forum';
 import LeaderboardIcon from '@mui/icons-material/Leaderboard';
+import Home from '@mui/icons-material/Home';
 
 export function Sidebar() {
   const [open, setOpen] = useState(false);
   const router = useRouter();
-  const [deckOpen, setDeckOpen] = useState(true);
-  const [tournamentOpen, setTournamentOpen] = useState(true);
-  const [clubOpen, setClubOpen] = useState(true);
+  const [deckOpen, setDeckOpen] = useState(false);
+  const [tournamentOpen, setTournamentOpen] = useState(false);
+  const [clubOpen, setClubOpen] = useState(false);
   const [isAdmin, setIsAdmin] = useState(false);
 
   useEffect(() => {
@@ -89,6 +90,18 @@ export function Sidebar() {
         }}
       >
         <List className="flex flex-col gap-2 mt-2">
+          <ListItem disablePadding sx={{ marginTop: "16px" }}>
+              <ListItemButton
+                onClick={() => router.push("/")}
+                className="hover:bg-zinc-800 transition duration-200 pl-4"
+                sx={{ color: "red" }}
+              >
+                <ListItemIcon sx={{ color: "red" }}>
+                  <Home />
+                </ListItemIcon>
+                <ListItemText primary="Home" />
+              </ListItemButton>
+            </ListItem>
           {/* Deck Group */}
           <ListItemButton onClick={handleDeckClick} sx={{ color: "white", paddingLeft: "16px" }}>
             <ListItemIcon sx={{ color: "red" }}>

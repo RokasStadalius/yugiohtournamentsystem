@@ -183,7 +183,6 @@ export default function LeaderboardPage() {
                       <TableRow 
                         key={user.iD_User} 
                         className="border-b-2 border-zinc-800 hover:bg-zinc-800/20 cursor-pointer transition-colors"
-                        onClick={() => router.push(`/profile/${user.iD_User}`)}
                       >
                         <TableCell className="py-4 px-6 font-medium">
                           <span className="text-zinc-400">#{index + 1}</span>

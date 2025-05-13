@@ -94,6 +94,7 @@ namespace YugiohTMS.Controllers
             {
                 var club = await _context.Club
                     .Include(c => c.News)
+                    .Include(c => c.Owner)
                     .FirstOrDefaultAsync(c => c.ID_Club == id);
 
                 if (club == null) return NotFound();
@@ -105,6 +106,7 @@ namespace YugiohTMS.Controllers
                     Description = club.Description,
                     Location = club.Location,
                     ID_Owner = club.ID_Owner,
+                    OwnerUsername = club.Owner.Username,
                     News = club.News.Select(n => new NewsDto
                     {
                         ID_ClubNews = n.ID_ClubNews,

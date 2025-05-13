@@ -15,11 +15,15 @@
         public string Type { get; set; }
         public string Winner { get; set; }
         public List<PlayerDto> Players { get; set; }
+        
+        public int NumOfRounds { get; set; }
     }
 
     public class PlayerDto
     {
         public int Id { get; set; }
         public string Name { get; set; }
+        public string DeckName { get; set; } 
+        public int Rating { get; set; }
     }
 }

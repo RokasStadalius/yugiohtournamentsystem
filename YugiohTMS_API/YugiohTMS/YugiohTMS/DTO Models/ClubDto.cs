@@ -10,6 +10,8 @@ namespace YugiohTMS.DTO_Models
         public string Description { get; set; }
         public string Location { get; set; }
         public int ID_Owner { get; set; }
+        
+        public string OwnerUsername { get; set; }
         public List<NewsDto> News { get; set; }
 
         public string Visibility { get; set; }

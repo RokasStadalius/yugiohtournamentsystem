@@ -24,6 +24,7 @@ type ClubDetails = {
   description: string;
   location: string;
   iD_Owner: number;
+  ownerUsername: string;
   news: NewsDto[];
   visibility: string;
 };
@@ -314,7 +315,7 @@ export default function ClubDetailsPage() {
                 club.visibility === "private" && (
                   <Card className="bg-zinc-900 border-zinc-800">
                     <CardContent className="p-6">
-                      <h3 className="text-lg font-bold mb-4">Invite Member</h3>
+                      <h3 className="text-lg font-bold mb-4 text-white">Invite Member</h3>
                       <div className="space-y-2">
                         <Label htmlFor="inviteUserId" className="text-zinc-300">
                           User ID to Invite:
@@ -370,11 +371,7 @@ export default function ClubDetailsPage() {
                   <div className="space-y-2 text-zinc-300">
                     <div className="flex items-center">
                       <Users className="h-4 w-4 mr-2" />
-                      Owner ID: {club?.iD_Owner}
-                    </div>
-                    <div className="flex items-center">
-                      <Sword className="h-4 w-4 mr-2" />
-                      Club ID: {club?.iD_Club}
+                      Owner: {club?.ownerUsername}
                     </div>
                     <div className="capitalize">
                       Visibility: {club?.visibility}

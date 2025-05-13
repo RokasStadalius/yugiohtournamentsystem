@@ -205,7 +205,6 @@ export default function ClubsPage() {
                     <CardContent className="p-6">
                       <div className="mb-4">
                         <h3 className="text-xl font-bold text-white">{club.name}</h3>
-                        <p className="text-red-400 text-sm">ID: {club.iD_Club}</p>
                       </div>
                       <div className="space-y-4">
                         <div className="flex items-start">
@@ -214,10 +213,6 @@ export default function ClubsPage() {
                         </div>
                         <div className="text-zinc-400 line-clamp-3">{club.description}</div>
                         <div className="flex justify-between text-sm text-zinc-500">
-                          <div className="flex items-center">
-                            <Users className="h-4 w-4 mr-2" />
-                            Owner ID: {club.iD_Owner}
-                          </div>
                           <span className="capitalize">{club.visibility}</span>
                         </div>
                       </div>

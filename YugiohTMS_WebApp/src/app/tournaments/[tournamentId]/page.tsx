@@ -27,6 +27,8 @@ import { Round } from "@/app/types";
 interface PlayerType {
   id: number;
   name: string;
+  deckName: string;
+  rating: number;
 }
 
 interface Seed {
@@ -45,6 +47,7 @@ interface TournamentType {
   ownerID: number;
   players: PlayerType[];
   winner: string;
+  numOfRounds: number;
 }
 
 export default function TournamentPage() {
@@ -82,6 +85,7 @@ export default function TournamentPage() {
       if (!response.ok) throw new Error("Failed to fetch tournament");
 
       const data: TournamentType = await response.json();
+      console.log(data)
       setTournament(data);
       setIsUserInTournament(
         data.players.some(
@@ -89,13 +93,11 @@ export default function TournamentPage() {
         )
       );
 
-      if (data.status === "InProgress") {
         const matchesResponse = await fetch(
           `${process.env.NEXT_PUBLIC_API_URL}/api/Tournament/tournament/fetch-matches/${tournamentId}`
         );
         const bracketData = await matchesResponse.json();
         setBracketRounds(bracketData);
-      }
     } catch (error) {
       toast.error("Error loading tournament data");
     } finally {
@@ -125,7 +127,6 @@ export default function TournamentPage() {
       setTournament((prev) =>
         prev ? { ...prev, status: "InProgress" } : null
       );
-
       await fetchTournamentData();
     } catch (error) {
       console.error("Tournament start error:", error);
@@ -187,6 +188,11 @@ export default function TournamentPage() {
         );
 
         if (isRoundComplete) {
+          if (bracketData.length >= tournament.numOfRounds) {
+            toast.success("All Swiss rounds completed!");
+            return;
+          }
+
           const generateResponse = await fetch(
             `${process.env.NEXT_PUBLIC_API_URL}/api/Tournament/tournament/generate-next-swiss-round/${tournamentId}`,
             { method: "POST" }
@@ -287,6 +293,11 @@ export default function TournamentPage() {
                 <span className="px-4 py-2 rounded-full bg-red-500/20 text-red-400">
                   {tournament.type}
                 </span>
+                {tournament.type === "Swiss Stage" && (
+                  <span className="px-4 py-2 rounded-full bg-blue-500/20 text-blue-400">
+                    Rounds: {tournament.numOfRounds}
+                  </span>
+                )}
               </div>
 
               {!isUserInTournament && (
@@ -332,8 +343,11 @@ export default function TournamentPage() {
               <table className="w-full">
                 <thead className="bg-zinc-900">
                   <tr>
-                    <th className="px-6 py-4 text-left text-zinc-400">ID</th>
                     <th className="px-6 py-4 text-left text-zinc-400">Name</th>
+                    <th className="px-6 py-4 text-left text-zinc-400">Deck</th>
+                    <th className="px-6 py-4 text-left text-zinc-400">
+                      Rating
+                    </th>
                   </tr>
                 </thead>
                 <tbody>
@@ -342,8 +356,13 @@ export default function TournamentPage() {
                       key={player.id}
                       className="hover:bg-zinc-700/20 transition-colors"
                     >
-                      <td className="px-6 py-4 text-zinc-300">{player.id}</td>
                       <td className="px-6 py-4 font-medium">{player.name}</td>
+                      <td className="px-6 py-4">{player.deckName}</td>
+                      <td className="px-6 py-4">
+                        <span className="bg-red-500/20 text-red-400 px-3 py-1 rounded-full">
+                          {player.rating}
+                        </span>
+                      </td>
                     </tr>
                   ))}
                 </tbody>
@@ -367,7 +386,6 @@ export default function TournamentPage() {
             </div>
           )}
 
-          {tournament.status === "InProgress" && (
             <div className="bg-zinc-800 rounded-xl border-2 border-zinc-700 p-6">
               <h2 className="text-2xl font-bold mb-6">Tournament Bracket</h2>
               {tournament.type === "Single Elimination" ? (
@@ -395,12 +413,11 @@ export default function TournamentPage() {
                 </div>
               )}
             </div>
-          )}
         </div>
 
         <div className="absolute top-0 right-0 w-1/3 h-72 bg-gradient-to-r from-red-500/20 to-transparent blur-3xl -z-10" />
       </div>
-      )
+
       <MatchModal
         open={!!selectedMatch}
         match={selectedMatch}

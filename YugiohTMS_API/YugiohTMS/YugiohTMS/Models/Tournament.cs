@@ -23,5 +23,10 @@ namespace YugiohTMS.Models
 
         public List<TournamentPlayer> Participants { get; set; }
         public virtual ICollection<Match> Matches { get; set; } = new List<Match>();
+
+        public DateTime? StartDate { get; set; }
+        public string? Location { get; set; }
+
+        public int? NumOfRounds { get; set; }
     }
 }
