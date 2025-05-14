@@ -30,23 +30,18 @@ namespace YugiohTMS.Tests.Controllers
                 .Options;
             _dbContext = new ApplicationDbContext(options);
 
-            // Mock CardService
             _mockCardService = new Mock<CardService>(new HttpClient());
 
-            // Mock IWebHostEnvironment with valid paths
             _mockEnv = Mock.Of<IWebHostEnvironment>(env =>
                 env.ContentRootPath == "C:\\MockedPath" &&
-                env.WebRootPath == "C:\\MockedWebRoot"  // Mock WebRootPath if needed
+                env.WebRootPath == "C:\\MockedWebRoot" 
             );
 
-            // Mock IConfiguration to return a valid path for "LocalStorage:Path"
             _mockConfiguration = new Mock<IConfiguration>();
             _mockConfiguration.Setup(c => c["LocalStorage:Path"]).Returns("TestStorage");
 
-            // Set up HttpClient directly
             _mockHttpClient = new HttpClient();
 
-            // Instantiate LocalFileService with required dependencies
             _localFileService = new LocalFileService(_mockEnv, _mockConfiguration.Object, _mockHttpClient);
         }
 
@@ -55,16 +50,13 @@ namespace YugiohTMS.Tests.Controllers
         [Fact]
         public async Task FetchAndStoreCards_ShouldReturnOk_IfCardsStored()
         {
-            // Arrange
             _mockCardService.Setup(x => x.SaveCardsToDatabase(It.IsAny<ApplicationDbContext>(), It.IsAny<LocalFileService>()))
                 .ReturnsAsync(new List<Card> { new Card { Name = "Card 1", ID_YGOPRODECK = 1, ImageURL = "http://localhost:5042/images/1.jpg" } });
 
             var controller = new CardsController(_dbContext, _mockCardService.Object, _localFileService);
 
-            // Act
             var result = await controller.FetchAndStoreCards();
 
-            // Assert
             var okResult = Assert.IsType<OkObjectResult>(result);
             var cards = Assert.IsType<List<Card>>(okResult.Value);
             Assert.Single(cards);
@@ -75,17 +67,14 @@ namespace YugiohTMS.Tests.Controllers
         [Fact]
         public async Task SyncCards_ShouldReturnOk_WithSyncMessage()
         {
-            // Arrange
             var newCards = new List<Card> { new Card { Name = "New Card", ID_YGOPRODECK = 1, ImageURL = "http://localhost:5042/images/1.jpg" } };
             _mockCardService.Setup(x => x.SyncCardsWithDatabase(It.IsAny<ApplicationDbContext>(), It.IsAny<LocalFileService>()))
                 .ReturnsAsync((newCards, 10));
 
             var controller = new CardsController(_dbContext, _mockCardService.Object, _localFileService);
 
-            // Act
             var result = await controller.SyncCards();
 
-            // Assert
             var okResult = Assert.IsType<OkObjectResult>(result);
             var response = Assert.IsType<SyncResponseDto>(okResult.Value);
 
@@ -100,24 +89,21 @@ namespace YugiohTMS.Tests.Controllers
         [Fact]
         public async Task GetCards_ShouldReturnOk_WithCardsList()
         {
-            // Arrange
             _dbContext.Card.Add(new Card
             {
                 Name = "Card 1",
                 ID_YGOPRODECK = 1,
                 ImageURL = "http://localhost:5042/images/1.jpg",
-                Description = "Sample card description"  // Provide value for the required 'Description' property
+                Description = "Sample card description"
             });
             await _dbContext.SaveChangesAsync();
 
             var controller = new CardsController(_dbContext, _mockCardService.Object, _localFileService);
 
-            // Act
             var result = await controller.GetCards();
 
-            // Assert
             var actionResult = Assert.IsType<ActionResult<IEnumerable<Card>>>(result);
-            var okResult = Assert.IsType<OkObjectResult>(actionResult.Result); // Check if it's OK
+            var okResult = Assert.IsType<OkObjectResult>(actionResult.Result);
 
             var cards = Assert.IsType<List<Card>>(okResult.Value);
             Assert.Single(cards);
@@ -130,7 +116,6 @@ namespace YugiohTMS.Tests.Controllers
         [Fact]
         public async Task GetPendingUpdates_ShouldReturnOk_WithUpdateStatus()
         {
-            // Arrange
             var apiCards = new List<Card> { new Card { Name = "Card 1", ID_YGOPRODECK = 1, ImageURL = "http://localhost:5042/images/1.jpg" } };
             _mockCardService.Setup(x => x.FetchCardsFromAPI()).ReturnsAsync(apiCards);
             _mockCardService.Setup(x => x.SyncCardsWithDatabase(It.IsAny<ApplicationDbContext>(), It.IsAny<LocalFileService>()))
@@ -141,10 +126,8 @@ namespace YugiohTMS.Tests.Controllers
 
             var controller = new CardsController(_dbContext, _mockCardService.Object, _localFileService);
 
-            // Act
             var result = await controller.GetPendingUpdates();
 
-            // Assert
             var okResult = Assert.IsType<OkObjectResult>(result);
             var response = Assert.IsType<UpdateStatusDto>(okResult.Value);
             Assert.False(response.NeedsUpdate);

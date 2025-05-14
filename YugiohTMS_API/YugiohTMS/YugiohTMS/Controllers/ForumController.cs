@@ -18,7 +18,6 @@ namespace YugiohTMS.Controllers
             _context = context;
         }
 
-        // GET: api/forum/sections
         [HttpGet("sections")]
         public async Task<ActionResult<IEnumerable<ForumSection>>> GetForumSections()
         {
@@ -26,7 +25,6 @@ namespace YugiohTMS.Controllers
             return Ok(sections);
         }
 
-        // GET: api/forum/posts/{sectionId}
         [HttpGet("posts/{sectionId}")]
         public async Task<ActionResult<IEnumerable<object>>> GetForumPosts(int sectionId)
         {
@@ -37,8 +35,8 @@ namespace YugiohTMS.Controllers
 
             var posts = await _context.ForumPost
                 .Where(p => p.ID_ForumSection == sectionId)
-                .Include(p => p.User)  // Include user details
-                .OrderByDescending(p => p.Timestamp) // Order by latest
+                .Include(p => p.User)
+                .OrderByDescending(p => p.Timestamp)
                 .Select(p => new
                 {
                     p.ID_ForumPost,
@@ -48,7 +46,7 @@ namespace YugiohTMS.Controllers
                     p.ID_ForumSection,
                     p.Timestamp,
                     User = new
-                    {  // Shape the user data
+                    {
                         p.User.ID_User,
                         p.User.Username
                     }
@@ -58,7 +56,6 @@ namespace YugiohTMS.Controllers
             return Ok(posts);
         }
 
-        // GET: api/forum/post/{postId}
         [HttpGet("post/{postId}")]
         public async Task<ActionResult<object>> GetForumPost(int postId)
         {
@@ -103,7 +100,6 @@ namespace YugiohTMS.Controllers
             return Ok(post);
         }
 
-        // POST: api/forum/post
         [HttpPost("post")]
         public async Task<ActionResult<ForumPost>> CreateForumPost([FromBody] CreatePostRequest request)
         {
@@ -131,7 +127,6 @@ namespace YugiohTMS.Controllers
             return CreatedAtAction(nameof(GetForumPost), new { postId = post.ID_ForumPost }, post);
         }
 
-        // POST: api/forum/comment
         [HttpPost("comment")]
         public async Task<ActionResult<ForumPostComment>> CreateForumPostComment([FromBody] CreateCommentRequest request)
         {

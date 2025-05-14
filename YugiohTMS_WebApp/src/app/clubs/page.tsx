@@ -80,14 +80,11 @@ export default function ClubsPage() {
   
       if (!response.ok) throw new Error("Failed to fetch joined clubs");
       
-      // Check if the response is an array or wrapped in an object
       const data = await response.json();
       
-      // If the response is directly an array of clubs
       if (Array.isArray(data)) {
         setJoinedClubs(data);
       } 
-      // If the response is wrapped in a { clubs: [...] } object
       else if (data.clubs && Array.isArray(data.clubs)) {
         setJoinedClubs(data.clubs);
       } else {

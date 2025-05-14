@@ -35,11 +35,11 @@ export default function LeaderboardPage() {
       }
 
       const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/Users/me`, {
-        method: 'POST', // Changed to POST
+        method: 'POST',
         headers: {
-          'Content-Type': 'application/json', // Still important to indicate JSON
+          'Content-Type': 'application/json',
         },
-        body: JSON.stringify(userId), // Send the raw userId as JSON
+        body: JSON.stringify(userId),
       });
 
       if (!response.ok) {
@@ -62,7 +62,6 @@ export default function LeaderboardPage() {
         throw new Error('Failed to fetch leaderboard data');
       }
       const data: User[] = await response.json();
-      // Add ranking based on the sorted order
       const rankedLeaderboard = data.map((user, index) => ({ ...user, Ranking: index + 1 }));
       setLeaderboard(rankedLeaderboard);
     } catch (error) {

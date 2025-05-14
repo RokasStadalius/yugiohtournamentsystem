@@ -82,7 +82,6 @@ namespace YugiohTMSTests
         [Fact]
         public async Task JoinTournament_ReturnsBadRequest_WhenIdsAreMissing()
         {
-            // Arrange
             var playerDto = new TournamentPlayerDto
             {
                 ID_Tournament = 0,
@@ -90,10 +89,8 @@ namespace YugiohTMSTests
                 ID_Deck = 0
             };
 
-            // Act
             var result = await _controller.JoinTournament(playerDto);
 
-            // Assert
             var badRequest = Assert.IsType<BadRequestObjectResult>(result);
             Assert.Equal("Tournament ID and User ID are required.", badRequest.Value);
         }
@@ -101,9 +98,8 @@ namespace YugiohTMSTests
         [Fact]
         public async Task JoinTournament_ReturnsBadRequest_WhenUserDoesNotExist()
         {
-            // Arrange
             var tournament = new Tournament { Name = "Swiss", Type = "Swiss Stage", ID_User = 1, Status = "NotStarted" };
-            var deck = new Deck { ID_Deck = 1, Name = "Name",  ID_User = 999 }; // Invalid user
+            var deck = new Deck { ID_Deck = 1, Name = "Name",  ID_User = 999 };
 
             _context.Tournament.Add(tournament);
             _context.Deck.Add(deck);
@@ -112,14 +108,12 @@ namespace YugiohTMSTests
             var playerDto = new TournamentPlayerDto
             {
                 ID_Tournament = 1,
-                ID_User = 999, // user does not exist
+                ID_User = 999,
                 ID_Deck = 1
             };
 
-            // Act
             var result = await _controller.JoinTournament(playerDto);
 
-            // Assert
             var badRequest = Assert.IsType<BadRequestObjectResult>(result);
             Assert.Equal("User with ID 999 does not exist.", badRequest.Value);
         }
@@ -127,7 +121,6 @@ namespace YugiohTMSTests
         [Fact]
         public async Task JoinTournament_ReturnsBadRequest_WhenDeckDoesNotExist()
         {
-            // Arrange
             var user = new User { ID_User = 1, Username = "Test", Email = "Email", PasswordHash = "Hash", Rating = 1200 };
             var tournament = new Tournament { Name = "Swiss", Type = "Swiss Stage", ID_User = 1, Status = "NotStarted" };
 
@@ -139,13 +132,11 @@ namespace YugiohTMSTests
             {
                 ID_Tournament = 1,
                 ID_User = 1,
-                ID_Deck = 999 // deck doesn't exist
+                ID_Deck = 999
             };
 
-            // Act
             var result = await _controller.JoinTournament(playerDto);
 
-            // Assert
             var badRequest = Assert.IsType<BadRequestObjectResult>(result);
             Assert.Equal("Selected deck does not exist.", badRequest.Value);
         }
@@ -168,7 +159,6 @@ namespace YugiohTMSTests
         [Fact]
         public async Task GenerateMatches_ReturnsOk_WhenSingleEliminationTournament()
         {
-            // Arrange
             var tournament = new Tournament
             {
                 ID_Tournament = 1,
@@ -187,10 +177,8 @@ namespace YugiohTMSTests
             _context.TournamentPlayer.AddRange(players);
             await _context.SaveChangesAsync();
 
-            // Act
             var result = _controller.GenerateMatches(1);
 
-            // Assert
             var okResult = Assert.IsType<OkObjectResult>(result);
             Assert.Equal("Generated 1 matches for Single Elimination tournament.", okResult.Value);
 
@@ -204,10 +192,8 @@ namespace YugiohTMSTests
         [Fact]
         public async Task GenerateMatches_ReturnsNotFound_WhenTournamentDoesNotExist()
         {
-            // Act
-            var result =  _controller.GenerateMatches(999); // Non-existent tournament ID
+            var result =  _controller.GenerateMatches(999);
 
-            // Assert
             var notFoundResult = Assert.IsType<NotFoundObjectResult>(result);
             Assert.Equal("Tournament not found.", notFoundResult.Value);
         }
@@ -215,7 +201,6 @@ namespace YugiohTMSTests
         [Fact]
         public async Task GenerateMatches_ReturnsBadRequest_WhenNotEnoughPlayers()
         {
-            // Arrange
             var tournament = new Tournament
             {
                 ID_Tournament = 1,
@@ -230,10 +215,8 @@ namespace YugiohTMSTests
             _context.TournamentPlayer.Add(player);
             await _context.SaveChangesAsync();
 
-            // Act
             var result =  _controller.GenerateMatches(1);
 
-            // Assert
             var badRequestResult = Assert.IsType<BadRequestObjectResult>(result);
             Assert.Equal("Not enough players to create matches.", badRequestResult.Value);
         }
@@ -241,7 +224,6 @@ namespace YugiohTMSTests
         [Fact]
         public async Task GenerateMatches_ReturnsOk_WhenRoundRobinTournament()
         {
-            // Arrange
             var tournament = new Tournament
             {
                 ID_Tournament = 1,
@@ -261,10 +243,8 @@ namespace YugiohTMSTests
             _context.TournamentPlayer.AddRange(players);
             await _context.SaveChangesAsync();
 
-            // Act
             var result =  _controller.GenerateMatches(1);
 
-            // Assert
             var okResult = Assert.IsType<OkObjectResult>(result);
             Assert.Equal("Generated 3 matches for Round Robin tournament.", okResult.Value);
 
@@ -278,7 +258,6 @@ namespace YugiohTMSTests
         [Fact]
         public async Task GenerateMatches_ReturnsBadRequest_WhenUnsupportedTournamentType()
         {
-            // Arrange
             var tournament = new Tournament
             {
                 ID_Tournament = 1,
@@ -297,10 +276,8 @@ namespace YugiohTMSTests
             _context.TournamentPlayer.AddRange(players);
             await _context.SaveChangesAsync();
 
-            // Act
             var result =  _controller.GenerateMatches(1);
 
-            // Assert
             var badRequestResult = Assert.IsType<BadRequestObjectResult>(result);
             Assert.Equal("Unsupported tournament type.", badRequestResult.Value);
         }
@@ -308,7 +285,6 @@ namespace YugiohTMSTests
         [Fact]
         public async Task GenerateMatches_ReturnsOk_WhenSwissStageTournament()
         {
-            // Arrange
             var tournament = new Tournament
             {
                 ID_Tournament = 1,
@@ -329,10 +305,8 @@ namespace YugiohTMSTests
             _context.TournamentPlayer.AddRange(players);
             await _context.SaveChangesAsync();
 
-            // Act
             var result =  _controller.GenerateMatches(1);
 
-            // Assert
             var okResult = Assert.IsType<OkObjectResult>(result);
             Assert.Equal("Generated 2 matches for Swiss Stage tournament.", okResult.Value);
 
@@ -347,10 +321,8 @@ namespace YugiohTMSTests
         [Fact]
         public async Task AssignWinner_ReturnsNotFound_WhenMatchNotFound()
         {
-            // Act
             var result = _controller.AssignWinner(999, new WinnerRequest { WinnerId = 1 });
 
-            // Assert
             var notFoundResult = Assert.IsType<NotFoundObjectResult>(result);
             Assert.Equal("Match not found", notFoundResult.Value);
         }
@@ -358,7 +330,6 @@ namespace YugiohTMSTests
         [Fact]
         public async Task AssignWinner_ReturnsBadRequest_WhenTournamentNotFound()
         {
-            // Arrange
             var match = new YugiohTMS.Models.Match
             {
                 ID_Match = 1,
@@ -373,10 +344,8 @@ namespace YugiohTMSTests
 
             var winnerRequest = new WinnerRequest { WinnerId = 1 };
 
-            // Act
             var result = _controller.AssignWinner(1, winnerRequest);
 
-            // Assert
             var badRequestResult = Assert.IsType<BadRequestObjectResult>(result);
             Assert.Equal("Associated tournament not found", badRequestResult.Value);
         }
@@ -384,7 +353,6 @@ namespace YugiohTMSTests
         [Fact]
         public async Task AssignWinner_ReturnsBadRequest_WhenWinnerIsNotAParticipant()
         {
-            // Arrange
             var tournament = new Tournament
             {
                 ID_Tournament = 1,
@@ -406,12 +374,10 @@ namespace YugiohTMSTests
             _context.Match.Add(match);
             await _context.SaveChangesAsync();
 
-            var winnerRequest = new WinnerRequest { WinnerId = 999 }; // Non-participant
+            var winnerRequest = new WinnerRequest { WinnerId = 999 };
 
-            // Act
             var result =  _controller.AssignWinner(1, winnerRequest);
 
-            // Assert
             var badRequestResult = Assert.IsType<BadRequestObjectResult>(result);
             Assert.Equal("Winner is not a participant in this match", badRequestResult.Value);
         }
@@ -419,7 +385,6 @@ namespace YugiohTMSTests
         [Fact]
         public async Task AssignWinner_AutomaticallyAssignsWinner_WhenOneUserIsNull()
         {
-            // Arrange
             var tournament = new Tournament
             {
                 ID_Tournament = 1,
@@ -443,17 +408,14 @@ namespace YugiohTMSTests
 
             var winnerRequest = new WinnerRequest { WinnerId = 2 };
 
-            // Act
             var result = _controller.AssignWinner(1, winnerRequest);
 
-            // Assert
             var okResult = Assert.IsType<OkObjectResult>(result);
-            var response = okResult.Value as TournamentResponseDto;  // Cast to TournamentResponseDto
+            var response = okResult.Value as TournamentResponseDto;
 
-            // Ensure the response is not null and check the expected properties
             Assert.NotNull(response);
-            Assert.Equal("Winner assigned successfully", response.Message);  // Assuming Message is in the response
-            Assert.Equal("Single Elimination", response.TournamentType);  // Assuming TournamentType is in the response
+            Assert.Equal("Winner assigned successfully", response.Message);
+            Assert.Equal("Single Elimination", response.TournamentType);
 
             var updatedMatch = await _context.Match.FindAsync(1);
             Assert.Equal("Completed", updatedMatch.Status);
@@ -465,7 +427,6 @@ namespace YugiohTMSTests
         [Fact]
         public async Task AssignWinner_ReturnsBadRequest_WhenNextMatchAlreadyHasTwoPlayers()
         {
-            // Arrange
             var tournament = new Tournament
             {
                 ID_Tournament = 1,
@@ -499,10 +460,8 @@ namespace YugiohTMSTests
 
             var winnerRequest = new WinnerRequest { WinnerId = 1 };
 
-            // Act
             var result =  _controller.AssignWinner(1, winnerRequest);
 
-            // Assert
             var badRequestResult = Assert.IsType<BadRequestObjectResult>(result);
             Assert.Equal("Next match already has two players", badRequestResult.Value);
         }
@@ -524,7 +483,6 @@ namespace YugiohTMSTests
         [Fact]
         public async Task StartTournament_ReturnsOk_WhenTournamentStartedSuccessfully()
         {
-            // Arrange
             var tournament = new Tournament
             {
                 ID_Tournament = 1,
@@ -536,12 +494,10 @@ namespace YugiohTMSTests
             _context.Tournament.Add(tournament);
             await _context.SaveChangesAsync();
 
-            // Act
             var result = await _controller.StartTournament(1);
 
-            // Assert
             var okResult = Assert.IsType<OkObjectResult>(result);
-            var response = Assert.IsType<JoinResponseDto>(okResult.Value); // Cast to your DTO
+            var response = Assert.IsType<JoinResponseDto>(okResult.Value);
             Assert.Equal("Tournament started successfully.", response.Message);
 
             var updatedTournament = await _context.Tournament.FindAsync(1);
@@ -561,10 +517,8 @@ namespace YugiohTMSTests
         [Fact]
         public async Task StartTournament_ReturnsNotFound_WhenTournamentDoesNotExist()
         {
-            // Act
             var result = await _controller.StartTournament(999);
 
-            // Assert
             var notFound = Assert.IsType<NotFoundObjectResult>(result);
             Assert.Equal("Tournament not found.", notFound.Value);
         }
@@ -572,17 +526,14 @@ namespace YugiohTMSTests
         [Fact]
         public async Task GetAllTournaments_ReturnsAllTournaments()
         {
-            // Arrange
             _context.Tournament.AddRange(
                 new Tournament { Name = "Tour 1", Type = "Swiss Stage", ID_User = 1, Status = "InProgress" },
                 new Tournament { Name = "Tour 2", Type = "Single Elimination", ID_User = 2, Status = "InProgress" }
             );
             await _context.SaveChangesAsync();
 
-            // Act
             var result = await _controller.GetTournaments();
 
-            // Assert
             var okResult = Assert.IsType<OkObjectResult>(result.Result);
             var tournaments = Assert.IsType<List<Tournament>>(okResult.Value);
             Assert.Equal(2, tournaments.Count);
@@ -609,7 +560,6 @@ namespace YugiohTMSTests
         [Fact]
         public async Task GetTournamentMatches_ReturnsMatches_WhenTournamentExists()
         {
-            // Arrange
             _context.Tournament.Add(new Tournament { ID_Tournament = 1, Name = "Tour", Type = "Single Elimination", ID_User = 1, Status = "InProgress" });
             _context.Match.AddRange(
                 new YugiohTMS.Models.Match { ID_Match = 1, ID_Tournament = 1, ID_User1 = 1, ID_User2 = 2, RoundNumber = 1 },
@@ -617,18 +567,14 @@ namespace YugiohTMSTests
             );
             await _context.SaveChangesAsync();
 
-            // Act
             var result = _controller.GetTournamentMatches(1);
             var okResult = Assert.IsType<OkObjectResult>(result);
 
-            // Result is a list of rounds
             var rounds = Assert.IsType<List<object>>(okResult.Value);
 
-            // Now deserialize rounds to access seeds (matches)
             var json = JsonConvert.SerializeObject(rounds);
             dynamic parsed = JsonConvert.DeserializeObject<List<dynamic>>(json);
 
-            // Total seeds (matches) across all rounds
             int totalMatches = 0;
             foreach (var round in parsed)
             {
@@ -700,7 +646,7 @@ namespace YugiohTMSTests
             _context.Tournament.Add(new Tournament { ID_Tournament = 1, Name = "Name", Type = "Single Elimination", Status = "InProgress" });
             _context.SaveChanges();
 
-            var request = new WinnerRequest { WinnerId = 3 }; // Not one of the match users
+            var request = new WinnerRequest { WinnerId = 3 };
             var result = _controller.AssignWinner(1, request);
 
             var badRequest = Assert.IsType<BadRequestObjectResult>(result);
@@ -713,7 +659,6 @@ namespace YugiohTMSTests
             var players = Enumerable.Range(1, 8).ToList();
             var matches = TournamentService.GenerateSingleEliminationMatches(1, players);
 
-            // 8 players = 7 matches in total for single elimination
             Assert.Equal(7, matches.Count);
             Assert.All(matches, m => Assert.Equal(1, m.ID_Tournament));
         }
@@ -721,10 +666,9 @@ namespace YugiohTMSTests
         [Fact]
         public void LinkSingleEliminationMatches_SetsNextMatchIds()
         {
-            var players = Enumerable.Range(1, 4).ToList(); // 4 players => 3 matches
+            var players = Enumerable.Range(1, 4).ToList();
             var matches = TournamentService.GenerateSingleEliminationMatches(1, players);
 
-            // Assign fake IDs to simulate DB-assigned values
             for (int i = 0; i < matches.Count; i++) matches[i].ID_Match = i + 1;
 
             TournamentService.LinkSingleEliminationMatches(matches);
@@ -741,7 +685,6 @@ namespace YugiohTMSTests
             var players = new List<int> { 1, 2, 3, 4 };
             var matches = TournamentService.GenerateRoundRobinMatches(1, players);
 
-            // 4 players = 6 matches (n*(n-1)/2)
             Assert.Equal(6, matches.Count);
             Assert.All(matches, m => Assert.Equal(1, m.ID_Tournament));
         }
@@ -752,7 +695,6 @@ namespace YugiohTMSTests
             var players = new List<int> { 1, 2, 3, 4 };
             var matches = TournamentService.GenerateSwissMatches(1, players);
 
-            // Should generate 2 matches (1st round, 2 players per match)
             Assert.Equal(2, matches.Count);
             Assert.All(matches, m => Assert.Equal(1, m.RoundNumber));
         }
@@ -794,15 +736,14 @@ namespace YugiohTMSTests
             var (winner, standings) = await TournamentService.DetermineTournamentResults(tournament);
 
             Assert.Equal(1, winner);
-            Assert.Equal(1, standings[1]); // Winner
-            Assert.Equal(2, standings[2]); // Runner-up
-            Assert.Equal(3, standings[3]); // 3rd place
+            Assert.Equal(1, standings[1]);
+            Assert.Equal(2, standings[2]);
+            Assert.Equal(3, standings[3]);
         }
 
         [Fact]
         public async Task GetTournamentPlayers_ReturnsCorrectData()
         {
-            // Arrange
             var winnerUser = new User { ID_User = 3, Username = "WinnerUser", Email = "Email", PasswordHash = "Hash" };
             var ownerUser = new User { ID_User = 1, Username = "OwnerUser", Email = "Email", PasswordHash = "Hash" };
             var player2 = new User { ID_User = 2, Username = "PlayerTwo", Email = "Email", PasswordHash = "Hash" };
@@ -834,10 +775,8 @@ namespace YugiohTMSTests
 
             await _context.SaveChangesAsync();
 
-            // Act
             var result = await _controller.GetTournamentPlayers(100);
 
-            // Assert
             var okResult = Assert.IsType<OkObjectResult>(result.Result);
             var resultData = Assert.IsType<TournamentPlayersDto>(okResult.Value);
 
@@ -858,9 +797,8 @@ namespace YugiohTMSTests
         public async Task GetTournamentPlayers_TournamentNotFound_ReturnsNotFound()
         {
 
-            var result = await _controller.GetTournamentPlayers(999); // ID not present
+            var result = await _controller.GetTournamentPlayers(999);
 
-            // Assert
             var notFoundResult = Assert.IsType<NotFoundObjectResult>(result.Result);
             Assert.Equal("Tournament with ID 999 does not exist.", notFoundResult.Value);
         }
@@ -868,7 +806,7 @@ namespace YugiohTMSTests
         [Fact]
         public async Task CompleteTournament_ReturnsNotFound_WhenTournamentDoesNotExist()
         {
-            var result = await _controller.CompleteTournament(999); // nonexistent ID
+            var result = await _controller.CompleteTournament(999);
             var notFound = Assert.IsType<NotFoundObjectResult>(result);
             Assert.Equal("Tournament not found", notFound.Value);
         }
@@ -894,15 +832,12 @@ namespace YugiohTMSTests
         [Fact]
         public void GenerateNextRound_ReturnsNotFound_WhenTournamentDoesNotExist()
         {
-            // Arrange
-            var invalidTournamentId = 9999; // An ID that doesn't exist
+            var invalidTournamentId = 9999;
             _context.Tournament.Add(new Tournament { ID_Tournament = 1, Name = "Test Tournament", Type = "Swiss Stage", Status = "InProgress" });
             _context.SaveChanges();
 
-            // Act
             var result = _controller.GenerateNextRound(invalidTournamentId);
 
-            // Assert
             var notFoundResult = Assert.IsType<NotFoundObjectResult>(result);
             Assert.Equal("Tournament not found", notFoundResult.Value);
         }
@@ -910,16 +845,13 @@ namespace YugiohTMSTests
         [Fact]
         public void GenerateNextRound_ReturnsBadRequest_WhenTournamentIsNotSwiss()
         {
-            // Arrange
             var tournamentId = 1;
             var tournament = new Tournament { ID_Tournament = tournamentId, Name = "Test Tournament", Type = "Single Elimination", Status = "InProgress" };
             _context.Tournament.Add(tournament);
             _context.SaveChanges();
 
-            // Act
             var result = _controller.GenerateNextRound(tournamentId);
 
-            // Assert
             var badRequestResult = Assert.IsType<BadRequestObjectResult>(result);
             Assert.Equal("Not a Swiss tournament", badRequestResult.Value);
         }
@@ -927,7 +859,6 @@ namespace YugiohTMSTests
         [Fact]
         public void GenerateNextRound_GeneratesCorrectMatches_ForNextRound()
         {
-            // Arrange
             var tournament = new Tournament { ID_Tournament = 1, Name = "Test Tournament", Type = "Swiss Stage", Status = "InProgress" };
             var match1 = new YugiohTMS.Models.Match
             {
@@ -956,22 +887,19 @@ namespace YugiohTMSTests
             _context.Match.Add(match2);
             _context.SaveChanges();
 
-            // Act
             var result = _controller.GenerateNextRound(1);
 
-            // Assert
             var okResult = Assert.IsType<OkObjectResult>(result);
             var responseMessage = okResult.Value as string;
 
             Assert.Contains("Generated", responseMessage);
             var newMatches = _context.Match.Where(m => m.RoundNumber == 2).ToList();
-            Assert.Equal(2, newMatches.Count); // Two new matches should be generated
+            Assert.Equal(2, newMatches.Count);
         }
 
         [Fact]
         public void GenerateNextRound_PairsPlayersCorrectly()
         {
-            // Arrange
             var tournament = new Tournament { ID_Tournament = 1, Name = "Test Tournament", Type = "Swiss Stage", Status = "InProgress" };
             var match1 = new YugiohTMS.Models.Match
             {
@@ -1000,25 +928,21 @@ namespace YugiohTMSTests
             _context.Match.Add(match2);
             _context.SaveChanges();
 
-            // Act
             var result = _controller.GenerateNextRound(1);
 
-            // Assert
             var newMatches = _context.Match.Where(m => m.RoundNumber == 2).ToList();
-            Assert.Equal(2, newMatches.Count); // Ensure that 2 matches are generated
+            Assert.Equal(2, newMatches.Count);
 
-            // Check player pairings
             var matchPair1 = newMatches[0];
             var matchPair2 = newMatches[1];
 
-            Assert.True(matchPair1.ID_User1 != matchPair1.ID_User2); // Players in the match should be different
-            Assert.True(matchPair2.ID_User1 != matchPair2.ID_User2); // Players in the match should be different
+            Assert.True(matchPair1.ID_User1 != matchPair1.ID_User2);
+            Assert.True(matchPair2.ID_User1 != matchPair2.ID_User2);
         }
 
         [Fact]
         public void GenerateNextRound_SavesNewMatches()
         {
-            // Arrange
             var tournament = new Tournament { ID_Tournament = 1, Name = "Test Tournament", Type = "Swiss Stage", Status = "InProgress" };
             var match1 = new YugiohTMS.Models.Match
             {
@@ -1035,12 +959,10 @@ namespace YugiohTMSTests
             _context.Match.Add(match1);
             _context.SaveChanges();
 
-            // Act
             var result = _controller.GenerateNextRound(1);
 
-            // Assert
             var newMatches = _context.Match.Where(m => m.RoundNumber == 2).ToList();
-            Assert.NotEmpty(newMatches); // Ensure that matches are saved to the database
+            Assert.NotEmpty(newMatches);
         }
 
 

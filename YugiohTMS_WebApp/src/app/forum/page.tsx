@@ -11,7 +11,6 @@ import { motion, AnimatePresence } from "framer-motion";
 import { useRouter } from "next/navigation";
 import { Sidebar } from "../components/sidebar";
 
-// --- Interfaces ---
 interface ForumSection {
   iD_ForumSection: number;
   name: string;
@@ -26,7 +25,6 @@ const ForumPage: React.FC = () => {
   );
   const router = useRouter();
 
-  // --- Fetching Data ---
   const fetchForumSections = useCallback(async () => {
     setLoading(true);
     setError(null);
@@ -48,15 +46,13 @@ const ForumPage: React.FC = () => {
     }
   }, []);
 
-  // --- Effects ---
   useEffect(() => {
     fetchForumSections();
   }, [fetchForumSections]);
 
-  // --- Handlers ---
   const handleSectionSelect = (sectionId: number) => {
     setSelectedSectionId(sectionId);
-    router.push(`/forum/${sectionId}`); // Use navigate here
+    router.push(`/forum/${sectionId}`);
   };
   if (error) {
     return (
@@ -103,9 +99,9 @@ const ForumPage: React.FC = () => {
                       "transition-all duration-300",
                       "hover:shadow-lg hover:shadow-black/20",
                       selectedSectionId === section.iD_ForumSection &&
-                        "border-2 border-blue-500" // Highlight selected
+                        "border-2 border-blue-500"
                     )}
-                    onClick={() => handleSectionSelect(section.iD_ForumSection)} // Call handleSectionSelect
+                    onClick={() => handleSectionSelect(section.iD_ForumSection)}
                   >
                     <CardHeader>
                       <CardTitle className="text-lg font-semibold text-white flex items-center gap-2">

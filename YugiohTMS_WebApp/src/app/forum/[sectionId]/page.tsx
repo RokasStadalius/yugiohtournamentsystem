@@ -142,7 +142,6 @@ const ForumSectionPostsPage: React.FC = () => {
             </div>
           </div>
 
-          {/* Create Post Modal */}
           <AnimatePresence>
             {isCreateModalOpen && (
               <motion.div
@@ -224,7 +223,6 @@ const ForumSectionPostsPage: React.FC = () => {
             )}
           </AnimatePresence>
 
-          {/* Rest of the content remains same as before */}
           {loading ? (
             <div className="grid grid-cols-1 gap-6">
               {[...Array(3)].map((_, i) => (

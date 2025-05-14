@@ -167,13 +167,13 @@ namespace YugiohTMSTests
 
             var decklistDtos = new List<DecklistDto>
             {
-                new DecklistDto { ID_Card = 1, WhichDeck = 0 }, // Main
-                new DecklistDto { ID_Card = 1, WhichDeck = 0 }, // Main duplicate
-                new DecklistDto { ID_Card = 2, WhichDeck = 0 }, // Main
-                new DecklistDto { ID_Card = 3, WhichDeck = 1 }  // Side
+                new DecklistDto { ID_Card = 1, WhichDeck = 0 },
+                new DecklistDto { ID_Card = 1, WhichDeck = 0 },
+                new DecklistDto { ID_Card = 2, WhichDeck = 0 },
+                new DecklistDto { ID_Card = 3, WhichDeck = 1 }
             };
 
-            var result = await controller.SaveDecklist(1, decklistDtos); // Assuming SaveDecklist(int idDeck, List<DecklistDto> decklist)
+            var result = await controller.SaveDecklist(1, decklistDtos);
 
             var okResult = Assert.IsType<OkObjectResult>(result);
             Assert.Equal("Decklist saved successfully.", okResult.Value);

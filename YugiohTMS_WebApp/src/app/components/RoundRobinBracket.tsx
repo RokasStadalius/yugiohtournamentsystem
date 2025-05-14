@@ -14,14 +14,12 @@ export const RoundRobinBracket = ({ rounds, onMatchClick }: RoundRobinBracketPro
     rounds.forEach(round => {
       round.seeds.forEach(seed => {
         if (seed.status === "Completed" && seed.winner) {
-          // Update winner stats
           const winner = standings.get(seed.winner) || { name: seed.teams.find(t => t.id === seed.winner)?.name || "", wins: 0, losses: 0 };
           standings.set(seed.winner, {
             ...winner,
             wins: winner.wins + 1
           });
 
-          // Update loser stats
           const loserId = seed.teams.find(t => t.id !== seed.winner)?.id;
           if (loserId) {
             const loser = standings.get(loserId) || { name: seed.teams.find(t => t.id === loserId)?.name || "", wins: 0, losses: 0 };
@@ -42,7 +40,6 @@ export const RoundRobinBracket = ({ rounds, onMatchClick }: RoundRobinBracketPro
 
   return (
     <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-      {/* Standings */}
       <div className="bg-zinc-800/20 rounded-xl p-4 border border-zinc-700">
         <h3 className="text-lg font-semibold mb-3 text-red-400">Current Standings</h3>
         <div className="overflow-x-auto">
@@ -67,7 +64,6 @@ export const RoundRobinBracket = ({ rounds, onMatchClick }: RoundRobinBracketPro
         </div>
       </div>
 
-      {/* Rounds */}
       <div className="flex flex-col gap-4 max-h-[600px] overflow-y-auto pr-2">
         {rounds.map((round) => (
           <div key={round.title} className="bg-zinc-800/20 rounded-lg p-3 border border-zinc-700">

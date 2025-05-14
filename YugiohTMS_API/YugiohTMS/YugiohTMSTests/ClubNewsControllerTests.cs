@@ -24,7 +24,6 @@ namespace YugiohTMS.Tests.Controllers
         [Fact]
         public async Task PostNews_ShouldReturnCreated_WhenValidRequest()
         {
-            // Arrange
             var context = GetInMemoryDbContext();
 
             var user = new User { ID_User = 1, Username = "owner", Email = "Email", PasswordHash = "Hash" };
@@ -42,10 +41,8 @@ namespace YugiohTMS.Tests.Controllers
                 Content = "Club announcement"
             };
 
-            // Act
             var result = await controller.PostNews(1, dto);
 
-            // Assert
             var createdResult = Assert.IsType<CreatedAtActionResult>(result.Result);
             var returnedDto = Assert.IsType<NewsDto>(createdResult.Value);
             Assert.Equal(dto.Content, returnedDto.Content);
@@ -55,7 +52,6 @@ namespace YugiohTMS.Tests.Controllers
         [Fact]
         public async Task PostNews_ShouldReturnBadRequest_WhenUserNotFound()
         {
-            // Arrange
             var context = GetInMemoryDbContext();
             var club = new Club { ID_Club = 1, Name = "Test Club", ID_Owner = 1, Description = "Description", Location = "Location", Visibility = "Public" };
 
@@ -66,14 +62,12 @@ namespace YugiohTMS.Tests.Controllers
 
             var dto = new NewsCreateWithUserIdDto
             {
-                UserId = 99,  // Invalid user
+                UserId = 99,
                 Content = "Test content"
             };
 
-            // Act
             var result = await controller.PostNews(1, dto);
 
-            // Assert
             var badRequest = Assert.IsType<BadRequestObjectResult>(result.Result);
             Assert.Equal(400, badRequest.StatusCode);
         }
@@ -95,10 +89,8 @@ namespace YugiohTMS.Tests.Controllers
                 Content = "News"
             };
 
-            // Act
-            var result = await controller.PostNews(999, dto);  // Invalid club ID
+            var result = await controller.PostNews(999, dto);
 
-            // Assert
             var notFound = Assert.IsType<NotFoundObjectResult>(result.Result);
             Assert.Equal(404, notFound.StatusCode);
         }
@@ -122,10 +114,8 @@ namespace YugiohTMS.Tests.Controllers
                 Content = "Unauthorized attempt"
             };
 
-            // Act
             var result = await controller.PostNews(1, dto);
 
-            // Assert
             Assert.IsType<BadRequestObjectResult>(result.Result);
         }
     }

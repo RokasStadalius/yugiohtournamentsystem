@@ -15,7 +15,7 @@ namespace YugiohTMS.Controllers
             _context = context;
         }
 
-        [HttpPost("clubId={clubId}")] // Keep the clubId in the route
+        [HttpPost("clubId={clubId}")]
         public async Task<ActionResult<NewsDto>> PostNews(int clubId, [FromBody] NewsCreateWithUserIdDto newsDto)
         {
             try

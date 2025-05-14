@@ -145,10 +145,8 @@ export default function Home() {
 
                       <div className="flex justify-between text-sm text-zinc-400">
                         <div>
-                          {/* Add any additional info here */}
                         </div>
                         <div>
-                          {/* Add any additional info here */}
                         </div>
                       </div>
                     </div>

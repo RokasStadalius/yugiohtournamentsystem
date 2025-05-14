@@ -24,7 +24,7 @@ interface UserRequest {
     userId: number;
 }
 
-const UserInvitationsPage: React.FC = () => { // Changed to a React.FC
+const UserInvitationsPage: React.FC = () => {
     const [invitations, setInvitations] = useState<ClubInvitation[]>([]);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState<string | null>(null);
@@ -71,13 +71,13 @@ const UserInvitationsPage: React.FC = () => { // Changed to a React.FC
 
     const handleAcceptInvitation = async (invitationId: number) => {
         try {
-            const requestBody: UserRequest = { userId: currentUserId! }; // currentUserId is guaranteed to be set here
+            const requestBody: UserRequest = { userId: currentUserId! };
             const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/invitation/${invitationId}/accept`, {
                 method: 'PUT',
                 headers: {
                     'Content-Type': 'application/json'
                 },
-                body: JSON.stringify(requestBody), //send userId
+                body: JSON.stringify(requestBody),
                 
             });
             if (!response.ok) {
@@ -85,7 +85,6 @@ const UserInvitationsPage: React.FC = () => { // Changed to a React.FC
                 throw new Error(errorData.message || "Failed to accept invitation");
             }
             toast.success("Invitation accepted!");
-            // Refresh invitations after accepting
             fetchUserInvitations();
         } catch (error: any) {
             toast.error(error.message);
@@ -94,20 +93,19 @@ const UserInvitationsPage: React.FC = () => { // Changed to a React.FC
 
     const handleRejectInvitation = async (invitationId: number) => {
         try {
-            const requestBody: UserRequest = { userId: currentUserId! };  // currentUserId is guaranteed to be set here
+            const requestBody: UserRequest = { userId: currentUserId! };
             const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/invitation/${invitationId}/reject`, {
                 method: 'PUT',
                 headers: {
                     'Content-Type': 'application/json'
                 },
-                body: JSON.stringify(requestBody), //send userId
+                body: JSON.stringify(requestBody),
             });
             if (!response.ok) {
                 const errorData = await response.json();
                 throw new Error(errorData.message || "Failed to reject invitation");
             }
             toast.success("Invitation rejected!");
-            // Refresh invitations after rejecting
             fetchUserInvitations();
         } catch (error: any) {
             toast.error(error.message);

@@ -49,7 +49,6 @@ const SwissBracket = ({ rounds, onMatchClick }: SwissBracketProps) => {
 
   return (
     <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-      {/* Standings */}
       <div className="bg-zinc-800 rounded-xl border border-zinc-700 p-4">
         <h3 className="text-lg font-semibold mb-3 text-red-400">Current Standings</h3>
         <div className="overflow-x-auto">
@@ -74,7 +73,6 @@ const SwissBracket = ({ rounds, onMatchClick }: SwissBracketProps) => {
         </div>
       </div>
 
-      {/* Rounds */}
       <div className="flex flex-col gap-4 max-h-[600px] overflow-y-auto pr-2">
         {rounds.map((round) => (
           <div 

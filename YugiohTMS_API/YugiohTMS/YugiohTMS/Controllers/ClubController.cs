@@ -198,7 +198,7 @@ namespace YugiohTMS.Controllers
                 .Where(c => c.Visibility.ToLower() == "public")
                 .ToList();
 
-            return Ok(publicClubs); // Ensure you're using Ok() to wrap the result.
+            return Ok(publicClubs);
         }
 
 

@@ -28,7 +28,6 @@ export function Sidebar() {
   const [isAdmin, setIsAdmin] = useState(false);
 
   useEffect(() => {
-    // Ensure this runs only on the client
     if (typeof window !== "undefined") {
       setIsAdmin(localStorage.getItem("isAdmin") === "1");
     }
@@ -102,7 +101,6 @@ export function Sidebar() {
                 <ListItemText primary="Home" />
               </ListItemButton>
             </ListItem>
-          {/* Deck Group */}
           <ListItemButton onClick={handleDeckClick} sx={{ color: "white", paddingLeft: "16px" }}>
             <ListItemIcon sx={{ color: "red" }}>
               <QueueIcon />
@@ -130,7 +128,6 @@ export function Sidebar() {
             </List>
           </Collapse>
 
-          {/* Tournament Group */}
           <ListItemButton onClick={handleTournamentClick} sx={{ color: "white", paddingLeft: "16px", marginTop: "8px" }}>
             <ListItemIcon sx={{ color: "red" }}>
               <EmojiEventsIcon />
@@ -158,7 +155,6 @@ export function Sidebar() {
             </List>
           </Collapse>
 
-          {/* Club Group */}
           <ListItemButton onClick={handleClubClick} sx={{ color: "white", paddingLeft: "16px", marginTop: "8px" }}>
             <ListItemIcon sx={{ color: "red" }}>
               <GroupsIcon />
@@ -202,7 +198,6 @@ export function Sidebar() {
             </ListItemButton>
           </ListItem>
 
-          {/* My Invitations */}
           <ListItem disablePadding>
             <ListItemButton
               onClick={() => {
@@ -250,7 +245,6 @@ export function Sidebar() {
             </ListItem>
           )}
 
-          {/* Logout */}
           <ListItem disablePadding sx={{ marginTop: "auto" }}>
             <ListItemButton
               onClick={() => {

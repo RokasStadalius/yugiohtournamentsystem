@@ -17,10 +17,10 @@ export interface PlayerType {
   }
   
   export interface Round {
-    id: string;         // Required from backend
+    id: string;
     title: string;
     seeds: Seed[];
-    status?: string;    // Matches backend response
+    status?: string; 
     roundNumber?: number;
   }
   

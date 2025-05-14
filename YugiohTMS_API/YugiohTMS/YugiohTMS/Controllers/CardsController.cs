@@ -55,7 +55,7 @@ public class CardsController : ControllerBase
     public async Task<ActionResult<IEnumerable<Card>>> GetCards()
     {
         var cards = await _dbContext.Card.ToListAsync();
-        return Ok(cards);  // Explicitly return an OkObjectResult with the list
+        return Ok(cards);
     }
 
     [HttpGet("pending-updates")]

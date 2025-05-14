@@ -48,7 +48,6 @@ const MatchModal = ({ open, match, onClose, onAssignWinner }: MatchModalProps) =
             className="space-y-2"
           >
             {match?.teams.map((team) => {
-              // Ensure team.id exists before rendering
               if (!team.id) return null;
               
               const teamId = team.id.toString();

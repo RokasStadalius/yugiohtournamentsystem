@@ -197,7 +197,7 @@ export default function ClubDetailsPage() {
           },
           body: JSON.stringify({
             userIdToInvite: inviteUserId,
-            currentUserId: currentUserId, // Include currentUserId in the request
+            currentUserId: currentUserId,
           }),
         }
       );
