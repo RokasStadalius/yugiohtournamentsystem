@@ -33,5 +33,7 @@ namespace YugiohTMS.Models
         public string Status { get; set; } = "Scheduled";
 
         public int? ID_NextMatch { get; set; }
+
+        public bool IsTieBreaker { get; set; }
     }
 }

@@ -121,6 +121,7 @@ namespace YugiohTMS.Controllers
         Id = tp.User.ID_User,
         Name = tp.User.Username,
         DeckName = tp.Deck != null ? tp.Deck.Name : null,
+        ID_Deck = tp.Deck.ID_Deck,
         Rating = tp.InitialRating
     })
     .ToListAsync();
@@ -544,57 +545,157 @@ namespace YugiohTMS.Controllers
             {
                 var tournament = await _context.Tournament
                     .Include(t => t.Participants)
-                        .ThenInclude(p => p.User)
-                    .Include(t => t.Matches)
                     .FirstOrDefaultAsync(t => t.ID_Tournament == tournamentId);
 
-                if (tournament == null) return NotFound("Tournament not found");
-                if (tournament.Status == "Completed") return BadRequest("Tournament already completed");
+                if (tournament == null)
+                    return NotFound("Tournament not found");
 
+                // Get all non-tiebreaker matches
+                var matches = await _context.Match
+                    .Where(m => m.ID_Tournament == tournamentId && !m.IsTieBreaker)
+                    .ToListAsync();
 
-                var (winnerId, standings) = await TournamentService.DetermineTournamentResults(tournament);
-
-                if (!winnerId.HasValue)
-                    return BadRequest("Could not determine winner");
-
-                var ratingChanges = TournamentService.CalculateRatingChanges(tournament.Participants.ToList(), standings);
-
-                foreach (var participant in tournament.Participants)
+                // Calculate wins per player
+                var playerWins = new Dictionary<int, int>();
+                foreach (var player in tournament.Participants)
                 {
-                    var user = participant.User;
-                    user.TournamentsPlayed++;
+                    playerWins[player.ID_User] = 0;
+                }
 
-                    if (user.ID_User == winnerId.Value)
-                        user.TournamentsWon++;
-
-                    if (ratingChanges.TryGetValue(user.ID_User, out var change))
+                foreach (var match in matches.Where(m => m.ID_Winner.HasValue))
+                {
+                    if (playerWins.ContainsKey(match.ID_Winner.Value))
                     {
-                        user.Rating = Math.Max(user.Rating + change, 0);
+                        playerWins[match.ID_Winner.Value]++;
                     }
                 }
 
-                tournament.ID_Winner = winnerId.Value;
-                tournament.Status = "Completed";
+                // Find players with max wins
+                var maxWins = playerWins.Values.Max();
+                var topPlayers = playerWins
+                    .Where(kvp => kvp.Value == maxWins)
+                    .Select(kvp => kvp.Key)
+                    .ToList();
 
+                // Check for unresolved tie
+                if (topPlayers.Count > 1)
+                {
+                    // Check for existing completed tiebreaker
+                    var tiebreaker = await _context.Match
+                        .FirstOrDefaultAsync(m =>
+                            m.ID_Tournament == tournamentId &&
+                            m.IsTieBreaker &&
+                            m.Status == "Completed");
+
+                    if (tiebreaker == null)
+                    {
+                        return Conflict(new
+                        {
+                            requiresTiebreaker = true,
+                            message = "Tie detected. Generate tiebreaker first."
+                        });
+                    }
+
+                    // Set tournament winner from tiebreaker
+                    tournament.ID_Winner = tiebreaker.ID_Winner;
+                }
+                else if (topPlayers.Count == 1)
+                {
+                    tournament.ID_Winner = topPlayers[0];
+                }
+
+                tournament.Status = "Completed";
+                await _context.SaveChangesAsync();
+
+                return Ok(new { winnerId = tournament.ID_Winner });
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, $"Internal server error: {ex.Message}");
+            }
+        }
+
+        [HttpPost("generate-tiebreaker/{tournamentId}")]
+        public async Task<IActionResult> GenerateTiebreaker(int tournamentId)
+        {
+            try
+            {
+                var tournament = await _context.Tournament
+                    .Include(t => t.Participants)
+                        .ThenInclude(p => p.User)
+                    .FirstOrDefaultAsync(t => t.ID_Tournament == tournamentId);
+
+                if (tournament == null)
+                    return NotFound("Tournament not found");
+
+                if (tournament.Status != "InProgress")
+                    return BadRequest("Tournament is not in progress");
+
+                var matches = await _context.Match
+                    .Where(m => m.ID_Tournament == tournamentId && !m.IsTieBreaker)
+                    .ToListAsync();
+
+                var playerWins = new Dictionary<int, int>();
+                foreach (var match in matches.Where(m => m.ID_Winner.HasValue))
+                {
+                    if (playerWins.ContainsKey(match.ID_Winner.Value))
+                    {
+                        playerWins[match.ID_Winner.Value]++;
+                    }
+                    else
+                    {
+                        playerWins[match.ID_Winner.Value] = 1;
+                    }
+                }
+
+                if (!playerWins.Any())
+                    return BadRequest("No matches played");
+
+                var maxWins = playerWins.Values.Max();
+                var topPlayers = playerWins
+                    .Where(kvp => kvp.Value == maxWins)
+                    .Select(kvp => kvp.Key)
+                    .ToList();
+
+                if (topPlayers.Count != 2)
+                    return BadRequest("Tiebreaker only supported for exactly 2 players");
+
+                var existingTiebreaker = await _context.Match
+                    .FirstOrDefaultAsync(m =>
+                        m.ID_Tournament == tournamentId &&
+                        m.IsTieBreaker &&
+                        ((m.ID_User1 == topPlayers[0] && m.ID_User2 == topPlayers[1]) ||
+                         (m.ID_User1 == topPlayers[1] && m.ID_User2 == topPlayers[0])));
+
+                if (existingTiebreaker != null)
+                    return BadRequest("Tiebreaker match already exists between these players");
+
+                var tiebreaker = new Models.Match
+                {
+                    ID_Tournament = tournamentId,
+                    ID_User1 = topPlayers[0],
+                    ID_User2 = topPlayers[1],
+                    Status = "Scheduled",
+                    IsTieBreaker = true,
+                    RoundNumber = -1
+                };
+
+                _context.Match.Add(tiebreaker);
                 await _context.SaveChangesAsync();
 
                 return Ok(new
                 {
-                    TournamentId = tournament.ID_Tournament,
-                    WinnerId = tournament.ID_Winner,
-                    RatingChanges = ratingChanges,
-                    NewRatings = tournament.Participants.ToDictionary(
-                        p => p.User.ID_User,
-                        p => p.User.Rating
-                    )
+                    message = "Tiebreaker match generated",
+                    matchId = tiebreaker.ID_Match,
+                    player1Id = tiebreaker.ID_User1,
+                    player2Id = tiebreaker.ID_User2
                 });
             }
             catch (Exception ex)
             {
-                return StatusCode(500, $"Error completing tournament: {ex.Message}");
+                return StatusCode(500, $"Internal server error: {ex.Message}");
             }
         }
-
 
     }
 }

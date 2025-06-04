@@ -22,3 +22,4 @@ namespace YugiohTMS.Models
 
     }
 }
+

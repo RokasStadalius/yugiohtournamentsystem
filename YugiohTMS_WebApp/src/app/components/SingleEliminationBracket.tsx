@@ -8,10 +8,16 @@ interface SingleEliminationBracketProps {
   rounds: Round[];
   onMatchClick: (match: Round['seeds'][number]) => void;
   isOwner: boolean;
+  tournamentStatus: "NotStarted" | "InProgress" | "Completed"; // Add tournament status
 }
 
 
-const SingleEliminationBracket = ({ rounds, onMatchClick, isOwner }: SingleEliminationBracketProps) => {
+const SingleEliminationBracket = ({ 
+  rounds, 
+  onMatchClick, 
+  isOwner,
+  tournamentStatus 
+}: SingleEliminationBracketProps) => {
   const formattedRounds: IRoundProps[] = rounds.map((round) => ({
     title: round.title,
     seeds: round.seeds.map(seed => ({
@@ -44,6 +50,11 @@ const SingleEliminationBracket = ({ rounds, onMatchClick, isOwner }: SingleElimi
           const originalSeed = rounds
             .flatMap(round => round.seeds)
             .find(s => s.id === seed.id);
+            
+          // Determine if match is clickable
+          const isClickable = isOwner && 
+                              tournamentStatus === "InProgress" && 
+                              seed.status !== "Completed";
 
           return (
             <Seed mobileBreakpoint={breakpoint}>
@@ -52,9 +63,11 @@ const SingleEliminationBracket = ({ rounds, onMatchClick, isOwner }: SingleElimi
                   className={`p-4 min-w-[220px] rounded-lg border-2 transition-all ${
                     seed.status === "Completed" 
                       ? 'border-zinc-700 bg-zinc-800/50' 
-                      : 'border-red-500/30 hover:border-red-500/50 bg-zinc-800 cursor-pointer'
+                      : isClickable
+                        ? 'border-red-500/30 hover:border-red-500/50 bg-zinc-800 cursor-pointer'
+                        : 'border-zinc-600 bg-zinc-800/30 cursor-default'
                   }`}
-                 onClick={() => isOwner && originalSeed && onMatchClick(originalSeed)}
+                  onClick={() => isClickable && originalSeed && onMatchClick(originalSeed)}
                 >
                   <div className="space-y-2">
                     {seed.teams.map((team, index) => (
@@ -85,6 +98,5 @@ const SingleEliminationBracket = ({ rounds, onMatchClick, isOwner }: SingleElimi
     </div>
   );
 };
-
 
 export default SingleEliminationBracket;

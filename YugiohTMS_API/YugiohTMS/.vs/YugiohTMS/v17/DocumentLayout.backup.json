@@ -1,38 +1,72 @@
 {
   "Version": 1,
-  "WorkspaceRootPath": "C:\\Users\\Rokas\\Desktop\\KTU\\yugiohtournamentsystem\\backend\\YugiohTMS\\",
+  "WorkspaceRootPath": "C:\\Users\\Rokas\\Desktop\\KTU STUFF\\KTU 4 KURSAS\\BAKALAURAS\\yugiohtournamentsystem\\YugiohTMS_API\\YugiohTMS\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{548F5B37-EED1-4884-BF2E-ED24E7161E20}|YugiohTMS\\YugiohTMS.csproj|c:\\users\\rokas\\desktop\\ktu\\yugiohtournamentsystem\\backend\\yugiohtms\\yugiohtms\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{548F5B37-EED1-4884-BF2E-ED24E7161E20}|YugiohTMS\\YugiohTMS.csproj|solutionrelative:yugiohtms\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{548F5B37-EED1-4884-BF2E-ED24E7161E20}|YugiohTMS\\YugiohTMS.csproj|c:\\users\\rokas\\desktop\\ktu stuff\\ktu 4 kursas\\bakalauras\\yugiohtournamentsystem\\yugiohtms_api\\yugiohtms\\yugiohtms\\controllers\\tournamentcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{548F5B37-EED1-4884-BF2E-ED24E7161E20}|YugiohTMS\\YugiohTMS.csproj|solutionrelative:yugiohtms\\controllers\\tournamentcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{548F5B37-EED1-4884-BF2E-ED24E7161E20}|YugiohTMS\\YugiohTMS.csproj|c:\\users\\rokas\\desktop\\ktu\\yugiohtournamentsystem\\backend\\yugiohtms\\yugiohtms\\yugiohtms.http||{5703B403-55E7-4C63-8C88-A8F52C7A45C5}",
-      "RelativeMoniker": "D:0:0:{548F5B37-EED1-4884-BF2E-ED24E7161E20}|YugiohTMS\\YugiohTMS.csproj|solutionrelative:yugiohtms\\yugiohtms.http||{5703B403-55E7-4C63-8C88-A8F52C7A45C5}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{548F5B37-EED1-4884-BF2E-ED24E7161E20}|YugiohTMS\\YugiohTMS.csproj|c:\\users\\rokas\\desktop\\ktu\\yugiohtournamentsystem\\backend\\yugiohtms\\yugiohtms\\controllers\\authcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{548F5B37-EED1-4884-BF2E-ED24E7161E20}|YugiohTMS\\YugiohTMS.csproj|solutionrelative:yugiohtms\\controllers\\authcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{548F5B37-EED1-4884-BF2E-ED24E7161E20}|YugiohTMS\\YugiohTMS.csproj|c:\\users\\rokas\\desktop\\ktu\\yugiohtournamentsystem\\backend\\yugiohtms\\yugiohtms\\appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}",
-      "RelativeMoniker": "D:0:0:{548F5B37-EED1-4884-BF2E-ED24E7161E20}|YugiohTMS\\YugiohTMS.csproj|solutionrelative:yugiohtms\\appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{548F5B37-EED1-4884-BF2E-ED24E7161E20}|YugiohTMS\\YugiohTMS.csproj|c:\\users\\rokas\\desktop\\ktu\\yugiohtournamentsystem\\backend\\yugiohtms\\yugiohtms\\applicationdbcontext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{548F5B37-EED1-4884-BF2E-ED24E7161E20}|YugiohTMS\\YugiohTMS.csproj|solutionrelative:yugiohtms\\applicationdbcontext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{548F5B37-EED1-4884-BF2E-ED24E7161E20}|YugiohTMS\\YugiohTMS.csproj|c:\\users\\rokas\\desktop\\ktu\\yugiohtournamentsystem\\backend\\yugiohtms\\yugiohtms\\models\\user.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "AbsoluteMoniker": "D:0:0:{548F5B37-EED1-4884-BF2E-ED24E7161E20}|YugiohTMS\\YugiohTMS.csproj|c:\\users\\rokas\\desktop\\ktu stuff\\ktu 4 kursas\\bakalauras\\yugiohtournamentsystem\\yugiohtms_api\\yugiohtms\\yugiohtms\\models\\user.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{548F5B37-EED1-4884-BF2E-ED24E7161E20}|YugiohTMS\\YugiohTMS.csproj|solutionrelative:yugiohtms\\models\\user.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{548F5B37-EED1-4884-BF2E-ED24E7161E20}|YugiohTMS\\YugiohTMS.csproj|c:\\users\\rokas\\desktop\\ktu\\yugiohtournamentsystem\\backend\\yugiohtms\\yugiohtms\\models\\loginmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{548F5B37-EED1-4884-BF2E-ED24E7161E20}|YugiohTMS\\YugiohTMS.csproj|solutionrelative:yugiohtms\\models\\loginmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{548F5B37-EED1-4884-BF2E-ED24E7161E20}|YugiohTMS\\YugiohTMS.csproj|c:\\users\\rokas\\desktop\\ktu stuff\\ktu 4 kursas\\bakalauras\\yugiohtournamentsystem\\yugiohtms_api\\yugiohtms\\yugiohtms\\models\\tournamentplayer.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{548F5B37-EED1-4884-BF2E-ED24E7161E20}|YugiohTMS\\YugiohTMS.csproj|solutionrelative:yugiohtms\\models\\tournamentplayer.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{548F5B37-EED1-4884-BF2E-ED24E7161E20}|YugiohTMS\\YugiohTMS.csproj|c:\\users\\rokas\\desktop\\ktu\\yugiohtournamentsystem\\backend\\yugiohtms\\yugiohtms\\models\\registermodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{548F5B37-EED1-4884-BF2E-ED24E7161E20}|YugiohTMS\\YugiohTMS.csproj|solutionrelative:yugiohtms\\models\\registermodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{548F5B37-EED1-4884-BF2E-ED24E7161E20}|YugiohTMS\\YugiohTMS.csproj|c:\\users\\rokas\\desktop\\ktu stuff\\ktu 4 kursas\\bakalauras\\yugiohtournamentsystem\\yugiohtms_api\\yugiohtms\\yugiohtms\\models\\tournament.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{548F5B37-EED1-4884-BF2E-ED24E7161E20}|YugiohTMS\\YugiohTMS.csproj|solutionrelative:yugiohtms\\models\\tournament.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{548F5B37-EED1-4884-BF2E-ED24E7161E20}|YugiohTMS\\YugiohTMS.csproj|c:\\users\\rokas\\desktop\\ktu stuff\\ktu 4 kursas\\bakalauras\\yugiohtournamentsystem\\yugiohtms_api\\yugiohtms\\yugiohtms\\models\\match.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{548F5B37-EED1-4884-BF2E-ED24E7161E20}|YugiohTMS\\YugiohTMS.csproj|solutionrelative:yugiohtms\\models\\match.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{548F5B37-EED1-4884-BF2E-ED24E7161E20}|YugiohTMS\\YugiohTMS.csproj|c:\\users\\rokas\\desktop\\ktu stuff\\ktu 4 kursas\\bakalauras\\yugiohtournamentsystem\\yugiohtms_api\\yugiohtms\\yugiohtms\\dto models\\tournamentplayerdto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{548F5B37-EED1-4884-BF2E-ED24E7161E20}|YugiohTMS\\YugiohTMS.csproj|solutionrelative:yugiohtms\\dto models\\tournamentplayerdto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{548F5B37-EED1-4884-BF2E-ED24E7161E20}|YugiohTMS\\YugiohTMS.csproj|c:\\users\\rokas\\desktop\\ktu stuff\\ktu 4 kursas\\bakalauras\\yugiohtournamentsystem\\yugiohtms_api\\yugiohtms\\yugiohtms\\services\\tournamentservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{548F5B37-EED1-4884-BF2E-ED24E7161E20}|YugiohTMS\\YugiohTMS.csproj|solutionrelative:yugiohtms\\services\\tournamentservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{548F5B37-EED1-4884-BF2E-ED24E7161E20}|YugiohTMS\\YugiohTMS.csproj|c:\\users\\rokas\\desktop\\ktu stuff\\ktu 4 kursas\\bakalauras\\yugiohtournamentsystem\\yugiohtms_api\\yugiohtms\\yugiohtms\\controllers\\invitationcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{548F5B37-EED1-4884-BF2E-ED24E7161E20}|YugiohTMS\\YugiohTMS.csproj|solutionrelative:yugiohtms\\controllers\\invitationcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{548F5B37-EED1-4884-BF2E-ED24E7161E20}|YugiohTMS\\YugiohTMS.csproj|c:\\users\\rokas\\desktop\\ktu stuff\\ktu 4 kursas\\bakalauras\\yugiohtournamentsystem\\yugiohtms_api\\yugiohtms\\yugiohtms\\controllers\\authcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{548F5B37-EED1-4884-BF2E-ED24E7161E20}|YugiohTMS\\YugiohTMS.csproj|solutionrelative:yugiohtms\\controllers\\authcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{548F5B37-EED1-4884-BF2E-ED24E7161E20}|YugiohTMS\\YugiohTMS.csproj|c:\\users\\rokas\\desktop\\ktu stuff\\ktu 4 kursas\\bakalauras\\yugiohtournamentsystem\\yugiohtms_api\\yugiohtms\\yugiohtms\\yugiohtms.http||{5703B403-55E7-4C63-8C88-A8F52C7A45C5}",
+      "RelativeMoniker": "D:0:0:{548F5B37-EED1-4884-BF2E-ED24E7161E20}|YugiohTMS\\YugiohTMS.csproj|solutionrelative:yugiohtms\\yugiohtms.http||{5703B403-55E7-4C63-8C88-A8F52C7A45C5}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{548F5B37-EED1-4884-BF2E-ED24E7161E20}|YugiohTMS\\YugiohTMS.csproj|c:\\users\\rokas\\desktop\\ktu stuff\\ktu 4 kursas\\bakalauras\\yugiohtournamentsystem\\yugiohtms_api\\yugiohtms\\yugiohtms\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{548F5B37-EED1-4884-BF2E-ED24E7161E20}|YugiohTMS\\YugiohTMS.csproj|solutionrelative:yugiohtms\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{548F5B37-EED1-4884-BF2E-ED24E7161E20}|YugiohTMS\\YugiohTMS.csproj|c:\\users\\rokas\\desktop\\ktu stuff\\ktu 4 kursas\\bakalauras\\yugiohtournamentsystem\\yugiohtms_api\\yugiohtms\\yugiohtms\\models\\deck.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{548F5B37-EED1-4884-BF2E-ED24E7161E20}|YugiohTMS\\YugiohTMS.csproj|solutionrelative:yugiohtms\\models\\deck.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{548F5B37-EED1-4884-BF2E-ED24E7161E20}|YugiohTMS\\YugiohTMS.csproj|c:\\users\\rokas\\desktop\\ktu stuff\\ktu 4 kursas\\bakalauras\\yugiohtournamentsystem\\yugiohtms_api\\yugiohtms\\yugiohtms\\controllers\\deckscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{548F5B37-EED1-4884-BF2E-ED24E7161E20}|YugiohTMS\\YugiohTMS.csproj|solutionrelative:yugiohtms\\controllers\\deckscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{548F5B37-EED1-4884-BF2E-ED24E7161E20}|YugiohTMS\\YugiohTMS.csproj|c:\\users\\rokas\\desktop\\ktu stuff\\ktu 4 kursas\\bakalauras\\yugiohtournamentsystem\\yugiohtms_api\\yugiohtms\\yugiohtms\\appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}",
+      "RelativeMoniker": "D:0:0:{548F5B37-EED1-4884-BF2E-ED24E7161E20}|YugiohTMS\\YugiohTMS.csproj|solutionrelative:yugiohtms\\appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{548F5B37-EED1-4884-BF2E-ED24E7161E20}|YugiohTMS\\YugiohTMS.csproj|c:\\users\\rokas\\desktop\\ktu stuff\\ktu 4 kursas\\bakalauras\\yugiohtournamentsystem\\yugiohtms_api\\yugiohtms\\yugiohtms\\applicationdbcontext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{548F5B37-EED1-4884-BF2E-ED24E7161E20}|YugiohTMS\\YugiohTMS.csproj|solutionrelative:yugiohtms\\applicationdbcontext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\Rokas\\Desktop\\KTU\\yugiohtournamentsystem\\backend\\YugiohTMS\\YugiohTMS\\Models\\LoginModel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\Rokas\\Desktop\\KTU\\yugiohtournamentsystem\\backend\\YugiohTMS\\YugiohTMS\\Models\\RegisterModel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
   "DocumentGroupContainers": [
@@ -42,108 +76,216 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 7,
+          "SelectedChildIndex": 6,
           "Children": [
             {
-              "$type": "Document",
-              "DocumentIndex": 1,
-              "Title": "YugiohTMS.http",
-              "DocumentMoniker": "C:\\Users\\Rokas\\Desktop\\KTU\\yugiohtournamentsystem\\backend\\YugiohTMS\\YugiohTMS\\YugiohTMS.http",
-              "RelativeDocumentMoniker": "YugiohTMS\\YugiohTMS.http",
-              "ToolTip": "C:\\Users\\Rokas\\Desktop\\KTU\\yugiohtournamentsystem\\backend\\YugiohTMS\\YugiohTMS\\YugiohTMS.http",
-              "RelativeToolTip": "YugiohTMS\\YugiohTMS.http",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003502|",
-              "WhenOpened": "2025-02-23T09:55:12.98Z",
-              "EditorCaption": ""
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{1c4feeaa-4718-4aa9-859d-94ce25d182ba}"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 6,
-              "Title": "LoginModel.cs",
-              "DocumentMoniker": "C:\\Users\\Rokas\\Desktop\\KTU\\yugiohtournamentsystem\\backend\\YugiohTMS\\YugiohTMS\\Models\\LoginModel.cs",
-              "RelativeDocumentMoniker": "YugiohTMS\\Models\\LoginModel.cs",
-              "ToolTip": "C:\\Users\\Rokas\\Desktop\\KTU\\yugiohtournamentsystem\\backend\\YugiohTMS\\YugiohTMS\\Models\\LoginModel.cs",
-              "RelativeToolTip": "YugiohTMS\\Models\\LoginModel.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAkAAAAAAAAAAAAAAA==",
+              "DocumentIndex": 3,
+              "Title": "Tournament.cs",
+              "DocumentMoniker": "C:\\Users\\Rokas\\Desktop\\KTU STUFF\\KTU 4 KURSAS\\BAKALAURAS\\yugiohtournamentsystem\\YugiohTMS_API\\YugiohTMS\\YugiohTMS\\Models\\Tournament.cs",
+              "RelativeDocumentMoniker": "YugiohTMS\\Models\\Tournament.cs",
+              "ToolTip": "C:\\Users\\Rokas\\Desktop\\KTU STUFF\\KTU 4 KURSAS\\BAKALAURAS\\yugiohtournamentsystem\\YugiohTMS_API\\YugiohTMS\\YugiohTMS\\Models\\Tournament.cs",
+              "RelativeToolTip": "YugiohTMS\\Models\\Tournament.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAACAAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-02-22T13:42:32.57Z"
+              "WhenOpened": "2025-06-04T15:51:52.586Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "Match.cs",
+              "DocumentMoniker": "C:\\Users\\Rokas\\Desktop\\KTU STUFF\\KTU 4 KURSAS\\BAKALAURAS\\yugiohtournamentsystem\\YugiohTMS_API\\YugiohTMS\\YugiohTMS\\Models\\Match.cs",
+              "RelativeDocumentMoniker": "YugiohTMS\\Models\\Match.cs",
+              "ToolTip": "C:\\Users\\Rokas\\Desktop\\KTU STUFF\\KTU 4 KURSAS\\BAKALAURAS\\yugiohtournamentsystem\\YugiohTMS_API\\YugiohTMS\\YugiohTMS\\Models\\Match.cs",
+              "RelativeToolTip": "YugiohTMS\\Models\\Match.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAACcAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-06-04T15:49:59.472Z"
             },
             {
               "$type": "Document",
               "DocumentIndex": 7,
+              "Title": "InvitationController.cs",
+              "DocumentMoniker": "C:\\Users\\Rokas\\Desktop\\KTU STUFF\\KTU 4 KURSAS\\BAKALAURAS\\yugiohtournamentsystem\\YugiohTMS_API\\YugiohTMS\\YugiohTMS\\Controllers\\InvitationController.cs",
+              "RelativeDocumentMoniker": "YugiohTMS\\Controllers\\InvitationController.cs",
+              "ToolTip": "C:\\Users\\Rokas\\Desktop\\KTU STUFF\\KTU 4 KURSAS\\BAKALAURAS\\yugiohtournamentsystem\\YugiohTMS_API\\YugiohTMS\\YugiohTMS\\Controllers\\InvitationController.cs",
+              "RelativeToolTip": "YugiohTMS\\Controllers\\InvitationController.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-06-01T19:53:00.806Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 6,
+              "Title": "TournamentService.cs",
+              "DocumentMoniker": "C:\\Users\\Rokas\\Desktop\\KTU STUFF\\KTU 4 KURSAS\\BAKALAURAS\\yugiohtournamentsystem\\YugiohTMS_API\\YugiohTMS\\YugiohTMS\\Services\\TournamentService.cs",
+              "RelativeDocumentMoniker": "YugiohTMS\\Services\\TournamentService.cs",
+              "ToolTip": "C:\\Users\\Rokas\\Desktop\\KTU STUFF\\KTU 4 KURSAS\\BAKALAURAS\\yugiohtournamentsystem\\YugiohTMS_API\\YugiohTMS\\YugiohTMS\\Services\\TournamentService.cs",
+              "RelativeToolTip": "YugiohTMS\\Services\\TournamentService.cs",
+              "ViewState": "AgIAANQAAAAAAAAAAAAAwI0AAAAJAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-06-01T19:52:29.248Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 8,
+              "Title": "AuthController.cs",
+              "DocumentMoniker": "C:\\Users\\Rokas\\Desktop\\KTU STUFF\\KTU 4 KURSAS\\BAKALAURAS\\yugiohtournamentsystem\\YugiohTMS_API\\YugiohTMS\\YugiohTMS\\Controllers\\AuthController.cs",
+              "RelativeDocumentMoniker": "YugiohTMS\\Controllers\\AuthController.cs",
+              "ToolTip": "C:\\Users\\Rokas\\Desktop\\KTU STUFF\\KTU 4 KURSAS\\BAKALAURAS\\yugiohtournamentsystem\\YugiohTMS_API\\YugiohTMS\\YugiohTMS\\Controllers\\AuthController.cs",
+              "RelativeToolTip": "YugiohTMS\\Controllers\\AuthController.cs",
+              "ViewState": "AgIAAA4AAAAAAAAAAAAxwA0AAAATAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-02-22T13:29:49.268Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "TournamentController.cs",
+              "DocumentMoniker": "C:\\Users\\Rokas\\Desktop\\KTU STUFF\\KTU 4 KURSAS\\BAKALAURAS\\yugiohtournamentsystem\\YugiohTMS_API\\YugiohTMS\\YugiohTMS\\Controllers\\TournamentController.cs",
+              "RelativeDocumentMoniker": "YugiohTMS\\Controllers\\TournamentController.cs",
+              "ToolTip": "C:\\Users\\Rokas\\Desktop\\KTU STUFF\\KTU 4 KURSAS\\BAKALAURAS\\yugiohtournamentsystem\\YugiohTMS_API\\YugiohTMS\\YugiohTMS\\Controllers\\TournamentController.cs",
+              "RelativeToolTip": "YugiohTMS\\Controllers\\TournamentController.cs",
+              "ViewState": "AgIAAIwCAAAAAAAAAAAowLICAAAzAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-06-01T19:53:01.178Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 16,
               "Title": "RegisterModel.cs",
               "DocumentMoniker": "C:\\Users\\Rokas\\Desktop\\KTU\\yugiohtournamentsystem\\backend\\YugiohTMS\\YugiohTMS\\Models\\RegisterModel.cs",
-              "RelativeDocumentMoniker": "YugiohTMS\\Models\\RegisterModel.cs",
+              "RelativeDocumentMoniker": "..\\..\\..\\..\\..\\..\\KTU\\yugiohtournamentsystem\\backend\\YugiohTMS\\YugiohTMS\\Models\\RegisterModel.cs",
               "ToolTip": "C:\\Users\\Rokas\\Desktop\\KTU\\yugiohtournamentsystem\\backend\\YugiohTMS\\YugiohTMS\\Models\\RegisterModel.cs",
-              "RelativeToolTip": "YugiohTMS\\Models\\RegisterModel.cs",
+              "RelativeToolTip": "..\\..\\..\\..\\..\\..\\KTU\\yugiohtournamentsystem\\backend\\YugiohTMS\\YugiohTMS\\Models\\RegisterModel.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAQAAAAGAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-02-22T13:42:25.844Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 3,
-              "Title": "appsettings.json",
-              "DocumentMoniker": "C:\\Users\\Rokas\\Desktop\\KTU\\yugiohtournamentsystem\\backend\\YugiohTMS\\YugiohTMS\\appsettings.json",
-              "RelativeDocumentMoniker": "YugiohTMS\\appsettings.json",
-              "ToolTip": "C:\\Users\\Rokas\\Desktop\\KTU\\yugiohtournamentsystem\\backend\\YugiohTMS\\YugiohTMS\\appsettings.json",
-              "RelativeToolTip": "YugiohTMS\\appsettings.json",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAABEAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001642|",
-              "WhenOpened": "2025-02-22T13:41:29.58Z",
-              "EditorCaption": ""
+              "DocumentIndex": 10,
+              "Title": "Program.cs",
+              "DocumentMoniker": "C:\\Users\\Rokas\\Desktop\\KTU STUFF\\KTU 4 KURSAS\\BAKALAURAS\\yugiohtournamentsystem\\YugiohTMS_API\\YugiohTMS\\YugiohTMS\\Program.cs",
+              "RelativeDocumentMoniker": "YugiohTMS\\Program.cs",
+              "ToolTip": "C:\\Users\\Rokas\\Desktop\\KTU STUFF\\KTU 4 KURSAS\\BAKALAURAS\\yugiohtournamentsystem\\YugiohTMS_API\\YugiohTMS\\YugiohTMS\\Program.cs",
+              "RelativeToolTip": "YugiohTMS\\Program.cs",
+              "ViewState": "AgIAAAwAAAAAAAAAAAAAAEEAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-02-22T13:27:40.872Z"
             },
             {
               "$type": "Document",
               "DocumentIndex": 2,
-              "Title": "AuthController.cs",
-              "DocumentMoniker": "C:\\Users\\Rokas\\Desktop\\KTU\\yugiohtournamentsystem\\backend\\YugiohTMS\\YugiohTMS\\Controllers\\AuthController.cs",
-              "RelativeDocumentMoniker": "YugiohTMS\\Controllers\\AuthController.cs",
-              "ToolTip": "C:\\Users\\Rokas\\Desktop\\KTU\\yugiohtournamentsystem\\backend\\YugiohTMS\\YugiohTMS\\Controllers\\AuthController.cs",
-              "RelativeToolTip": "YugiohTMS\\Controllers\\AuthController.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAADsAAAAKAAAAAAAAAA==",
+              "Title": "TournamentPlayer.cs",
+              "DocumentMoniker": "C:\\Users\\Rokas\\Desktop\\KTU STUFF\\KTU 4 KURSAS\\BAKALAURAS\\yugiohtournamentsystem\\YugiohTMS_API\\YugiohTMS\\YugiohTMS\\Models\\TournamentPlayer.cs",
+              "RelativeDocumentMoniker": "YugiohTMS\\Models\\TournamentPlayer.cs",
+              "ToolTip": "C:\\Users\\Rokas\\Desktop\\KTU STUFF\\KTU 4 KURSAS\\BAKALAURAS\\yugiohtournamentsystem\\YugiohTMS_API\\YugiohTMS\\YugiohTMS\\Models\\TournamentPlayer.cs",
+              "RelativeToolTip": "YugiohTMS\\Models\\TournamentPlayer.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABwAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-02-22T13:29:49.268Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-06-01T19:52:23.125Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 4,
-              "Title": "ApplicationDbContext.cs",
-              "DocumentMoniker": "C:\\Users\\Rokas\\Desktop\\KTU\\yugiohtournamentsystem\\backend\\YugiohTMS\\YugiohTMS\\ApplicationDbContext.cs",
-              "RelativeDocumentMoniker": "YugiohTMS\\ApplicationDbContext.cs",
-              "ToolTip": "C:\\Users\\Rokas\\Desktop\\KTU\\yugiohtournamentsystem\\backend\\YugiohTMS\\YugiohTMS\\ApplicationDbContext.cs",
-              "RelativeToolTip": "YugiohTMS\\ApplicationDbContext.cs",
-              "ViewState": "AgIAAAoAAAAAAAAAAAAQwA0AAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-02-22T13:37:30.134Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 5,
+              "DocumentIndex": 1,
               "Title": "User.cs",
-              "DocumentMoniker": "C:\\Users\\Rokas\\Desktop\\KTU\\yugiohtournamentsystem\\backend\\YugiohTMS\\YugiohTMS\\Models\\User.cs",
+              "DocumentMoniker": "C:\\Users\\Rokas\\Desktop\\KTU STUFF\\KTU 4 KURSAS\\BAKALAURAS\\yugiohtournamentsystem\\YugiohTMS_API\\YugiohTMS\\YugiohTMS\\Models\\User.cs",
               "RelativeDocumentMoniker": "YugiohTMS\\Models\\User.cs",
-              "ToolTip": "C:\\Users\\Rokas\\Desktop\\KTU\\yugiohtournamentsystem\\backend\\YugiohTMS\\YugiohTMS\\Models\\User.cs",
+              "ToolTip": "C:\\Users\\Rokas\\Desktop\\KTU STUFF\\KTU 4 KURSAS\\BAKALAURAS\\yugiohtournamentsystem\\YugiohTMS_API\\YugiohTMS\\YugiohTMS\\Models\\User.cs",
               "RelativeToolTip": "YugiohTMS\\Models\\User.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAwAAAABAAAAAAAAAA==",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABkAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-02-22T13:35:21.111Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 0,
-              "Title": "Program.cs",
-              "DocumentMoniker": "C:\\Users\\Rokas\\Desktop\\KTU\\yugiohtournamentsystem\\backend\\YugiohTMS\\YugiohTMS\\Program.cs",
-              "RelativeDocumentMoniker": "YugiohTMS\\Program.cs",
-              "ToolTip": "C:\\Users\\Rokas\\Desktop\\KTU\\yugiohtournamentsystem\\backend\\YugiohTMS\\YugiohTMS\\Program.cs",
-              "RelativeToolTip": "YugiohTMS\\Program.cs",
-              "ViewState": "AgIAADMAAAAAAAAAAAAAAEcAAAAKAAAAAAAAAA==",
+              "DocumentIndex": 15,
+              "Title": "LoginModel.cs",
+              "DocumentMoniker": "C:\\Users\\Rokas\\Desktop\\KTU\\yugiohtournamentsystem\\backend\\YugiohTMS\\YugiohTMS\\Models\\LoginModel.cs",
+              "RelativeDocumentMoniker": "..\\..\\..\\..\\..\\..\\KTU\\yugiohtournamentsystem\\backend\\YugiohTMS\\YugiohTMS\\Models\\LoginModel.cs",
+              "ToolTip": "C:\\Users\\Rokas\\Desktop\\KTU\\yugiohtournamentsystem\\backend\\YugiohTMS\\YugiohTMS\\Models\\LoginModel.cs",
+              "RelativeToolTip": "..\\..\\..\\..\\..\\..\\KTU\\yugiohtournamentsystem\\backend\\YugiohTMS\\YugiohTMS\\Models\\LoginModel.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAkAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-02-22T13:27:40.872Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-02-22T13:42:32.57Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 9,
+              "Title": "YugiohTMS.http",
+              "DocumentMoniker": "C:\\Users\\Rokas\\Desktop\\KTU STUFF\\KTU 4 KURSAS\\BAKALAURAS\\yugiohtournamentsystem\\YugiohTMS_API\\YugiohTMS\\YugiohTMS\\YugiohTMS.http",
+              "RelativeDocumentMoniker": "YugiohTMS\\YugiohTMS.http",
+              "ToolTip": "C:\\Users\\Rokas\\Desktop\\KTU STUFF\\KTU 4 KURSAS\\BAKALAURAS\\yugiohtournamentsystem\\YugiohTMS_API\\YugiohTMS\\YugiohTMS\\YugiohTMS.http",
+              "RelativeToolTip": "YugiohTMS\\YugiohTMS.http",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003502|",
+              "WhenOpened": "2025-02-23T09:55:12.98Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
+              "Title": "TournamentPlayerDto.cs",
+              "DocumentMoniker": "C:\\Users\\Rokas\\Desktop\\KTU STUFF\\KTU 4 KURSAS\\BAKALAURAS\\yugiohtournamentsystem\\YugiohTMS_API\\YugiohTMS\\YugiohTMS\\DTO Models\\TournamentPlayerDto.cs",
+              "RelativeDocumentMoniker": "YugiohTMS\\DTO Models\\TournamentPlayerDto.cs",
+              "ToolTip": "C:\\Users\\Rokas\\Desktop\\KTU STUFF\\KTU 4 KURSAS\\BAKALAURAS\\yugiohtournamentsystem\\YugiohTMS_API\\YugiohTMS\\YugiohTMS\\DTO Models\\TournamentPlayerDto.cs",
+              "RelativeToolTip": "YugiohTMS\\DTO Models\\TournamentPlayerDto.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABwAAAAnAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-06-03T19:14:44.47Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 12,
+              "Title": "DecksController.cs",
+              "DocumentMoniker": "C:\\Users\\Rokas\\Desktop\\KTU STUFF\\KTU 4 KURSAS\\BAKALAURAS\\yugiohtournamentsystem\\YugiohTMS_API\\YugiohTMS\\YugiohTMS\\Controllers\\DecksController.cs",
+              "RelativeDocumentMoniker": "YugiohTMS\\Controllers\\DecksController.cs",
+              "ToolTip": "C:\\Users\\Rokas\\Desktop\\KTU STUFF\\KTU 4 KURSAS\\BAKALAURAS\\yugiohtournamentsystem\\YugiohTMS_API\\YugiohTMS\\YugiohTMS\\Controllers\\DecksController.cs",
+              "RelativeToolTip": "YugiohTMS\\Controllers\\DecksController.cs",
+              "ViewState": "AgIAAB4AAAAAAAAAAAAowEIAAAAJAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-06-03T17:33:02.067Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 11,
+              "Title": "Deck.cs",
+              "DocumentMoniker": "C:\\Users\\Rokas\\Desktop\\KTU STUFF\\KTU 4 KURSAS\\BAKALAURAS\\yugiohtournamentsystem\\YugiohTMS_API\\YugiohTMS\\YugiohTMS\\Models\\Deck.cs",
+              "RelativeDocumentMoniker": "YugiohTMS\\Models\\Deck.cs",
+              "ToolTip": "C:\\Users\\Rokas\\Desktop\\KTU STUFF\\KTU 4 KURSAS\\BAKALAURAS\\yugiohtournamentsystem\\YugiohTMS_API\\YugiohTMS\\YugiohTMS\\Models\\Deck.cs",
+              "RelativeToolTip": "YugiohTMS\\Models\\Deck.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-06-03T18:07:46.223Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 13,
+              "Title": "appsettings.json",
+              "DocumentMoniker": "C:\\Users\\Rokas\\Desktop\\KTU STUFF\\KTU 4 KURSAS\\BAKALAURAS\\yugiohtournamentsystem\\YugiohTMS_API\\YugiohTMS\\YugiohTMS\\appsettings.json",
+              "RelativeDocumentMoniker": "YugiohTMS\\appsettings.json",
+              "ToolTip": "C:\\Users\\Rokas\\Desktop\\KTU STUFF\\KTU 4 KURSAS\\BAKALAURAS\\yugiohtournamentsystem\\YugiohTMS_API\\YugiohTMS\\YugiohTMS\\appsettings.json",
+              "RelativeToolTip": "YugiohTMS\\appsettings.json",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABEAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001642|",
+              "WhenOpened": "2025-02-22T13:41:29.58Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 14,
+              "Title": "ApplicationDbContext.cs",
+              "DocumentMoniker": "C:\\Users\\Rokas\\Desktop\\KTU STUFF\\KTU 4 KURSAS\\BAKALAURAS\\yugiohtournamentsystem\\YugiohTMS_API\\YugiohTMS\\YugiohTMS\\ApplicationDbContext.cs",
+              "RelativeDocumentMoniker": "YugiohTMS\\ApplicationDbContext.cs",
+              "ToolTip": "C:\\Users\\Rokas\\Desktop\\KTU STUFF\\KTU 4 KURSAS\\BAKALAURAS\\yugiohtournamentsystem\\YugiohTMS_API\\YugiohTMS\\YugiohTMS\\ApplicationDbContext.cs",
+              "RelativeToolTip": "YugiohTMS\\ApplicationDbContext.cs",
+              "ViewState": "AgIAAAoAAAAAAAAAAAAQwA0AAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-02-22T13:37:30.134Z"
             }
           ]
         }

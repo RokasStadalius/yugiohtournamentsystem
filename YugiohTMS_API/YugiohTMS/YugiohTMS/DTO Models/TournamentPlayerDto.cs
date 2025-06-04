@@ -23,7 +23,9 @@
     {
         public int Id { get; set; }
         public string Name { get; set; }
-        public string DeckName { get; set; } 
+        public string DeckName { get; set; }
+
+        public int ID_Deck { get; set; }
         public int Rating { get; set; }
     }
 }

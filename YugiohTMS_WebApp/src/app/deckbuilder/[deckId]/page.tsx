@@ -21,6 +21,12 @@ interface DeckCardType {
   whichDeck: number;
 }
 
+interface DeckInfoType {
+  iD_Deck: number;
+  name: string;
+  iD_User: number;
+}
+
 export default function DeckBuilder() {
   const params = useParams();
   const router = useRouter();
@@ -34,13 +40,16 @@ export default function DeckBuilder() {
   const [imageLoading, setImageLoading] = useState<{ [key: number]: boolean }>(
     {}
   );
-  const [searchName, setSearchName] = useState("");
-  const [searchType, setSearchType] = useState("");
+  const [searchName, setSearchName] = useState(""); // Added searchName state
+  const [searchType, setSearchType] = useState(""); // Added searchType state
   const [selectedCard, setSelectedCard] = useState<CardType | null>(null);
   const [menuPosition, setMenuPosition] = useState<{
     x: number;
     y: number;
   } | null>(null);
+  const [isOwner, setIsOwner] = useState<boolean>(false);
+  const [deckInfo, setDeckInfo] = useState<DeckInfoType | null>(null);
+  const [selectedDeckCard, setSelectedDeckCard] = useState<CardType | null>(null);
 
   const extraDeckTypes = [
     "link",
@@ -65,6 +74,7 @@ export default function DeckBuilder() {
       return;
     }
 
+    fetchDeckInfo(deckId);
     fetchDeckCards(deckId);
     fetchAllCards();
   }, [deckId, router]);
@@ -78,6 +88,24 @@ export default function DeckBuilder() {
     document.addEventListener("click", handleClickOutside);
     return () => document.removeEventListener("click", handleClickOutside);
   }, []);
+
+  const fetchDeckInfo = async (deckId: string) => {
+    try {
+      const response = await fetch(
+        `${process.env.NEXT_PUBLIC_API_URL}/api/Decks/${deckId}`
+      );
+      if (!response.ok) throw new Error("Failed to fetch deck info");
+      
+      const data: DeckInfoType = await response.json();
+      setDeckInfo(data);
+
+      
+      const userId = localStorage.getItem("userId");
+      setIsOwner(data.iD_User === parseInt(userId || "0"));
+    } catch (error) {
+      toast.error("Error loading deck info");
+    }
+  };
 
   const fetchDeckCards = async (deckId: string) => {
     setLoading(true);
@@ -120,28 +148,52 @@ export default function DeckBuilder() {
     }
   };
 
-  const handleCardClick = (card: CardType) => {
+  const addCardToDeck = (deckType: "main" | "extra" | "side") => {
+    if (!selectedCard) return;
+
+    if (deckType === "main" && mainDeckCards.length >= 60) {
+      toast.error("Main deck cannot exceed 60 cards!");
+      return;
+    }
+    if (deckType === "extra" && extraDeckCards.length >= 15) {
+      toast.error("Extra deck cannot exceed 15 cards!");
+      return;
+    }
+    if (deckType === "side" && sideDeckCards.length >= 15) {
+      toast.error("Side deck cannot exceed 15 cards!");
+      return;
+    }
+
     const totalCopies = [
       ...mainDeckCards,
       ...extraDeckCards,
       ...sideDeckCards,
-    ].filter((c) => c.iD_Card === card.iD_Card).length;
+    ].filter((c) => c.iD_Card === selectedCard.iD_Card).length;
 
     if (totalCopies >= 3) {
       toast.error("Maximum 3 copies allowed!");
       return;
     }
 
-    const isExtraDeck = extraDeckTypes.includes(card.frameType.toLowerCase());
-    const updateDeck = isExtraDeck ? setExtraDeckCards : setMainDeckCards;
-    updateDeck((prev) => [...prev, card]);
+    switch (deckType) {
+      case "main":
+        setMainDeckCards((prev) => [...prev, selectedCard]);
+        break;
+      case "extra":
+        setExtraDeckCards((prev) => [...prev, selectedCard]);
+        break;
+      case "side":
+        setSideDeckCards((prev) => [...prev, selectedCard]);
+        break;
+    }
 
-    setImageLoading((prev) => ({ ...prev, [card.iD_Card]: true }));
+    setImageLoading((prev) => ({ ...prev, [selectedCard.iD_Card]: true }));
+    setMenuPosition(null);
 
     const img = new window.Image();
-    img.src = card.imageURL;
+    img.src = selectedCard.imageURL;
     img.onload = img.onerror = () => {
-      setImageLoading((prev) => ({ ...prev, [card.iD_Card]: false }));
+      setImageLoading((prev) => ({ ...prev, [selectedCard.iD_Card]: false }));
     };
   };
 
@@ -217,17 +269,26 @@ export default function DeckBuilder() {
             cards.map((card, index) => (
               <div
                 key={`${deckType}-${card.iD_Card}-${index}`}
-                className="group relative w-20 h-28 flex-shrink-0 bg-zinc-800 rounded-sm border border-zinc-700 hover:border-red-500 transition-all"
+                className={`group relative w-20 h-28 flex-shrink-0 bg-zinc-800 rounded-sm border ${
+                  isOwner 
+                    ? "border-zinc-700 hover:border-red-500" 
+                    : "border-zinc-600 hover:border-blue-500"
+                } transition-all`}
+                onClick={() => {
+                  if (!isOwner) setSelectedDeckCard(card);
+                }}
               >
-                <button
-                  onClick={(e) => {
-                    e.stopPropagation();
-                    handleRemoveCard(card, deckType, index);
-                  }}
-                  className="absolute top-0.5 right-0.5 bg-black bg-opacity-70 rounded-full text-xs text-red-500 hover:text-white w-4 h-4 flex items-center justify-center z-10"
-                >
-                  ×
-                </button>
+                {isOwner && (
+                  <button
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      handleRemoveCard(card, deckType, index);
+                    }}
+                    className="absolute top-0.5 right-0.5 bg-black bg-opacity-70 rounded-full text-xs text-red-500 hover:text-white w-4 h-4 flex items-center justify-center z-10"
+                  >
+                    ×
+                  </button>
+                )}
 
                 {imageLoading[card.iD_Card] && (
                   <div className="absolute inset-0 bg-zinc-900/80 flex items-center justify-center rounded-sm">
@@ -269,76 +330,97 @@ export default function DeckBuilder() {
     </Card>
   );
 
-  const filteredCards = cards.filter((card) => {
-    const nameMatch = card.name
-      .toLowerCase()
-      .includes(searchName.toLowerCase());
-    const typeMatch =
-      searchType === "" ||
-      (searchType === "normal" && card.frameType.includes("normal")) ||
-      (searchType === "effect" && card.frameType.includes("effect")) ||
-      (searchType === "spell" && card.frameType === "Spell Card") ||
-      (searchType === "trap" && card.frameType === "Trap Card") ||
-      card.frameType.toLowerCase().includes(searchType.toLowerCase());
-    return nameMatch && typeMatch;
-  });
-
-  const handleCardContextMenu = (
-    card: CardType,
-    e: React.MouseEvent<HTMLDivElement>
-  ) => {
-    e.preventDefault();
-    setSelectedCard(card);
-    setMenuPosition({ x: e.clientX, y: e.clientY });
-  };
-
-  const addCardToDeck = (deckType: "main" | "extra" | "side") => {
-    if (!selectedCard) return;
-
-    if (deckType === "main" && mainDeckCards.length >= 60) {
-      toast.error("Main deck cannot exceed 60 cards!");
-      return;
-    }
-    if (deckType === "extra" && extraDeckCards.length >= 15) {
-      toast.error("Extra deck cannot exceed 15 cards!");
-      return;
-    }
-    if (deckType === "side" && sideDeckCards.length >= 15) {
-      toast.error("Side deck cannot exceed 15 cards!");
-      return;
-    }
-
-    const totalCopies = [
-      ...mainDeckCards,
-      ...extraDeckCards,
-      ...sideDeckCards,
-    ].filter((c) => c.iD_Card === selectedCard.iD_Card).length;
-
-    if (totalCopies >= 3) {
-      toast.error("Maximum 3 copies allowed!");
-      return;
-    }
-
-    switch (deckType) {
-      case "main":
-        setMainDeckCards((prev) => [...prev, selectedCard]);
-        break;
-      case "extra":
-        setExtraDeckCards((prev) => [...prev, selectedCard]);
-        break;
-      case "side":
-        setSideDeckCards((prev) => [...prev, selectedCard]);
-        break;
-    }
-
-    setImageLoading((prev) => ({ ...prev, [selectedCard.iD_Card]: true }));
-    setMenuPosition(null);
-
-    const img = new window.Image();
-    img.src = selectedCard.imageURL;
-    img.onload = img.onerror = () => {
-      setImageLoading((prev) => ({ ...prev, [selectedCard.iD_Card]: false }));
-    };
+  const renderCardDetails = () => {
+    if (!selectedDeckCard) return null;
+    
+    return (
+      <div className="flex-1 max-w-2xl sticky top-4 h-[calc(100vh-2rem)]">
+        <Card className="bg-zinc-900 border-2 border-zinc-800 h-full">
+          <CardHeader className="bg-zinc-800 px-6 py-4 border-b border-zinc-700">
+            <h2 className="text-xl font-semibold flex items-center gap-2 text-white">
+              <Flame className="w-5 h-5 text-orange-500" />
+              Card Details
+            </h2>
+          </CardHeader>
+          <CardContent className="p-6 h-[calc(100%-80px)] overflow-y-auto">
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+              <div className="relative aspect-[421/614] rounded-lg overflow-hidden border-2 border-zinc-700">
+                <Image
+                  src={selectedDeckCard.imageURL}
+                  alt={selectedDeckCard.name}
+                  fill
+                  className="object-cover"
+                  priority
+                />
+              </div>
+              <div className="space-y-4">
+                <div>
+                  <h3 className="text-2xl font-bold text-red-400 mb-2">
+                    {selectedDeckCard.name}
+                  </h3>
+                  <p className="text-sm text-zinc-400">
+                    {selectedDeckCard.race} {selectedDeckCard.frameType}
+                  </p>
+                </div>
+                <div className="grid grid-cols-2 gap-4 bg-zinc-800 p-4 rounded-lg">
+                  {selectedDeckCard.atk !== undefined && (
+                    <div>
+                      <div className="flex items-center gap-1">
+                        <Sword className="w-4 h-4 text-red-400" />
+                        <p className="text-sm text-zinc-400">ATK</p>
+                      </div>
+                      <p className="text-xl font-bold text-white">
+                        {selectedDeckCard.atk}
+                      </p>
+                    </div>
+                  )}
+                  {selectedDeckCard.def !== undefined && (
+                    <div>
+                      <div className="flex items-center gap-1">
+                        <Shield className="w-4 h-4 text-blue-400" />
+                        <p className="text-sm text-zinc-400">DEF</p>
+                      </div>
+                      <p className="text-xl font-bold text-white">
+                        {selectedDeckCard.def}
+                      </p>
+                    </div>
+                  )}
+                  {selectedDeckCard.level && (
+                    <div>
+                      <div className="flex items-center gap-1">
+                        <Image 
+                          src="/level.png" 
+                          alt="Level" 
+                          width={15} 
+                          height={15} 
+                        />
+                        <p className="text-sm text-zinc-400">Level</p>
+                      </div>
+                      <p className="text-xl font-bold text-white">
+                        {selectedDeckCard.level}
+                      </p>
+                    </div>
+                  )}
+                  {selectedDeckCard.attribute && (
+                    <div>
+                      <p className="text-sm text-zinc-400">Attribute</p>
+                      <p className="text-xl font-bold text-white">
+                        {selectedDeckCard.attribute}
+                      </p>
+                    </div>
+                  )}
+                </div>
+                <div className="space-y-2">
+                  <p className="text-sm text-zinc-300 whitespace-pre-line">
+                    {selectedDeckCard.description}
+                  </p>
+                </div>
+              </div>
+            </div>
+          </CardContent>
+        </Card>
+      </div>
+    );
   };
 
   return (
@@ -355,8 +437,13 @@ export default function DeckBuilder() {
             <div className="flex items-center mb-12">
               <Sword className="w-8 h-8 text-red-500 mr-3" />
               <h1 className="text-4xl font-bold bg-gradient-to-r from-red-500 to-orange-500 bg-clip-text text-transparent">
-                Deck Forge
+                {deckInfo ? deckInfo.name : "Deck Forge"}
               </h1>
+              {!isOwner && (
+                <span className="ml-4 px-3 py-1 bg-zinc-800 text-zinc-300 text-sm rounded-full">
+                  View Only
+                </span>
+              )}
             </div>
 
             {loading ? (
@@ -367,66 +454,88 @@ export default function DeckBuilder() {
               </div>
             ) : (
               <div className="flex gap-8">
-                <div className="w-80 flex-shrink-0 sticky top-4 h-[calc(100vh-2rem)]">
-                  <Card className="bg-zinc-900 border-2 border-zinc-800 h-full">
-                    <CardHeader className="bg-zinc-800 px-6 py-4 border-b border-zinc-700">
-                      <div className="space-y-4">
-                        <h2 className="text-xl font-semibold flex items-center gap-2 text-white">
-                          <Shield className="w-5 h-5" /> Card Library
-                        </h2>
-                        <div className="space-y-2">
-                          <input
-                            type="text"
-                            placeholder="Search by name..."
-                            className="w-full px-3 py-2 text-sm bg-zinc-900 border border-zinc-700 rounded-md text-white focus:outline-none focus:ring-2 focus:ring-red-500"
-                            value={searchName}
-                            onChange={(e) => setSearchName(e.target.value)}
-                          />
-                          <select
-                            className="w-full px-3 py-2 text-sm bg-zinc-900 border border-zinc-700 rounded-md text-white focus:outline-none focus:ring-2 focus:ring-red-500"
-                            value={searchType}
-                            onChange={(e) => setSearchType(e.target.value)}
-                          >
-                            <option value="">All Types</option>
-                            <option value="normal">Normal Monster</option>
-                            <option value="effect">Effect Monster</option>
-                            <option value="spell">Spell</option>
-                            <option value="trap">Trap</option>
-                            <option value="xyz">XYZ</option>
-                            <option value="synchro">Synchro</option>
-                            <option value="fusion">Fusion</option>
-                            <option value="link">Link</option>
-                            <option value="pendulum">Pendulum</option>
-                          </select>
+                {isOwner && (
+                  <div className="w-80 flex-shrink-0 sticky top-4 h-[calc(100vh-2rem)]">
+                    <Card className="bg-zinc-900 border-2 border-zinc-800 h-full">
+                      <CardHeader className="bg-zinc-800 px-6 py-4 border-b border-zinc-700">
+                        <div className="space-y-4">
+                          <h2 className="text-xl font-semibold flex items-center gap-2 text-white">
+                            <Shield className="w-5 h-5" /> Card Library
+                          </h2>
+                          <div className="space-y-2">
+                            <input
+                              type="text"
+                              placeholder="Search by name..."
+                              className="w-full px-3 py-2 text-sm bg-zinc-900 border border-zinc-700 rounded-md text-white focus:outline-none focus:ring-2 focus:ring-red-500"
+                              value={searchName}
+                              onChange={(e) => setSearchName(e.target.value)}
+                            />
+                            <select
+                              className="w-full px-3 py-2 text-sm bg-zinc-900 border border-zinc-700 rounded-md text-white focus:outline-none focus:ring-2 focus:ring-red-500"
+                              value={searchType}
+                              onChange={(e) => setSearchType(e.target.value)}
+                            >
+                              <option value="">All Types</option>
+                              <option value="normal">Normal Monster</option>
+                              <option value="effect">Effect Monster</option>
+                              <option value="spell">Spell</option>
+                              <option value="trap">Trap</option>
+                              <option value="xyz">XYZ</option>
+                              <option value="synchro">Synchro</option>
+                              <option value="fusion">Fusion</option>
+                              <option value="link">Link</option>
+                              <option value="pendulum">Pendulum</option>
+                            </select>
+                          </div>
                         </div>
-                      </div>
-                    </CardHeader>
-                    <CardContent className="p-4 h-[calc(100%-180px)] min-h-0 flex flex-col">
-                      <div className="flex-1 overflow-y-auto">
-                        <PaginatedGrid
-                          items={filteredCards}
-                          onCardClick={(card) => setSelectedCard(card)}
-                          onCardContextMenu={handleCardContextMenu}
-                          className="h-full"
-                          itemsPerPage={8}
-                        />
-                      </div>
-                    </CardContent>
-                  </Card>
-                </div>
+                      </CardHeader>
+                      <CardContent className="p-4 h-[calc(100%-180px)] min-h-0 flex flex-col">
+                        <div className="flex-1 overflow-y-auto">
+                          <PaginatedGrid
+                            items={cards.filter((card) => {
+                              const nameMatch = card.name
+                                .toLowerCase()
+                                .includes(searchName.toLowerCase());
+                              const typeMatch =
+                                searchType === "" ||
+                                (searchType === "normal" && card.frameType.includes("normal")) ||
+                                (searchType === "effect" && card.frameType.includes("effect")) ||
+                                (searchType === "spell" && card.frameType === "Spell Card") ||
+                                (searchType === "trap" && card.frameType === "Trap Card") ||
+                                card.frameType.toLowerCase().includes(searchType.toLowerCase());
+                              return nameMatch && typeMatch;
+                            })}
+                            onCardClick={(card) => setSelectedCard(card)}
+                            onCardContextMenu={(card, e) => {
+                              e.preventDefault();
+                              setSelectedCard(card);
+                              setMenuPosition({ x: e.clientX, y: e.clientY });
+                            }}
+                            className="h-full"
+                            itemsPerPage={8}
+                          />
+                        </div>
+                      </CardContent>
+                    </Card>
+                  </div>
+                )}
 
-                <div className="flex-1 space-y-4">
+                <div className={`${isOwner ? "flex-1" : selectedDeckCard ? "w-2/3" : "w-full"} space-y-4`}>
                   {renderDeckSection(mainDeckCards, "Main Deck", "main")}
                   {renderDeckSection(extraDeckCards, "Extra Deck", "extra")}
                   {renderDeckSection(sideDeckCards, "Side Deck", "side")}
 
-                  <Button
-                    onClick={handleSaveDeck}
-                    className="w-full bg-gradient-to-r from-red-600 to-orange-600 hover:from-red-700 hover:to-orange-700 text-md py-4" // Reduced text-lg to text-md
-                  >
-                    Save Deck
-                  </Button>
+                  {isOwner && (
+                    <Button
+                      onClick={handleSaveDeck}
+                      className="w-full bg-gradient-to-r from-red-600 to-orange-600 hover:from-red-700 hover:to-orange-700 text-md py-4"
+                    >
+                      Save Deck
+                    </Button>
+                  )}
                 </div>
+
+                {!isOwner && renderCardDetails()}
               </div>
             )}
           </div>
@@ -435,7 +544,7 @@ export default function DeckBuilder() {
         </div>
       </div>
 
-      {menuPosition && selectedCard && (
+      {isOwner && menuPosition && selectedCard && (
         <div
           className="fixed bg-zinc-800 border border-zinc-700 rounded-lg p-2 shadow-lg z-50"
           style={{
@@ -446,7 +555,10 @@ export default function DeckBuilder() {
           <div className="flex flex-col gap-1">
             {!extraDeckTypes.includes(selectedCard.frameType.toLowerCase()) && (
               <Button
-                onClick={() => addCardToDeck("main")}
+                onClick={() => {
+                  addCardToDeck("main");
+                  setMenuPosition(null);
+                }}
                 variant="ghost"
                 className="text-xs h-8 px-3 justify-start hover:bg-zinc-700 text-white"
               >
@@ -457,7 +569,10 @@ export default function DeckBuilder() {
 
             {extraDeckTypes.includes(selectedCard.frameType.toLowerCase()) && (
               <Button
-                onClick={() => addCardToDeck("extra")}
+                onClick={() => {
+                  addCardToDeck("extra");
+                  setMenuPosition(null);
+                }}
                 variant="ghost"
                 className="text-xs h-8 px-3 justify-start hover:bg-zinc-700 text-white"
               >
@@ -467,7 +582,10 @@ export default function DeckBuilder() {
             )}
 
             <Button
-              onClick={() => addCardToDeck("side")}
+              onClick={() => {
+                addCardToDeck("side");
+                setMenuPosition(null);
+              }}
               variant="ghost"
               className="text-xs h-8 px-3 justify-start hover:bg-zinc-700 text-white"
             >

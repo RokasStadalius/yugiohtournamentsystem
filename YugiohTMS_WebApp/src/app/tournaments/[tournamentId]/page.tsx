@@ -28,6 +28,7 @@ interface PlayerType {
   id: number;
   name: string;
   deckName: string;
+  iD_Deck: number;
   rating: number;
 }
 
@@ -66,6 +67,9 @@ export default function TournamentPage() {
     winner?: number;
   } | null>(null);
 
+  const isOwner =
+    tournament?.ownerID === parseInt(localStorage.getItem("userId") || "0");
+
   useEffect(() => {
     if (!tournamentId) {
       toast.error("Invalid tournament ID");
@@ -85,21 +89,20 @@ export default function TournamentPage() {
       if (!response.ok) throw new Error("Failed to fetch tournament");
 
       const data: TournamentType = await response.json();
-      console.log(data)
+      console.log(data);
       setTournament(data);
       setIsUserInTournament(
         data.players.some(
           (p) => p.id === parseInt(localStorage.getItem("userId") || "0")
         )
       );
-
-        const matchesResponse = await fetch(
-          `${process.env.NEXT_PUBLIC_API_URL}/api/Tournament/tournament/fetch-matches/${tournamentId}`
-        );
-        const bracketData = await matchesResponse.json();
-        setBracketRounds(bracketData);
+      const matchesResponse = await fetch(
+        `${process.env.NEXT_PUBLIC_API_URL}/api/Tournament/tournament/fetch-matches/${tournamentId}`
+      );
+      const bracketData = await matchesResponse.json();
+      setBracketRounds(bracketData);
     } catch (error) {
-      toast.error("Error loading tournament data");
+      
     } finally {
       setLoading(false);
     }
@@ -214,30 +217,44 @@ export default function TournamentPage() {
     }
   };
 
-  const completeTournament = async (tournamentId: number) => {
-    try {
-      const response = await fetch(
-        `${process.env.NEXT_PUBLIC_API_URL}/api/tournament/complete/${tournamentId}`,
-        {
-          method: "PUT",
-          headers: {
-            Authorization: `Bearer ${localStorage.getItem("token")}`,
-          },
-        }
-      );
-
-      if (!response.ok) {
-        const error = await response.json();
-        throw new Error(error);
+ const completeTournament = async (tournamentId: number) => {
+  try {
+    const response = await fetch(
+      `${process.env.NEXT_PUBLIC_API_URL}/api/tournament/complete/${tournamentId}`,
+      {
+        method: "PUT",
+        headers: { Authorization: `Bearer ${localStorage.getItem('token')}` },
       }
+    );
 
-      const result = await response.json();
-      toast.success(`Tournament completed! Winner ID: ${result.winnerId}`);
-      await fetchTournamentData();
-    } catch (error) {
-      toast.error(error instanceof Error ? error.message : "Completion failed");
+    if (response.status === 409) {
+      const errorData = await response.json();
+      if (errorData.requiresTiebreaker) {
+        // Generate tiebreaker
+        const tiebreakerRes = await fetch(
+          `${process.env.NEXT_PUBLIC_API_URL}/api/tournament/generate-tiebreaker/${tournamentId}`,
+          { method: "POST" }
+        );
+        
+        if (!tiebreakerRes.ok) {
+          throw new Error("Failed to generate tiebreaker");
+        }
+        
+        toast.success("Tiebreaker match generated! Please complete it.");
+        await fetchTournamentData();
+      }
+      return;
     }
-  };
+
+    if (!response.ok) throw new Error("Completion failed");
+    
+    const result = await response.json();
+    toast.success(`Tournament completed! Winner ID: ${result.winnerId}`);
+    fetchTournamentData();
+  } catch (error) {
+    toast.error(error instanceof Error ? error.message : "Error");
+  }
+};
 
   const processBracketData = (data: any): Round[] => {
     return data.map((round: any) => ({
@@ -348,6 +365,9 @@ export default function TournamentPage() {
                     <th className="px-6 py-4 text-left text-zinc-400">
                       Rating
                     </th>
+                    <th className="px-6 py-4 text-left text-zinc-400">
+                      Actions
+                    </th>
                   </tr>
                 </thead>
                 <tbody>
@@ -363,6 +383,19 @@ export default function TournamentPage() {
                           {player.rating}
                         </span>
                       </td>
+                      {isOwner && (
+                        <td className="px-6 py-4">
+                        <button
+                          onClick={() =>
+                            router.push(`/deckbuilder/${player.iD_Deck}`)
+                          }
+                          className="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded"
+                        >
+                          View Deck
+                        </button>
+                      </td>
+                      )}
+                      
                     </tr>
                   ))}
                 </tbody>
@@ -386,33 +419,35 @@ export default function TournamentPage() {
             </div>
           )}
 
-            <div className="bg-zinc-800 rounded-xl border-2 border-zinc-700 p-6">
-              <h2 className="text-2xl font-bold mb-6">Tournament Bracket</h2>
-              {tournament.type === "Single Elimination" ? (
-                <SingleEliminationBracket
-                  isOwner={
-                    tournament.ownerID ===
-                    parseInt(localStorage.getItem("userId") || "0")
-                  }
-                  rounds={bracketRounds}
-                  onMatchClick={(match) => setSelectedMatch(match)}
-                />
-              ) : tournament.type === "Round Robin" ? (
-                <RoundRobinBracket
-                  rounds={bracketRounds}
-                  onMatchClick={(match) => setSelectedMatch(match)}
-                />
-              ) : tournament.type === "Swiss Stage" ? (
-                <SwissBracket
-                  rounds={bracketRounds}
-                  onMatchClick={(match) => setSelectedMatch(match)}
-                />
-              ) : (
-                <div className="text-center py-12 text-zinc-400">
-                  Unsupported bracket type
-                </div>
-              )}
-            </div>
+          <div className="bg-zinc-800 rounded-xl border-2 border-zinc-700 p-6">
+            <h2 className="text-2xl font-bold mb-6">Tournament Bracket</h2>
+            {tournament.type === "Single Elimination" ? (
+              <SingleEliminationBracket
+                isOwner={isOwner}
+                tournamentStatus={tournament.status}
+                rounds={bracketRounds}
+                onMatchClick={(match) => setSelectedMatch(match)}
+              />
+            ) : tournament.type === "Round Robin" ? (
+              <RoundRobinBracket
+                isOwner={isOwner}
+                tournamentStatus={tournament.status}
+                rounds={bracketRounds}
+                onMatchClick={(match) => setSelectedMatch(match)}
+              />
+            ) : tournament.type === "Swiss Stage" ? (
+              <SwissBracket
+                isOwner={isOwner}
+                tournamentStatus={tournament.status}
+                rounds={bracketRounds}
+                onMatchClick={(match) => setSelectedMatch(match)}
+              />
+            ) : (
+              <div className="text-center py-12 text-zinc-400">
+                Unsupported bracket type
+              </div>
+            )}
+          </div>
         </div>
 
         <div className="absolute top-0 right-0 w-1/3 h-72 bg-gradient-to-r from-red-500/20 to-transparent blur-3xl -z-10" />
