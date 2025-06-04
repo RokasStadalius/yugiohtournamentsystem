@@ -66,9 +66,18 @@ export default function TournamentPage() {
     status: string;
     winner?: number;
   } | null>(null);
+  // State to hold the userId from localStorage
+  const [currentUserId, setCurrentUserId] = useState<number | null>(null);
 
-  const isOwner =
-    tournament?.ownerID === parseInt(localStorage.getItem("userId") || "0");
+  useEffect(() => {
+    // Access localStorage only on the client side
+    if (typeof window !== "undefined") {
+      setCurrentUserId(parseInt(localStorage.getItem("userId") || "0"));
+    }
+  }, []);
+
+  // Use currentUserId for owner check
+  const isOwner = tournament?.ownerID === currentUserId;
 
   useEffect(() => {
     if (!tournamentId) {
@@ -77,7 +86,7 @@ export default function TournamentPage() {
       return;
     }
     fetchTournamentData();
-  }, [tournamentId]);
+  }, [tournamentId, currentUserId]); // Add currentUserId as a dependency
 
   const fetchTournamentData = async () => {
     try {
@@ -91,18 +100,20 @@ export default function TournamentPage() {
       const data: TournamentType = await response.json();
       console.log(data);
       setTournament(data);
-      setIsUserInTournament(
-        data.players.some(
-          (p) => p.id === parseInt(localStorage.getItem("userId") || "0")
-        )
-      );
+      // Check for user in tournament only after currentUserId is set
+      if (currentUserId !== null) {
+        setIsUserInTournament(
+          data.players.some((p) => p.id === currentUserId)
+        );
+      }
+
       const matchesResponse = await fetch(
         `${process.env.NEXT_PUBLIC_API_URL}/api/Tournament/tournament/fetch-matches/${tournamentId}`
       );
       const bracketData = await matchesResponse.json();
       setBracketRounds(bracketData);
     } catch (error) {
-      
+      toast.error("Error fetching tournament data.");
     } finally {
       setLoading(false);
     }
@@ -142,7 +153,10 @@ export default function TournamentPage() {
   const handleJoinTournament = async () => {
     try {
       const userId = localStorage.getItem("userId");
-      if (!userId) throw new Error("User not logged in");
+      if (!userId) {
+        toast.error("User not logged in. Please log in to join a tournament.");
+        return;
+      }
 
       const response = await fetch(
         `${process.env.NEXT_PUBLIC_API_URL}/api/tournament/jointournament`,
@@ -217,44 +231,44 @@ export default function TournamentPage() {
     }
   };
 
- const completeTournament = async (tournamentId: number) => {
-  try {
-    const response = await fetch(
-      `${process.env.NEXT_PUBLIC_API_URL}/api/tournament/complete/${tournamentId}`,
-      {
-        method: "PUT",
-        headers: { Authorization: `Bearer ${localStorage.getItem('token')}` },
-      }
-    );
-
-    if (response.status === 409) {
-      const errorData = await response.json();
-      if (errorData.requiresTiebreaker) {
-        // Generate tiebreaker
-        const tiebreakerRes = await fetch(
-          `${process.env.NEXT_PUBLIC_API_URL}/api/tournament/generate-tiebreaker/${tournamentId}`,
-          { method: "POST" }
-        );
-        
-        if (!tiebreakerRes.ok) {
-          throw new Error("Failed to generate tiebreaker");
+  const completeTournament = async (tournamentId: number) => {
+    try {
+      const token = localStorage.getItem('token');
+      const response = await fetch(
+        `${process.env.NEXT_PUBLIC_API_URL}/api/tournament/complete/${tournamentId}`,
+        {
+          method: "PUT",
+          headers: { Authorization: `Bearer ${token}` },
         }
-        
-        toast.success("Tiebreaker match generated! Please complete it.");
-        await fetchTournamentData();
-      }
-      return;
-    }
+      );
 
-    if (!response.ok) throw new Error("Completion failed");
-    
-    const result = await response.json();
-    toast.success(`Tournament completed! Winner ID: ${result.winnerId}`);
-    fetchTournamentData();
-  } catch (error) {
-    toast.error(error instanceof Error ? error.message : "Error");
-  }
-};
+      if (response.status === 409) {
+        const errorData = await response.json();
+        if (errorData.requiresTiebreaker) {
+          const tiebreakerRes = await fetch(
+            `${process.env.NEXT_PUBLIC_API_URL}/api/tournament/generate-tiebreaker/${tournamentId}`,
+            { method: "POST" }
+          );
+
+          if (!tiebreakerRes.ok) {
+            throw new Error("Failed to generate tiebreaker");
+          }
+
+          toast.success("Tiebreaker match generated! Please complete it.");
+          await fetchTournamentData();
+        }
+        return;
+      }
+
+      if (!response.ok) throw new Error("Completion failed");
+
+      const result = await response.json();
+      toast.success(`Tournament completed! Winner ID: ${result.winnerId}`);
+      fetchTournamentData();
+    } catch (error) {
+      toast.error(error instanceof Error ? error.message : "Error");
+    }
+  };
 
   const processBracketData = (data: any): Round[] => {
     return data.map((round: any) => ({
@@ -271,9 +285,7 @@ export default function TournamentPage() {
   };
 
   const handleMatchClick = (match: Seed) => {
-    const isOwner =
-      tournament?.ownerID === parseInt(localStorage.getItem("userId") || "0");
-    if (isOwner) {
+    if (isOwner) { // Use the state variable
       setSelectedMatch(match);
     }
   };
@@ -326,8 +338,7 @@ export default function TournamentPage() {
                 </Button>
               )}
 
-              {tournament.ownerID ===
-                parseInt(localStorage.getItem("userId") || "0") && (
+              {isOwner && (
                 <div className="flex gap-4">
                   {tournament.status === "NotStarted" && (
                     <Button
@@ -385,17 +396,16 @@ export default function TournamentPage() {
                       </td>
                       {isOwner && (
                         <td className="px-6 py-4">
-                        <button
-                          onClick={() =>
-                            router.push(`/deckbuilder/${player.iD_Deck}`)
-                          }
-                          className="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded"
-                        >
-                          View Deck
-                        </button>
-                      </td>
+                          <button
+                            onClick={() =>
+                              router.push(`/deckbuilder/${player.iD_Deck}`)
+                            }
+                            className="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded"
+                          >
+                            View Deck
+                          </button>
+                        </td>
                       )}
-                      
                     </tr>
                   ))}
                 </tbody>
@@ -474,7 +484,10 @@ export default function TournamentPage() {
         onJoin={async (deckId) => {
           try {
             const userId = localStorage.getItem("userId");
-            if (!userId) throw new Error("User not logged in");
+            if (!userId) {
+              toast.error("User not logged in. Please log in to join a tournament.");
+              return;
+            }
 
             const response = await fetch(
               `${process.env.NEXT_PUBLIC_API_URL}/api/tournament/jointournament`,

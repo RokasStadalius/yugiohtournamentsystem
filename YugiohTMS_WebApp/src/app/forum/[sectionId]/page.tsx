@@ -18,7 +18,7 @@ interface Post {
   iD_ForumPost: number;
   title: string;
   content: string;
-  date: string;
+  timestamp: string;
   author: string;
 }
 
@@ -44,8 +44,15 @@ const ForumSectionPostsPage: React.FC = () => {
       );
       if (!response.ok)
         throw new Error(`Failed to fetch posts: ${response.status}`);
-      const data: Post[] = await response.json();
-      setPosts(data);
+      const data = await response.json();
+      const formattedPosts: Post[] = data.map((item: any) => ({
+        iD_ForumPost: item.iD_ForumPost,
+        title: item.title,
+        content: item.content,
+        timestamp: item.timestamp, // Use the timestamp directly
+        author: item.user.username, // Access the nested username
+      }));
+      setPosts(formattedPosts);
     } catch (err: any) {
       setError(err.message);
     } finally {
@@ -245,7 +252,9 @@ const ForumSectionPostsPage: React.FC = () => {
                   >
                     <Card
                       className="group bg-zinc-900 border-2 border-zinc-800 hover:border-blue-500/50 transition-all duration-300 rounded-xl shadow-2xl cursor-pointer transform hover:scale-[1.02] relative overflow-hidden"
-                      onClick={() => router.push(`/forum/post/${post.iD_ForumPost}`)}
+                      onClick={() =>
+                        router.push(`/forum/post/${post.iD_ForumPost}`)
+                      }
                     >
                       <div className="absolute inset-0 bg-gradient-to-br from-blue-500/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity" />
                       <CardContent className="p-6">
@@ -259,7 +268,7 @@ const ForumSectionPostsPage: React.FC = () => {
                                 {post.author}
                               </span>
                               <span className="text-zinc-500 text-sm">
-                                {new Date(post.date).toLocaleDateString()}
+                                {new Date(post.timestamp).toLocaleDateString()}
                               </span>
                             </div>
                           </div>
